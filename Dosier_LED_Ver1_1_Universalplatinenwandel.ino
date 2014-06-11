@@ -185,7 +185,7 @@ int key=-1;
 int oldkey=-1;
 
 //Deklaration des Lichtkanal-Arrays
-LIGHT light_channels[15];
+//LIGHT light_channels[15];
 
 //Variablen Display
 int intSekunden;
@@ -763,7 +763,7 @@ void loop() {
  
   //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ L A M P E ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   for( int i=0;i <= 14; i++){
-      if(light_channels[i].Active==1){
+      //if(light_channels[i].Active==1){
         int c_PWMProzent = dimmung(lTime, light_channels[i].Sunrise, light_channels[i].Sunset, light_channels[i].Dim_in, light_channels[i].Dim_out, light_channels[i].Min, light_channels[i].Max, light_channels[i].Invert,4095);
         int c_PWM = dimmungPWM(lTime, light_channels[i].Sunrise, light_channels[i].Sunset, light_channels[i].Dim_in, light_channels[i].Dim_out, light_channels[i].Min, light_channels[i].Max, light_channels[i].Invert,4095); 
         
@@ -826,7 +826,7 @@ void loop() {
         
         
         
-      }
+      //}
     }
     
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++ S C H W I M M E R S E N S O R    A U S L E S E N / S T A T U S A B F R A G E ++++++++++++++++++++++++++++++++++++++++++++++++++
