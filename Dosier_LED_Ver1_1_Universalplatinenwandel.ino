@@ -5,61 +5,50 @@
 #include <EEPROMex.h>
 #include <Flash.h>
 #include <OneWire.h>
+#include "writeAnything.h" 
 #include <DallasTemperature.h>
 //#include <AFMotor.h>
 
 // ********************************************* //
 //                 VARIABLES                     //
 // ********************************************* //
+
 typedef struct {
-  boolean Active;
-  long Sunrise;  // 34200;    // 9:30
-  long Sunset;   // 77400;    //21:30
-  int Min;       // 0 = off
-  int Max;       // 100% = 4095
-  int Dim_in;    // Wie schnell soll hochgedimmt werden
-  int Dim_out;   // Wie schnell wird heruntergedimmt
-  boolean Invert;
+  uint32_t time;
+  int level;  
 }LIGHT;
-//boolean moonSim=false,cloudSim=false;
 
-Time LED1E, LED1A, 
-     LED2E, LED2A,
-     LED3E, LED3A,
-     LED4E, LED4A,
-     LED5E, LED5A,
-     LED6E, LED6A,
-     LED7E, LED7A,
-     LED8E, LED8A,
-     LED9E, LED9A,
-     LED10E, LED10A,
-     LED11E, LED11A,
-     LED12E, LED12A,
-     LED13E, LED13A,
-     LED14E, LED14A,
-     LED15E, LED15A;
-     //LED16E, LED16A;
+//--------------------------------L A M P E N E I N S T E L L U N G S - M O D U L E----------------------
+LIGHT light_channels[15][8] ={
+		{{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0}},
+		{{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0}},
+		{{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0}},
+		{{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0}},
+		{{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0}},
+		{{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0}},
+		{{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0}},
+		{{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0}},
+		{{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0}},
+		{{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0}},
+		{{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0}},
+		{{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0}},
+		{{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0}},
+		{{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0}},
+		{{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0}}
+      };
+ 
 
-int LED1Min, LED1Max, LED1Dim_in, LED1Dim_out,
-    LED2Min, LED2Max, LED2Dim_in, LED2Dim_out,
-    LED3Min, LED3Max, LED3Dim_in, LED3Dim_out,
-    LED4Min, LED4Max, LED4Dim_in, LED4Dim_out,
-    LED5Min, LED5Max, LED5Dim_in, LED5Dim_out,
-    LED6Min, LED6Max, LED6Dim_in, LED6Dim_out,
-    LED7Min, LED7Max, LED7Dim_in, LED7Dim_out,
-    LED8Min, LED8Max, LED8Dim_in, LED8Dim_out,
-    LED9Min, LED9Max, LED9Dim_in, LED9Dim_out,
-    LED10Min, LED10Max, LED10Dim_in, LED10Dim_out,
-    LED11Min, LED11Max, LED11Dim_in, LED11Dim_out,
-    LED12Min, LED12Max, LED12Dim_in, LED12Dim_out,
-    LED13Min, LED13Max, LED13Dim_in, LED13Dim_out,
-    LED14Min, LED14Max, LED14Dim_in, LED14Dim_out,
-    LED15Min, LED15Max, LED15Dim_in, LED15Dim_out;
-    //LED16Min, LED16Max, LED16Dim_in, LED16Dim_out;
+typedef struct {
+  int Dosiermenge1;
+  Time Dosierung[12];
+  long Dosierdauer;
+  byte Dosiermanuell;
+  byte Kalibrierung;
+  long Dosierautomatzeit[12];  
+}PUMP;
 
-boolean Active1, Active2, Active3, Active4, Active5, Active6, Active7, Active8, Active9, Active10, Active11, Active12, Active13, Active14, Active15, //Active16;
-        Invert1, Invert2, Invert3, Invert4, Invert5, Invert6, Invert7, Invert8, Invert9, Invert10, Invert11, Invert12, Invert13, Invert14, Invert15; //Invert16;
-        
+PUMP Dosierpumpen[8];
+
 //  Erstellung eines Fish-Symbols das nach rechts schaut
 byte newChar[8] = {
 	B00000,
@@ -309,32 +298,6 @@ int Dosierspeed_1;
 const int MENUDOSIERER1DOSIEREN = 13;
 char sMenuDosierer1Dosieren[MENUDOSIERER1DOSIEREN + 1][17] = {
   "zur\365ck          ", "Dosiermenge   ml", "Dos-Zeit1       ", "Dos-Zeit2       ", "Dos-Zeit3       ", "Dos-Zeit4       ", "Dos-Zeit5       ", "Dos-Zeit6       ", "Dos-Zeit7       ", "Dos-Zeit8       ", "Dos-Zeit9       ", "Dos-Zeit10      ", "Dos-Zeit11      ", "Dos-Zeit12      " }; //ml in 1 Minute gemessen; wieviel ml soll dosiert werden; wann soll dosiert werden
-int Dosiermenge1;
-Time Dosierung1_1;
-Time Dosierung1_2;
-Time Dosierung1_3;
-Time Dosierung1_4;
-Time Dosierung1_5;
-Time Dosierung1_6;
-Time Dosierung1_7;
-Time Dosierung1_8;
-Time Dosierung1_9;
-Time Dosierung1_10;
-Time Dosierung1_11;
-Time Dosierung1_12;
-long Dosierdauer1;
-long Dosierautomatzeit1_1;
-long Dosierautomatzeit1_2;
-long Dosierautomatzeit1_3;
-long Dosierautomatzeit1_4;
-long Dosierautomatzeit1_5;
-long Dosierautomatzeit1_6;
-long Dosierautomatzeit1_7;
-long Dosierautomatzeit1_8;
-long Dosierautomatzeit1_9;
-long Dosierautomatzeit1_10;
-long Dosierautomatzeit1_11;
-long Dosierautomatzeit1_12;
 //-----------------------------------------bis hier hin:  Dosierpumpe 1-------------------------------------------------------------------------------
 
 //--------------------------------------------Dosierpumpe 2-----------------------------------------------------------------------------------------
@@ -365,32 +328,6 @@ int Dosierspeed_2;
 const int MENUDOSIERER2DOSIEREN = 13;
 char sMenuDosierer2Dosieren[MENUDOSIERER2DOSIEREN + 1][17] = {
   "zur\365ck          ", "Dosiermenge   ml", "Dos-Zeit1       ", "Dos-Zeit2       ", "Dos-Zeit3       ", "Dos-Zeit4       ", "Dos-Zeit5       ", "Dos-Zeit6       ", "Dos-Zeit7       ", "Dos-Zeit8       ", "Dos-Zeit9       ", "Dos-Zeit10      ", "Dos-Zeit11      ", "Dos-Zeit12      " }; //ml in 1 Minute gemessen; wieviel ml soll dosiert werden; wann soll dosiert werden
-int Dosiermenge2;
-Time Dosierung2_1;
-Time Dosierung2_2;
-Time Dosierung2_3;
-Time Dosierung2_4;
-Time Dosierung2_5;
-Time Dosierung2_6;
-Time Dosierung2_7;
-Time Dosierung2_8;
-Time Dosierung2_9;
-Time Dosierung2_10;
-Time Dosierung2_11;
-Time Dosierung2_12;
-long Dosierdauer2;
-long Dosierautomatzeit2_1;
-long Dosierautomatzeit2_2;
-long Dosierautomatzeit2_3;
-long Dosierautomatzeit2_4;
-long Dosierautomatzeit2_5;
-long Dosierautomatzeit2_6;
-long Dosierautomatzeit2_7;
-long Dosierautomatzeit2_8;
-long Dosierautomatzeit2_9;
-long Dosierautomatzeit2_10;
-long Dosierautomatzeit2_11;
-long Dosierautomatzeit2_12;
 //-----------------------------------------bis hier hin:  Dosierpumpe 2-------------------------------------------------------------------------------
 
 //--------------------------------------------Dosierpumpe 3-----------------------------------------------------------------------------------------
@@ -421,32 +358,6 @@ int Dosierspeed_3;
 const int MENUDOSIERER3DOSIEREN = 13;
 char sMenuDosierer3Dosieren[MENUDOSIERER3DOSIEREN + 1][17] = {
   "zur\365ck          ", "Dosiermenge   ml", "Dos-Zeit1       ", "Dos-Zeit2       ", "Dos-Zeit3       ", "Dos-Zeit4       ", "Dos-Zeit5       ", "Dos-Zeit6       ", "Dos-Zeit7       ", "Dos-Zeit8       ", "Dos-Zeit9       ", "Dos-Zeit10      ", "Dos-Zeit11      ", "Dos-Zeit12      " }; //ml in 1 Minute gemessen; wieviel ml soll dosiert werden; wann soll dosiert werden
-int Dosiermenge3;
-Time Dosierung3_1;
-Time Dosierung3_2;
-Time Dosierung3_3;
-Time Dosierung3_4;
-Time Dosierung3_5;
-Time Dosierung3_6;
-Time Dosierung3_7;
-Time Dosierung3_8;
-Time Dosierung3_9;
-Time Dosierung3_10;
-Time Dosierung3_11;
-Time Dosierung3_12;
-long Dosierdauer3;
-long Dosierautomatzeit3_1;
-long Dosierautomatzeit3_2;
-long Dosierautomatzeit3_3;
-long Dosierautomatzeit3_4;
-long Dosierautomatzeit3_5;
-long Dosierautomatzeit3_6;
-long Dosierautomatzeit3_7;
-long Dosierautomatzeit3_8;
-long Dosierautomatzeit3_9;
-long Dosierautomatzeit3_10;
-long Dosierautomatzeit3_11;
-long Dosierautomatzeit3_12;
 //-----------------------------------------bis hier hin:  Dosierpumpe 3-------------------------------------------------------------------------------
 
 //--------------------------------------------Dosierpumpe 4-----------------------------------------------------------------------------------------
@@ -477,32 +388,6 @@ int Dosierspeed_4;
 const int MENUDOSIERER4DOSIEREN = 13;
 char sMenuDosierer4Dosieren[MENUDOSIERER4DOSIEREN + 1][17] = {
   "zur\365ck          ", "Dosiermenge   ml", "Dos-Zeit1       ", "Dos-Zeit2       ", "Dos-Zeit3       ", "Dos-Zeit4       ", "Dos-Zeit5       ", "Dos-Zeit6       ", "Dos-Zeit7       ", "Dos-Zeit8       ", "Dos-Zeit9       ", "Dos-Zeit10      ", "Dos-Zeit11      ", "Dos-Zeit12      " }; //ml in 1 Minute gemessen; wieviel ml soll dosiert werden; wann soll dosiert werden
-int Dosiermenge4;
-Time Dosierung4_1;
-Time Dosierung4_2;
-Time Dosierung4_3;
-Time Dosierung4_4;
-Time Dosierung4_5;
-Time Dosierung4_6;
-Time Dosierung4_7;
-Time Dosierung4_8;
-Time Dosierung4_9;
-Time Dosierung4_10;
-Time Dosierung4_11;
-Time Dosierung4_12;
-long Dosierdauer4;
-long Dosierautomatzeit4_1;
-long Dosierautomatzeit4_2;
-long Dosierautomatzeit4_3;
-long Dosierautomatzeit4_4;
-long Dosierautomatzeit4_5;
-long Dosierautomatzeit4_6;
-long Dosierautomatzeit4_7;
-long Dosierautomatzeit4_8;
-long Dosierautomatzeit4_9;
-long Dosierautomatzeit4_10;
-long Dosierautomatzeit4_11;
-long Dosierautomatzeit4_12;
 //-----------------------------------------bis hier hin:  Dosierpumpe 4-------------------------------------------------------------------------------
 
 
@@ -745,26 +630,6 @@ void setup() {
 }
 
 void loop() {
-  //--------------------------------L A M P E N E I N S T E L L U N G S - M O D U L E----------------------
-  LIGHT light_channels[15] = { 
-  { Active1, get_ts(LED1E.hour,LED1E.min,0), get_ts(LED1A.hour,LED1A.min,0),LED1Min, LED1Max, LED1Dim_in, LED1Dim_out,Invert1},
-  { Active2, get_ts(LED2E.hour,LED2E.min,0), get_ts(LED2A.hour,LED2A.min,0),LED2Min, LED2Max, LED2Dim_in, LED2Dim_out,Invert2},
-  { Active3, get_ts(LED3E.hour,LED3E.min,0), get_ts(LED3A.hour,LED3A.min,0),LED3Min, LED3Max, LED3Dim_in, LED3Dim_out,Invert3},
-  { Active4, get_ts(LED4E.hour,LED4E.min,0), get_ts(LED4A.hour,LED4A.min,0),LED4Min, LED4Max, LED4Dim_in, LED4Dim_out,Invert4},
-  { Active5, get_ts(LED5E.hour,LED5E.min,0), get_ts(LED5A.hour,LED5A.min,0),LED5Min, LED5Max, LED5Dim_in, LED5Dim_out,Invert5}, 
-  { Active6, get_ts(LED6E.hour,LED6E.min,0), get_ts(LED6A.hour,LED6A.min,0),LED6Min, LED6Max, LED6Dim_in, LED6Dim_out,Invert6}, 
-  { Active7, get_ts(LED7E.hour,LED7E.min,0), get_ts(LED7A.hour,LED7A.min,0),LED7Min, LED7Max, LED7Dim_in, LED7Dim_out,Invert7}, 
-  { Active8, get_ts(LED8E.hour,LED8E.min,0), get_ts(LED8A.hour,LED8A.min,0),LED8Min, LED8Max, LED8Dim_in, LED8Dim_out,Invert8}, 
-  { Active9, get_ts(LED9E.hour,LED9E.min,0), get_ts(LED9A.hour,LED9A.min,0),LED9Min, LED9Max, LED9Dim_in, LED9Dim_out,Invert9}, 
-  { Active10, get_ts(LED10E.hour,LED10E.min,0), get_ts(LED10A.hour,LED10A.min,0),LED10Min, LED10Max, LED10Dim_in, LED10Dim_out,Invert10}, 
-  { Active11, get_ts(LED11E.hour,LED11E.min,0), get_ts(LED11A.hour,LED11A.min,0),LED11Min, LED11Max, LED11Dim_in, LED11Dim_out,Invert11}, 
-  { Active12, get_ts(LED12E.hour,LED12E.min,0), get_ts(LED12A.hour,LED12A.min,0),LED12Min, LED12Max, LED12Dim_in, LED12Dim_out,Invert12}, 
-  { Active13, get_ts(LED13E.hour,LED13E.min,0), get_ts(LED13A.hour,LED13A.min,0),LED13Min, LED13Max, LED13Dim_in, LED13Dim_out,Invert13}, 
-  { Active14, get_ts(LED14E.hour,LED14E.min,0), get_ts(LED14A.hour,LED14A.min,0),LED14Min, LED14Max, LED14Dim_in, LED14Dim_out,Invert14}, 
-  { Active15, get_ts(LED15E.hour,LED15E.min,0), get_ts(LED15A.hour,LED15A.min,0),LED15Min, LED15Max, LED15Dim_in, LED15Dim_out,Invert15}
-  //{ Active16, get_ts(LED16E.hour,LED16E.min,0), get_ts(LED16A.hour,LED16A.min,0),LED16Min, LED16Max, LED16Dim_in, LED16Dim_out,Invert16}
-  };
-  
   
   Time time = rtc.getTime();
   //++++++++++++++++++++++++++++++++++++++++++++++++++++++ A K T U E L L E  Z E I T ++++++++++++++++++++++++++++++++++++++++++++++++++

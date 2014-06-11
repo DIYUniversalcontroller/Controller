@@ -1,82 +1,85 @@
-
-int dimmung (long time, long Start, long Ende, int  Dim_in, int Dim_out, int oMin, int oMax, boolean Invert,float s)
-{
-  // Starten der Dimmung von Min
-  if (time >= Start  && time <= Start+float(Dim_in*60))
-  {
-    float m = ( oMax - oMin) /  100.0;
-    float b = oMax - m * 100.0;
-    float y = m * ((time - Start) * 100.0 / ((Start+float(Dim_in*60)) - Start)) + b;
-    return y;
-  }
-
-  // Voll an keine Dimmung
-//  if (time > StartAus  && time < EndeEin)
-//     return Max;
-  if (time > Start+float(Dim_in*60)  || time < Ende-float(Dim_out*60))
-     return oMax;
-
-  // Ende der Dimmung
-  if (time >= Ende-float(Dim_out*60)  && time <= Ende)
-  {
-    float m = ( oMax - oMin) /  100.0;
-    float b = oMax - m * 100.0;
-    float y = m * ((Ende - time) * 100 / (Ende - (Ende-float(Dim_out*60)))) + b;
-    return y;
-  }
-  return oMin;
+void setLight(){
+    for( byte i=0;i <  LIGHT_CHANEL; i++){
+        uint16_t c_PWM = PWM_Licht(i);
+        
+        if(temperatur>cTemp){
+          c_PWM= 4095;
+        }          
+        setLED(i,uint16_t(c_PWM));
+    }
 }
 
-int dimmungPWM (long time, long Start, long Ende, int  Dim_in, int Dim_out, int oMin, int oMax, boolean Invert,float s)
-{
-  int pwm,Max,Min;
+void setLED(uint8_t channel, uint16_t Value){
+          
+    word n_PWM;  
+    n_PWM = pgm_read_word(&pwmtable[Value]);
+    if (n_PWM<=0)	{
+        ledDriver.setLEDOn(channel*2);
+        ledDriver.setLEDOn(channel*2+1);
+    } else if (n_PWM>=4095) {
+        ledDriver.setLEDOff(channel*2);
+        ledDriver.setLEDOff(channel*2+1);
+    } else {
+        ledDriver.writeLED(channel*2,0, n_PWM);
+        ledDriver.writeLED(channel*2+1,0, n_PWM);
+    }
+}
+
+int PWM_Licht(int lightIndex){
   
-//  Serial.print("Start: ");
-//  Serial.println(Start);
+  int curIndex=0;
+//  String lightTime;
   
-  if(Invert==false){
-    Min=int(s/100*oMin);  // 0 = 0%... 
-    Max=int(s/100*oMax);  // 80% von 4095 sind 3276
-    pwm=0;
-  }else{
-    Min=int(s-(s/100*oMin));  // 0%=4095-(4095/100*0) = 
-    Max=int(s-(s/100*oMax)); // 80% von 4095-(4095/100*80) sind 819
-    pwm=s;
+  for(byte n=0;n<LIGHT_VALUES;n++){
+    if(light_channels[lightIndex][n].time < rtc.daystamp){
+      curIndex=n;
+    }
   }
   
-    // Starten der Dimmung von Min
-    if (time >= Start  && time <= Start+float(Dim_in*60)){ 
-     //Serial.println ("Raufdimmen");
-      float s = time-Start+0.5;    // vergangene Sekunden ~1616Sek ~ 27min
-      int m = Max-Min;    //3000-200=2800
-      float f= float(Dim_in*60)/float(m);    // 1800/2800=0,64
-      float p = s/f;    // 1616 / 0,64=2525   
-      pwm=Min+int(p);
+  int Max,Min,pwm=4095;
+  float dimTime,f,p;
+  float pastSeconds;
+  uint32_t Start,Ende;
+  int oMin,oMax;
+  
+    if(curIndex ==(LIGHT_VALUES-1) ){
+        Start = light_channels[lightIndex][7].time;
+        Ende = light_channels[lightIndex][0].time;
+        oMin = light_channels[lightIndex][7].level;
+        oMax = light_channels[lightIndex][0].level;
+        
+        pastSeconds = rtc.daystamp-Start+0.5;    // vergangene Sekunden ~1616Sek ~ 27min
+        dimTime= get_ts(24,0,0) - Start + Ende;
       
-      return pwm;
-    }
-  
-    // Voll an keine Dimmung
-    if (time > Start+float(Dim_in*60)  && time < Ende-float(Dim_out*60))
-    {
-   	return Max;
-    }
-  
-    // Ende der Dimmung
-    if (time >= Ende-float(Dim_out*60)  && time <= Ende)
-    {
-      float s = time+float(Dim_out*60)-Ende+0.5;    // vergangene Sekunden ~1616
-      int m = Max-Min;     // 135
-      float f= float(Dim_out*60)/float(m);    // 3000/135 ~22
-      float p = s/f;    // 1616 / 22
-      pwm = Max-int(p);
-      
-      return pwm;
-    }
-  
-    // Der Rest
-    return pwm;
-    
+    }else if(curIndex>=1 || light_channels[lightIndex][0].time < rtc.daystamp){
+        Start = light_channels[lightIndex][curIndex].time;
+        Ende = light_channels[lightIndex][curIndex+1].time;
+        oMin = light_channels[lightIndex][curIndex].level;
+        oMax = light_channels[lightIndex][curIndex+1].level;
+        
+        pastSeconds = rtc.daystamp-Start+0.5;    // vergangene Sekunden ~1616Sek ~ 27min
+        dimTime=Ende - Start;
+    }else{
+		Start = light_channels[lightIndex][7].time;
+		Ende = light_channels[lightIndex][0].time;
+		oMin = light_channels[lightIndex][7].level;
+		oMax = light_channels[lightIndex][0].level;
+
+		pastSeconds = get_ts(24,0,0)-Start + rtc.daystamp+0.5; 
+		dimTime= get_ts(24,0,0)-Start + Ende;
+	}
+
+	Min=uint16_t(pwm-(pwm/100*oMin));  // 0%=4095-(4095/100*0) = 
+	Max=uint16_t(pwm-(pwm/100*oMax)); // 80% von 4095-(4095/100*80) sind 819
+
+	if(Min==Max){
+		return Min;
+	}  
+	f= dimTime/(Max-Min);    // 1800/2800=0,64
+	p = pastSeconds/f;    // 1616 / 0,64=2525   
+	pwm=Min+p;
+
+    return pwm;    // Im Nofall ausschalten...
 }
 
 /******************************* LUNAR PHASE FUNCTION *********************************/
