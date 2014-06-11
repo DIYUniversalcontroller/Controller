@@ -1,0 +1,26 @@
+#######################################
+# Syntax Coloring Map HTI2CLCD
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+HTI2CLCD	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+clear	KEYWORD2
+setCursor	KEYWORD2
+print	KEYWORD2
+setType	KEYWORD2
+clearLine	KEYWORD2
+backLight	KEYWORD2
+createChar	KEYWORD2
+write	KEYWORD2
+command	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
