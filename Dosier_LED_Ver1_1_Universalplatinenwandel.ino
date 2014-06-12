@@ -1,6 +1,7 @@
 #include <Wire.h>  
 #include <DS1307.h>       
 #include <LiquidCrystal_I2C.h>
+#include <PCA9685.h>
 #include <Adafruit_PWMServoDriver.h>
 #include <EEPROMex.h>
 #include <Flash.h>
@@ -39,7 +40,7 @@ LIGHT light_channels[15][8] ={
  
 
 typedef struct {
-  int Dosiermenge1;
+  int Dosiermenge;
   Time Dosierung[12];
   long Dosierdauer;
   byte Dosiermanuell;
@@ -140,7 +141,8 @@ LiquidCrystal_I2C lcd(0x27,16,2);  // set the LCD address to 0x27 for a 20 chars
 #define ONE_WIRE_BUS 13       // Data wire is plugged into port 13 on the Arduino
 
 // called this way, it uses the default address 0x40
-Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver();
+PCA9685 ledDriver; 
+//Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver();
 // you can also call it with a different address you want
 //Adafruit_PWMServoDriver pwm1 = Adafruit_PWMServoDriver(0x41);
 
@@ -548,12 +550,6 @@ FLASH_ARRAY(int, pwmtable,0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
                           4053, 4056, 4058, 4060,4062, 4064, 4066, 4069, 4071, 4073, 4075, 4077,4080, 4082, 4084, 4086, 4088, 4091, 4093, 4095);
 
 
-
-
-
-
-
-
 void setup() {
   Serial.begin(9600);    // Ausgabe am PC
 
@@ -581,9 +577,11 @@ void setup() {
   lcd.write(2);
   lcd.setCursor(2, 1);
   lcd.print("by Aquafish007");
-  
-  pwm.begin();
-  pwm.setPWMFreq(1000);  // This is the maximum PWM frequency
+ 
+  ledDriver.begin(LED_DRV);
+  ledDriver.init(); 
+//  pwm.begin();
+//  pwm.setPWMFreq(1000);  // This is the maximum PWM frequency
 //  pwm1.begin();
 //  pwm1.setPWMFreq(1000);  // This is the maximum PWM frequency
     
@@ -803,10 +801,10 @@ void loop() {
    
         
         //pwm.setPWM(i,0, c_PWM);
-        pwm.setPWM(i,0, pwmtable[c_PWM]);
+//        pwm.setPWM(i,0, pwmtable[c_PWM]);
         
         //pwm.setPWM(15,0, c_Mond);
-        pwm.setPWM(15,0, moonled_out);
+//        pwm.setPWM(15,0, moonled_out);
         
 //        if(i <= 15){
 //        Serial.print("i: ");
@@ -836,11 +834,20 @@ void loop() {
 
   //+++++++++++++++++++++++++++++++++++++ D O S I E R P U M P E N +++++++++++++++++++++++++++++++++++++++++++++++++++
 
+  // Berechne Uhrzeit in Sekunden wann gedüngt werden soll
+  for(int n;n<4;n++){
+    for(int i;i<12;i++){
+	  Dosierpumpen[n].Dosierautomatzeit[i]=get_ts(Dosierpumpen[n].Dosierung[i].hour, Dosierpumpen[n].Dosierung[i].min, Dosierpumpen[n].Dosierung[i].sec);
+	}
+	Dosierpumpen[n].Dosierdauer = kalibrieren ( Dosierpumpen[n].Kalibrierung, Dosierpumpen[n].Dosiermenge, Dosierpumpen[n].Dosierdauer);
+  }
+
+  /*
   Dosierdauer1 = kalibrieren ( Kalibrierung1, Dosiermenge1, Dosierdauer1);
   Dosierdauer2 = kalibrieren ( Kalibrierung2, Dosiermenge2, Dosierdauer2);
   Dosierdauer3 = kalibrieren ( Kalibrierung3, Dosiermenge3, Dosierdauer3);
   Dosierdauer4 = kalibrieren ( Kalibrierung4, Dosiermenge4, Dosierdauer4);
-
+  
   Dosierautomatzeit1_1 = (Dosierung1_1.hour * HOUR) + (Dosierung1_1.min * MINUTE) + Dosierung1_1.sec;
   Dosierautomatzeit1_2 = (Dosierung1_2.hour * HOUR) + (Dosierung1_2.min * MINUTE) + Dosierung1_2.sec;
   Dosierautomatzeit1_3 = (Dosierung1_3.hour * HOUR) + (Dosierung1_3.min * MINUTE) + Dosierung1_3.sec;
@@ -892,7 +899,7 @@ void loop() {
   Dosierautomatzeit4_10 = (Dosierung4_10.hour * HOUR) + (Dosierung4_10.min * MINUTE) + Dosierung4_10.sec;
   Dosierautomatzeit4_11 = (Dosierung4_11.hour * HOUR) + (Dosierung4_11.min * MINUTE) + Dosierung4_11.sec;
   Dosierautomatzeit4_12 = (Dosierung4_12.hour * HOUR) + (Dosierung4_12.min * MINUTE) + Dosierung4_12.sec;
-
+*/
 
   //1. Abfrage: Wann soll dosiert werden
   //2. Abfrage: manuelle Zeitschleifensteuerung zur Messung; hier default-Wert 60 Sekunden
