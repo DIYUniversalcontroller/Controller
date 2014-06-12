@@ -15,7 +15,7 @@
 
 typedef struct {
   uint32_t time;
-  int level;  
+  byte level;  
 }LIGHT;
 
 //--------------------------------L A M P E N E I N S T E L L U N G S - M O D U L E----------------------
