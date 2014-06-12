@@ -578,7 +578,7 @@ void setup() {
   lcd.setCursor(2, 1);
   lcd.print("by Aquafish007");
  
-  ledDriver.begin(LED_DRV);
+  ledDriver.begin(0x40);
   ledDriver.init(); 
 //  pwm.begin();
 //  pwm.setPWMFreq(1000);  // This is the maximum PWM frequency
