@@ -1,10 +1,13 @@
+// Aufruf der Main Methode die unterpunkte Steuert
 void setLight(){
-    for( byte i=0;i <  LIGHT_CHANEL; i++){
+// Loop alle Kanäle durch und errechne das richtige Value
+    for( byte i=0;i <  15; i++){
         uint16_t c_PWM = PWM_Licht(i);
-        
+        // Wenn die Temp in den LED höher ist als kontrolltemp (überhitzen) dann schalte die LED aus!
         if(temperatur>cTemp){
           c_PWM= 4095;
         }          
+		// Übergebe den wert an 2te funktion zum eigentlichen schreiben in PCA
         setLED(i,uint16_t(c_PWM));
     }
 }
@@ -12,16 +15,17 @@ void setLight(){
 void setLED(uint8_t channel, uint16_t Value){
           
     word n_PWM;  
+	// Hole dir nen neuen (in helligkeit korrigierten) pwm wert
     n_PWM = pgm_read_word(&pwmtable[Value]);
+	// Wenn 0 dann schalte die LED 100% an => wir passen hier den phaseshift an
     if (n_PWM<=0)	{
-        ledDriver.setLEDOn(channel*2);
-        ledDriver.setLEDOn(channel*2+1);
+        ledDriver.setLEDOn(channel);
+	// bei 4095 Ganz ausschalten => kleine rHack um 4095 an/1aus zu umgehen
     } else if (n_PWM>=4095) {
-        ledDriver.setLEDOff(channel*2);
-        ledDriver.setLEDOff(channel*2+1);
+        ledDriver.setLEDOff(channel);
     } else {
-        ledDriver.writeLED(channel*2,0, n_PWM);
-        ledDriver.writeLED(channel*2+1,0, n_PWM);
+	// Wenn wert dazwischen "normalen" dimmwert (setLEDDimmed(channel,n_PWM) auch möglich)
+        ledDriver.writeLED(channel,0, n_PWM);
     }
 }
 
@@ -29,9 +33,10 @@ int PWM_Licht(int lightIndex){
   
   int curIndex=0;
 //  String lightTime;
-  
-  for(byte n=0;n<LIGHT_VALUES;n++){
+  // loop durch alle zeiten und finde raus wieviel uhr es ist
+  for(byte n=0;n<8;n++){
     if(light_channels[lightIndex][n].time < rtc.daystamp){
+	// index muss die Zeit sein älter als grade
       curIndex=n;
     }
   }
@@ -41,16 +46,17 @@ int PWM_Licht(int lightIndex){
   float pastSeconds;
   uint32_t Start,Ende;
   int oMin,oMax;
-  
-    if(curIndex ==(LIGHT_VALUES-1) ){
+  // curindex 7 ist die letzte uhrzeit, ergo müssen wir von ihr zu morgens dimmen
+    if(curIndex ==(8-1) ){
         Start = light_channels[lightIndex][7].time;
         Ende = light_channels[lightIndex][0].time;
         oMin = light_channels[lightIndex][7].level;
         oMax = light_channels[lightIndex][0].level;
         
         pastSeconds = rtc.daystamp-Start+0.5;    // vergangene Sekunden ~1616Sek ~ 27min
+		// Anpassung weil wir über 0:00 uhr gehen ( Start 22:00, ende 8:00 sind 24std-30std = -6std
         dimTime= get_ts(24,0,0) - Start + Ende;
-      
+      // normale tagesdimmung
     }else if(curIndex>=1 || light_channels[lightIndex][0].time < rtc.daystamp){
         Start = light_channels[lightIndex][curIndex].time;
         Ende = light_channels[lightIndex][curIndex+1].time;
@@ -60,6 +66,7 @@ int PWM_Licht(int lightIndex){
         pastSeconds = rtc.daystamp-Start+0.5;    // vergangene Sekunden ~1616Sek ~ 27min
         dimTime=Ende - Start;
     }else{
+		// der rest
 		Start = light_channels[lightIndex][7].time;
 		Ende = light_channels[lightIndex][0].time;
 		oMin = light_channels[lightIndex][7].level;
@@ -68,7 +75,7 @@ int PWM_Licht(int lightIndex){
 		pastSeconds = get_ts(24,0,0)-Start + rtc.daystamp+0.5; 
 		dimTime= get_ts(24,0,0)-Start + Ende;
 	}
-
+	// Umrechnen von % in 12bit
 	Min=uint16_t(pwm-(pwm/100*oMin));  // 0%=4095-(4095/100*0) = 
 	Max=uint16_t(pwm-(pwm/100*oMax)); // 80% von 4095-(4095/100*80) sind 819
 
