@@ -134,6 +134,10 @@ void requestEEPROM( )
     else
     { 
       //READING
+      for(int i=0;i<15;i++){
+          EEPROM.readBlock(10+(sizeof(light_channels[i])*i),light_channels[i],8);
+        }
+        /*
       LED1E.hour = EEPROM.readInt(10);
       LED1E.min = EEPROM.readInt(12);
       LED1A.hour = EEPROM.readInt(14);
@@ -253,7 +257,7 @@ void requestEEPROM( )
       LED15Min = EEPROM.readInt(242);
       LED15Max = EEPROM.readInt(244);
       LED15Dim_in = EEPROM.readInt(246);
-      LED15Dim_out = EEPROM.readInt(248);
+      LED15Dim_out = EEPROM.readInt(248);*/
 //      LED16E.hour = EEPROM.readInt(250);
 //      LED16E.min = EEPROM.readInt(252);
 //      LED16A.hour = EEPROM.readInt(254);
@@ -263,7 +267,7 @@ void requestEEPROM( )
 //      LED16Dim_in = EEPROM.readInt(262);
 //      LED16Dim_out = EEPROM.readInt(264);
       
-      
+  /*    
       Active1 = EEPROM.readByte(266);
       Active2 = EEPROM.readByte(267);
       Active3 = EEPROM.readByte(268);
@@ -298,7 +302,9 @@ void requestEEPROM( )
       Invert14 = EEPROM.readByte(295);
       Invert15 = EEPROM.readByte(296);
       //Invert16 = EEPROM.readByte(297);
-      
+      */
+      EEPROM.readBlock(300, Dosierpumpen,8);
+      /*
       //Dosierer 1
       Dosiermanuell_1 = EEPROM.readByte(298); //false;
       Kalibrierung1 = EEPROM.readInt(299); //ml pro Minute
@@ -418,7 +424,7 @@ void requestEEPROM( )
       Dosierung4_11.min = EEPROM.readInt(512);
       Dosierung4_12.hour = EEPROM.readInt(514); 
       Dosierung4_12.min = EEPROM.readInt(516);
-     
+     */
       Temp1Min = EEPROM.readFloat(520);
       Temp1Max = EEPROM.readFloat(525);
       MondMin = EEPROM.readInt(530);

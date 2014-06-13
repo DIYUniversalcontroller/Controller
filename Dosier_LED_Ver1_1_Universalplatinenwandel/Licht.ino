@@ -4,7 +4,7 @@ void setLight(){
     for( byte i=0;i <  15; i++){
         uint16_t c_PWM = PWM_Licht(i);
         // Wenn die Temp in den LED höher ist als kontrolltemp (überhitzen) dann schalte die LED aus!
-        if(temperatur>cTemp){
+        if(tempLampe1>cTemp){
           c_PWM= 4095;
         }          
 		// Übergebe den wert an 2te funktion zum eigentlichen schreiben in PCA
@@ -35,7 +35,7 @@ int PWM_Licht(int lightIndex){
 //  String lightTime;
   // loop durch alle zeiten und finde raus wieviel uhr es ist
   for(byte n=0;n<8;n++){
-    if(light_channels[lightIndex][n].time < rtc.daystamp){
+    if(light_channels[lightIndex][n].time < lTime){
 	// index muss die Zeit sein älter als grade
       curIndex=n;
     }
@@ -53,17 +53,17 @@ int PWM_Licht(int lightIndex){
         oMin = light_channels[lightIndex][7].level;
         oMax = light_channels[lightIndex][0].level;
         
-        pastSeconds = rtc.daystamp-Start+0.5;    // vergangene Sekunden ~1616Sek ~ 27min
+        pastSeconds = lTime-Start+0.5;    // vergangene Sekunden ~1616Sek ~ 27min
 		// Anpassung weil wir über 0:00 uhr gehen ( Start 22:00, ende 8:00 sind 24std-30std = -6std
         dimTime= get_ts(24,0,0) - Start + Ende;
       // normale tagesdimmung
-    }else if(curIndex>=1 || light_channels[lightIndex][0].time < rtc.daystamp){
+    }else if(curIndex>=1 || light_channels[lightIndex][0].time < lTime){
         Start = light_channels[lightIndex][curIndex].time;
         Ende = light_channels[lightIndex][curIndex+1].time;
         oMin = light_channels[lightIndex][curIndex].level;
         oMax = light_channels[lightIndex][curIndex+1].level;
         
-        pastSeconds = rtc.daystamp-Start+0.5;    // vergangene Sekunden ~1616Sek ~ 27min
+        pastSeconds = lTime-Start+0.5;    // vergangene Sekunden ~1616Sek ~ 27min
         dimTime=Ende - Start;
     }else{
 		// der rest
@@ -72,7 +72,7 @@ int PWM_Licht(int lightIndex){
 		oMin = light_channels[lightIndex][7].level;
 		oMax = light_channels[lightIndex][0].level;
 
-		pastSeconds = get_ts(24,0,0)-Start + rtc.daystamp+0.5; 
+		pastSeconds = get_ts(24,0,0)-Start + lTime+0.5; 
 		dimTime= get_ts(24,0,0)-Start + Ende;
 	}
 	// Umrechnen von % in 12bit

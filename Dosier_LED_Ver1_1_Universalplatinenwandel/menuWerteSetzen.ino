@@ -107,7 +107,7 @@ void MenuWerteSetzen()
         EEPROM.updateDouble(525, Temp1Max);
     }  
 
-
+/*
 //LED1-16
   //Lampeneinstellung & LED1 Min
   if (MenuTiefe == 4 && MenuEbene0 == 2 && MenuEbene1 == 1 && MenuEbene2 == 1)
@@ -1397,7 +1397,7 @@ void MenuWerteSetzen()
       LED15Dim_out = setDisplayInteger(key, LED15Dim_out, 0, 1000, false, 11, 1);
       EEPROM.writeInt(248, LED15Dim_out);
   } 
-
+*/
 
   //MOND
   // Min
@@ -1522,11 +1522,11 @@ void MenuWerteSetzen()
       if (FirstSelect)
       {
         FirstSelect = false;
-        Dosiermenge1 = setDisplayInteger (-1, Dosiermenge1, 0, 1000, false, 11, 1);
+        Dosierpumpen[0].Dosiermenge = setDisplayInteger (-1, Dosierpumpen[0].Dosiermenge, 0, 1000, false, 11, 1);
       }
       else
-        Dosiermenge1 = setDisplayInteger (key, Dosiermenge1, 0, 1000, false, 11, 1);
-        EEPROM.writeLong(302, Dosiermenge1);
+        Dosierpumpen[0].Dosiermenge = setDisplayInteger (key, Dosierpumpen[0].Dosiermenge, 0, 1000, false, 11, 1);
+        EEPROM.writeLong(302, Dosierpumpen[0].Dosiermenge);
     }    
     
     //Uhrzeit 1 zur Dosierung von Dosierpumpe 1
@@ -1536,12 +1536,12 @@ void MenuWerteSetzen()
       if (FirstSelect)
       {
         FirstSelect = false;
-        Dosierung1_1 = setDisplayTime (-1, Dosierung1_1, 11, 1);
+        Dosierpumpen[0].Dosierung[1] = setDisplayTime (-1, Dosierpumpen[0].Dosierung[1], 11, 1);
       }
       else
-        Dosierung1_1 = setDisplayTime (key, Dosierung1_1, 11, 1);
-        EEPROM.writeInt(305, Dosierung1_1.hour);
-        EEPROM.writeInt(307, Dosierung1_1.min);
+        Dosierpumpen[0].Dosierung[1] = setDisplayTime (key, Dosierpumpen[0].Dosierung[1], 11, 1);
+        EEPROM.writeInt(305, Dosierpumpen[0].Dosierung[1].hour);
+        EEPROM.writeInt(307, Dosierpumpen[0].Dosierung[1].min);
     }   
     
     //Uhrzeit 2 zur Dosierung von Dosierpumpe 1
@@ -1551,12 +1551,12 @@ void MenuWerteSetzen()
       if (FirstSelect)
       {
         FirstSelect = false;
-        Dosierung1_2 = setDisplayTime (-1, Dosierung1_2, 11, 1);
+        Dosierpumpen[0].Dosierung[2] = setDisplayTime (-1, Dosierpumpen[0].Dosierung[2], 11, 1);
       }
       else
-        Dosierung1_2 = setDisplayTime (key, Dosierung1_2, 11, 1);
-        EEPROM.writeInt(309, Dosierung1_2.hour);
-        EEPROM.writeInt(311, Dosierung1_2.min);
+        Dosierpumpen[0].Dosierung[2] = setDisplayTime (key, Dosierpumpen[0].Dosierung[2], 11, 1);
+        EEPROM.writeInt(309, Dosierpumpen[0].Dosierung[2].hour);
+        EEPROM.writeInt(311, Dosierpumpen[0].Dosierung[2].min);
     }   
     
     //Uhrzeit 3 zur Dosierung von Dosierpumpe 1
@@ -1566,12 +1566,12 @@ void MenuWerteSetzen()
       if (FirstSelect)
       {
         FirstSelect = false;
-        Dosierung1_3 = setDisplayTime (-1, Dosierung1_3, 11, 1);
+        Dosierpumpen[0].Dosierung[3] = setDisplayTime (-1, Dosierpumpen[0].Dosierung[3], 11, 1);
       }
       else
-        Dosierung1_3 = setDisplayTime (key, Dosierung1_3, 11, 1);
-        EEPROM.writeInt(313, Dosierung1_3.hour);
-        EEPROM.writeInt(315, Dosierung1_3.min);
+        Dosierpumpen[0].Dosierung[3] = setDisplayTime (key, Dosierpumpen[0].Dosierung[3], 11, 1);
+        EEPROM.writeInt(313, Dosierpumpen[0].Dosierung[3].hour);
+        EEPROM.writeInt(315, Dosierpumpen[0].Dosierung[3].min);
     }   
     
     //Uhrzeit 4 zur Dosierung von Dosierpumpe 1
@@ -1581,12 +1581,12 @@ void MenuWerteSetzen()
       if (FirstSelect)
       {
         FirstSelect = false;
-        Dosierung1_4 = setDisplayTime (-1, Dosierung1_4, 11, 1);
+        Dosierpumpen[0].Dosierung[4] = setDisplayTime (-1, Dosierpumpen[0].Dosierung[4], 11, 1);
       }
       else
-        Dosierung1_4 = setDisplayTime (key, Dosierung1_4, 11, 1);
-        EEPROM.writeInt(317, Dosierung1_4.hour);
-        EEPROM.writeInt(319, Dosierung1_4.min);
+        Dosierpumpen[0].Dosierung[4] = setDisplayTime (key, Dosierpumpen[0].Dosierung[4], 11, 1);
+        EEPROM.writeInt(317, Dosierpumpen[0].Dosierung[4].hour);
+        EEPROM.writeInt(319, Dosierpumpen[0].Dosierung[4].min);
     }   
     
     //Uhrzeit 5 zur Dosierung von Dosierpumpe 1
@@ -1596,12 +1596,12 @@ void MenuWerteSetzen()
       if (FirstSelect)
       {
         FirstSelect = false;
-        Dosierung1_5 = setDisplayTime (-1, Dosierung1_5, 11, 1);
+        Dosierpumpen[0].Dosierung[5] = setDisplayTime (-1, Dosierpumpen[0].Dosierung[5], 11, 1);
       }
       else
-        Dosierung1_5 = setDisplayTime (key, Dosierung1_5, 11, 1);
-        EEPROM.writeInt(321, Dosierung1_5.hour);
-        EEPROM.writeInt(323, Dosierung1_5.min);
+        Dosierpumpen[0].Dosierung[5] = setDisplayTime (key, Dosierpumpen[0].Dosierung[5], 11, 1);
+        EEPROM.writeInt(321, Dosierpumpen[0].Dosierung[5].hour);
+        EEPROM.writeInt(323, Dosierpumpen[0].Dosierung[5].min);
     }   
     
     //Uhrzeit 6 zur Dosierung von Dosierpumpe 1
@@ -1611,12 +1611,12 @@ void MenuWerteSetzen()
       if (FirstSelect)
       {
         FirstSelect = false;
-        Dosierung1_6 = setDisplayTime (-1, Dosierung1_6, 11, 1);
+        Dosierpumpen[0].Dosierung[6] = setDisplayTime (-1, Dosierpumpen[0].Dosierung[6], 11, 1);
       }
       else
-        Dosierung1_6 = setDisplayTime (key, Dosierung1_6, 11, 1);
-        EEPROM.writeInt(325, Dosierung1_6.hour);
-        EEPROM.writeInt(327, Dosierung1_6.min);
+        Dosierpumpen[0].Dosierung[6] = setDisplayTime (key, Dosierpumpen[0].Dosierung[6], 11, 1);
+        EEPROM.writeInt(325, Dosierpumpen[0].Dosierung[6].hour);
+        EEPROM.writeInt(327, Dosierpumpen[0].Dosierung[6].min);
     }   
     
     //Uhrzeit 7 zur Dosierung von Dosierpumpe 1
@@ -1626,12 +1626,12 @@ void MenuWerteSetzen()
       if (FirstSelect)
       {
         FirstSelect = false;
-        Dosierung1_7 = setDisplayTime (-1, Dosierung1_7, 11, 1);
+        Dosierpumpen[0].Dosierung[7] = setDisplayTime (-1, Dosierpumpen[0].Dosierung[7], 11, 1);
       }
       else
-        Dosierung1_7 = setDisplayTime (key, Dosierung1_7, 11, 1);
-        EEPROM.writeInt(329, Dosierung1_7.hour);
-        EEPROM.writeInt(331, Dosierung1_7.min);
+        Dosierpumpen[0].Dosierung[7] = setDisplayTime (key, Dosierpumpen[0].Dosierung[7], 11, 1);
+        EEPROM.writeInt(329, Dosierpumpen[0].Dosierung[7].hour);
+        EEPROM.writeInt(331, Dosierpumpen[0].Dosierung[7].min);
     }   
     
     //Uhrzeit 8 zur Dosierung von Dosierpumpe 1
@@ -1641,12 +1641,12 @@ void MenuWerteSetzen()
       if (FirstSelect)
       {
         FirstSelect = false;
-        Dosierung1_8 = setDisplayTime (-1, Dosierung1_8, 11, 1);
+        Dosierpumpen[0].Dosierung[8] = setDisplayTime (-1, Dosierpumpen[0].Dosierung[8], 11, 1);
       }
       else
-        Dosierung1_8 = setDisplayTime (key, Dosierung1_8, 11, 1);
-        EEPROM.writeInt(333, Dosierung1_8.hour);
-        EEPROM.writeInt(335, Dosierung1_8.min);
+        Dosierpumpen[0].Dosierung[8] = setDisplayTime (key, Dosierpumpen[0].Dosierung[8], 11, 1);
+        EEPROM.writeInt(333, Dosierpumpen[0].Dosierung[8].hour);
+        EEPROM.writeInt(335, Dosierpumpen[0].Dosierung[8].min);
     }   
     
     //Uhrzeit 9 zur Dosierung von Dosierpumpe 1
@@ -1656,12 +1656,12 @@ void MenuWerteSetzen()
       if (FirstSelect)
       {
         FirstSelect = false;
-        Dosierung1_9 = setDisplayTime (-1, Dosierung1_9, 11, 1);
+        Dosierpumpen[0].Dosierung[9] = setDisplayTime (-1, Dosierpumpen[0].Dosierung[9], 11, 1);
       }
       else
-        Dosierung1_9 = setDisplayTime (key, Dosierung1_9, 11, 1);
-        EEPROM.writeInt(337, Dosierung1_9.hour);
-        EEPROM.writeInt(339, Dosierung1_9.min);
+        Dosierpumpen[0].Dosierung[9] = setDisplayTime (key, Dosierpumpen[0].Dosierung[9], 11, 1);
+        EEPROM.writeInt(337, Dosierpumpen[0].Dosierung[9].hour);
+        EEPROM.writeInt(339, Dosierpumpen[0].Dosierung[9].min);
     }   
     
     //Uhrzeit 10 zur Dosierung von Dosierpumpe 1
@@ -1671,12 +1671,12 @@ void MenuWerteSetzen()
       if (FirstSelect)
       {
         FirstSelect = false;
-        Dosierung1_10 = setDisplayTime (-1, Dosierung1_10, 11, 1);
+        Dosierpumpen[0].Dosierung[10] = setDisplayTime (-1, Dosierpumpen[0].Dosierung[10], 11, 1);
       }
       else
-        Dosierung1_10 = setDisplayTime (key, Dosierung1_10, 11, 1);
-        EEPROM.writeInt(341, Dosierung1_10.hour);
-        EEPROM.writeInt(343, Dosierung1_10.min);
+        Dosierpumpen[0].Dosierung[10] = setDisplayTime (key, Dosierpumpen[0].Dosierung[10], 11, 1);
+        EEPROM.writeInt(341, Dosierpumpen[0].Dosierung[10].hour);
+        EEPROM.writeInt(343, Dosierpumpen[0].Dosierung[10].min);
     }   
     //Uhrzeit 11 zur Dosierung von Dosierpumpe 1
     if (MenuTiefe == 5 && MenuEbene0 == 4 && MenuEbene1 == 1 && MenuEbene2 == 5 && MenuEbene3 == 12)
@@ -1685,12 +1685,12 @@ void MenuWerteSetzen()
       if (FirstSelect)
       {
         FirstSelect = false;
-        Dosierung1_11 = setDisplayTime (-1, Dosierung1_11, 11, 1);
+        Dosierpumpen[0].Dosierung[11] = setDisplayTime (-1, Dosierpumpen[0].Dosierung[11], 11, 1);
       }
       else
-        Dosierung1_11 = setDisplayTime (key, Dosierung1_11, 11, 1);
-        EEPROM.writeInt(345, Dosierung1_11.hour);
-        EEPROM.writeInt(347, Dosierung1_11.min);
+        Dosierpumpen[0].Dosierung[11] = setDisplayTime (key, Dosierpumpen[0].Dosierung[11], 11, 1);
+        EEPROM.writeInt(345, Dosierpumpen[0].Dosierung[11].hour);
+        EEPROM.writeInt(347, Dosierpumpen[0].Dosierung[11].min);
     }   
     //Uhrzeit 12 zur Dosierung von Dosierpumpe 1
     if (MenuTiefe == 5 && MenuEbene0 == 4 && MenuEbene1 == 1 && MenuEbene2 == 5 && MenuEbene3 == 13)
@@ -1699,12 +1699,12 @@ void MenuWerteSetzen()
       if (FirstSelect)
       {
         FirstSelect = false;
-        Dosierung1_12 = setDisplayTime (-1, Dosierung1_12, 11, 1);
+        Dosierpumpen[0].Dosierung[12] = setDisplayTime (-1, Dosierpumpen[0].Dosierung[12], 11, 1);
       }
       else
-        Dosierung1_12 = setDisplayTime (key, Dosierung1_12, 11, 1);
-        EEPROM.writeInt(349, Dosierung1_12.hour);
-        EEPROM.writeInt(351, Dosierung1_12.min);
+        Dosierpumpen[0].Dosierung[12] = setDisplayTime (key, Dosierpumpen[0].Dosierung[12], 11, 1);
+        EEPROM.writeInt(349, Dosierpumpen[0].Dosierung[12].hour);
+        EEPROM.writeInt(351, Dosierpumpen[0].Dosierung[12].min);
     }   
     //----------------------------- bis hier hin Dosierer 1-----------------------------------------------------------------------
     
@@ -1796,11 +1796,11 @@ void MenuWerteSetzen()
       if (FirstSelect)
       {
         FirstSelect = false;
-        Dosiermenge2 = setDisplayInteger (-1, Dosiermenge2, 0, 1000, false, 11, 1);
+        Dosierpumpen[1].Dosiermenge = setDisplayInteger (-1, Dosierpumpen[1].Dosiermenge, 0, 1000, false, 11, 1);
       }
       else
-        Dosiermenge2 = setDisplayInteger (key, Dosiermenge2, 0, 1000, false, 11, 1);
-        EEPROM.writeLong(357, Dosiermenge2);
+        Dosierpumpen[1].Dosiermenge = setDisplayInteger (key, Dosierpumpen[1].Dosiermenge, 0, 1000, false, 11, 1);
+        EEPROM.writeLong(357, Dosierpumpen[1].Dosiermenge);
     }    
     
     //Uhrzeit 1 zur Dosierung von Dosierpumpe 2
@@ -1810,12 +1810,12 @@ void MenuWerteSetzen()
       if (FirstSelect)
       {
         FirstSelect = false;
-        Dosierung2_1 = setDisplayTime (-1, Dosierung2_1, 11, 1);
+        Dosierpumpen[1].Dosierung[0] = setDisplayTime (-1, Dosierpumpen[1].Dosierung[0], 11, 1);
       }
       else
-        Dosierung2_1 = setDisplayTime (key, Dosierung2_1, 11, 1);
-        EEPROM.writeInt(360, Dosierung2_1.hour);
-        EEPROM.writeInt(362, Dosierung2_1.min);
+        Dosierpumpen[1].Dosierung[0] = setDisplayTime (key, Dosierpumpen[1].Dosierung[0], 11, 1);
+        EEPROM.writeInt(360, Dosierpumpen[1].Dosierung[0].hour);
+        EEPROM.writeInt(362, Dosierpumpen[1].Dosierung[0].min);
     }   
     
     //Uhrzeit 2 zur Dosierung von Dosierpumpe 2
@@ -1825,12 +1825,12 @@ void MenuWerteSetzen()
       if (FirstSelect)
       {
         FirstSelect = false;
-        Dosierung2_2 = setDisplayTime (-1, Dosierung2_2, 11, 1);
+        Dosierpumpen[1].Dosierung[1] = setDisplayTime (-1, Dosierpumpen[1].Dosierung[1], 11, 1);
       }
       else
-        Dosierung2_2 = setDisplayTime (key, Dosierung2_2, 11, 1);
-        EEPROM.writeInt(364, Dosierung2_2.hour);
-        EEPROM.writeInt(366, Dosierung2_2.min);
+        Dosierpumpen[1].Dosierung[1] = setDisplayTime (key, Dosierpumpen[1].Dosierung[1], 11, 1);
+        EEPROM.writeInt(364, Dosierpumpen[1].Dosierung[1].hour);
+        EEPROM.writeInt(366, Dosierpumpen[1].Dosierung[1].min);
     }   
     
     //Uhrzeit 3 zur Dosierung von Dosierpumpe 2
@@ -1840,12 +1840,12 @@ void MenuWerteSetzen()
       if (FirstSelect)
       {
         FirstSelect = false;
-        Dosierung2_3 = setDisplayTime (-1, Dosierung2_3, 11, 1);
+        Dosierpumpen[1].Dosierung[2] = setDisplayTime (-1, Dosierpumpen[1].Dosierung[2], 11, 1);
       }
       else
-        Dosierung2_3 = setDisplayTime (key, Dosierung2_3, 11, 1);
-        EEPROM.writeInt(368, Dosierung2_3.hour);
-        EEPROM.writeInt(370, Dosierung2_3.min);
+        Dosierpumpen[1].Dosierung[2] = setDisplayTime (key, Dosierpumpen[1].Dosierung[2], 11, 1);
+        EEPROM.writeInt(368, Dosierpumpen[1].Dosierung[2].hour);
+        EEPROM.writeInt(370, Dosierpumpen[1].Dosierung[2].min);
     }   
     
     //Uhrzeit 4 zur Dosierung von Dosierpumpe 2
@@ -1855,12 +1855,12 @@ void MenuWerteSetzen()
       if (FirstSelect)
       {
         FirstSelect = false;
-        Dosierung2_4 = setDisplayTime (-1, Dosierung2_4, 11, 1);
+        Dosierpumpen[1].Dosierung[3] = setDisplayTime (-1, Dosierpumpen[1].Dosierung[3], 11, 1);
       }
       else
-        Dosierung2_4 = setDisplayTime (key, Dosierung2_4, 11, 1);
-        EEPROM.writeInt(372, Dosierung2_4.hour);
-        EEPROM.writeInt(374, Dosierung2_4.min);
+        Dosierpumpen[1].Dosierung[3] = setDisplayTime (key, Dosierpumpen[1].Dosierung[3], 11, 1);
+        EEPROM.writeInt(372, Dosierpumpen[1].Dosierung[3].hour);
+        EEPROM.writeInt(374, Dosierpumpen[1].Dosierung[3].min);
     }   
     
     //Uhrzeit 5 zur Dosierung von Dosierpumpe 2
@@ -1870,12 +1870,12 @@ void MenuWerteSetzen()
       if (FirstSelect)
       {
         FirstSelect = false;
-        Dosierung2_5 = setDisplayTime (-1, Dosierung2_5, 11, 1);
+        Dosierpumpen[1].Dosierung[4] = setDisplayTime (-1, Dosierpumpen[1].Dosierung[4], 11, 1);
       }
       else
-        Dosierung2_5 = setDisplayTime (key, Dosierung2_5, 11, 1);
-        EEPROM.writeInt(376, Dosierung2_5.hour);
-        EEPROM.writeInt(378, Dosierung2_5.min);
+        Dosierpumpen[1].Dosierung[4] = setDisplayTime (key, Dosierpumpen[1].Dosierung[4], 11, 1);
+        EEPROM.writeInt(376, Dosierpumpen[1].Dosierung[4].hour);
+        EEPROM.writeInt(378, Dosierpumpen[1].Dosierung[4].min);
     }   
     
     //Uhrzeit 6 zur Dosierung von Dosierpumpe 2
@@ -1885,12 +1885,12 @@ void MenuWerteSetzen()
       if (FirstSelect)
       {
         FirstSelect = false;
-        Dosierung2_6 = setDisplayTime (-1, Dosierung2_6, 11, 1);
+        Dosierpumpen[1].Dosierung[5] = setDisplayTime (-1, Dosierpumpen[1].Dosierung[5], 11, 1);
       }
       else
-        Dosierung2_6 = setDisplayTime (key, Dosierung2_6, 11, 1);
-        EEPROM.writeInt(380, Dosierung2_6.hour);
-        EEPROM.writeInt(382, Dosierung2_6.min);
+        Dosierpumpen[1].Dosierung[5] = setDisplayTime (key, Dosierpumpen[1].Dosierung[5], 11, 1);
+        EEPROM.writeInt(380, Dosierpumpen[1].Dosierung[5].hour);
+        EEPROM.writeInt(382, Dosierpumpen[1].Dosierung[5].min);
     }   
     
     //Uhrzeit 7 zur Dosierung von Dosierpumpe 2
@@ -1900,12 +1900,12 @@ void MenuWerteSetzen()
       if (FirstSelect)
       {
         FirstSelect = false;
-        Dosierung2_7 = setDisplayTime (-1, Dosierung2_7, 11, 1);
+        Dosierpumpen[1].Dosierung[6] = setDisplayTime (-1, Dosierpumpen[1].Dosierung[6], 11, 1);
       }
       else
-        Dosierung2_7 = setDisplayTime (key, Dosierung2_7, 11, 1);
-        EEPROM.writeInt(384, Dosierung2_7.hour);
-        EEPROM.writeInt(386, Dosierung2_7.min);
+        Dosierpumpen[1].Dosierung[6] = setDisplayTime (key, Dosierpumpen[1].Dosierung[6], 11, 1);
+        EEPROM.writeInt(384, Dosierpumpen[1].Dosierung[6].hour);
+        EEPROM.writeInt(386, Dosierpumpen[1].Dosierung[6].min);
     }   
     
     //Uhrzeit 8 zur Dosierung von Dosierpumpe 2
@@ -1915,12 +1915,12 @@ void MenuWerteSetzen()
       if (FirstSelect)
       {
         FirstSelect = false;
-        Dosierung2_8 = setDisplayTime (-1, Dosierung2_8, 11, 1);
+        Dosierpumpen[1].Dosierung[7] = setDisplayTime (-1, Dosierpumpen[1].Dosierung[7], 11, 1);
       }
       else
-        Dosierung2_8 = setDisplayTime (key, Dosierung2_8, 11, 1);
-        EEPROM.writeInt(388, Dosierung2_8.hour);
-        EEPROM.writeInt(390, Dosierung2_8.min);
+        Dosierpumpen[1].Dosierung[7] = setDisplayTime (key, Dosierpumpen[1].Dosierung[7], 11, 1);
+        EEPROM.writeInt(388, Dosierpumpen[1].Dosierung[7].hour);
+        EEPROM.writeInt(390, Dosierpumpen[1].Dosierung[7].min);
     }   
     
     //Uhrzeit 9 zur Dosierung von Dosierpumpe 2
@@ -1930,12 +1930,12 @@ void MenuWerteSetzen()
       if (FirstSelect)
       {
         FirstSelect = false;
-        Dosierung2_9 = setDisplayTime (-1, Dosierung2_9, 11, 1);
+        Dosierpumpen[1].Dosierung[8] = setDisplayTime (-1, Dosierpumpen[1].Dosierung[8], 11, 1);
       }
       else
-        Dosierung2_9 = setDisplayTime (key, Dosierung2_9, 11, 1);
-        EEPROM.writeInt(392, Dosierung2_9.hour);
-        EEPROM.writeInt(394, Dosierung2_9.min);
+        Dosierpumpen[1].Dosierung[8] = setDisplayTime (key, Dosierpumpen[1].Dosierung[8], 11, 1);
+        EEPROM.writeInt(392, Dosierpumpen[1].Dosierung[8].hour);
+        EEPROM.writeInt(394, Dosierpumpen[1].Dosierung[8].min);
     }   
     
     //Uhrzeit 10 zur Dosierung von Dosierpumpe 2
@@ -1945,12 +1945,12 @@ void MenuWerteSetzen()
       if (FirstSelect)
       {
         FirstSelect = false;
-        Dosierung2_10 = setDisplayTime (-1, Dosierung2_10, 11, 1);
+        Dosierpumpen[1].Dosierung[9] = setDisplayTime (-1, Dosierpumpen[1].Dosierung[9], 11, 1);
       }
       else
-        Dosierung2_10 = setDisplayTime (key, Dosierung2_10, 11, 1);
-        EEPROM.writeInt(396, Dosierung2_10.hour);
-        EEPROM.writeInt(398, Dosierung2_10.min);
+        Dosierpumpen[1].Dosierung[9] = setDisplayTime (key, Dosierpumpen[1].Dosierung[9], 11, 1);
+        EEPROM.writeInt(396, Dosierpumpen[1].Dosierung[9].hour);
+        EEPROM.writeInt(398, Dosierpumpen[1].Dosierung[9].min);
     } 
     
     //Uhrzeit 11 zur Dosierung von Dosierpumpe 2
@@ -1960,12 +1960,12 @@ void MenuWerteSetzen()
       if (FirstSelect)
       {
         FirstSelect = false;
-        Dosierung2_11 = setDisplayTime (-1, Dosierung2_11, 11, 1);
+        Dosierpumpen[1].Dosierung[10] = setDisplayTime (-1, Dosierpumpen[1].Dosierung[10], 11, 1);
       }
       else
-        Dosierung2_11 = setDisplayTime (key, Dosierung2_11, 11, 1);
-        EEPROM.writeInt(400, Dosierung2_11.hour);
-        EEPROM.writeInt(402, Dosierung2_11.min);
+        Dosierpumpen[1].Dosierung[10] = setDisplayTime (key, Dosierpumpen[1].Dosierung[10], 11, 1);
+        EEPROM.writeInt(400, Dosierpumpen[1].Dosierung[10].hour);
+        EEPROM.writeInt(402, Dosierpumpen[1].Dosierung[10].min);
     }   
     
     //Uhrzeit 12 zur Dosierung von Dosierpumpe 2
@@ -1975,12 +1975,12 @@ void MenuWerteSetzen()
       if (FirstSelect)
       {
         FirstSelect = false;
-        Dosierung2_12 = setDisplayTime (-1, Dosierung2_12, 11, 1);
+        Dosierpumpen[1].Dosierung[11] = setDisplayTime (-1, Dosierpumpen[1].Dosierung[11], 11, 1);
       }
       else
-        Dosierung2_12 = setDisplayTime (key, Dosierung2_12, 11, 1);
-        EEPROM.writeInt(404, Dosierung2_12.hour);
-        EEPROM.writeInt(406, Dosierung2_12.min);
+        Dosierpumpen[1].Dosierung[11] = setDisplayTime (key, Dosierpumpen[1].Dosierung[11], 11, 1);
+        EEPROM.writeInt(404, Dosierpumpen[1].Dosierung[11].hour);
+        EEPROM.writeInt(406, Dosierpumpen[1].Dosierung[11].min);
     }   
     //----------------------------- bis hier hin Dosierer 2-----------------------------------------------------------------------
     
@@ -2072,11 +2072,11 @@ void MenuWerteSetzen()
       if (FirstSelect)
       {
         FirstSelect = false;
-        Dosiermenge3 = setDisplayInteger (-1, Dosiermenge3, 0, 1000, false, 11, 1);
+        Dosierpumpen[2].Dosiermenge = setDisplayInteger (-1, Dosierpumpen[2].Dosiermenge, 0, 1000, false, 11, 1);
       }
       else
-        Dosiermenge3 = setDisplayInteger (key, Dosiermenge3, 0, 1000, false, 11, 1);
-        EEPROM.writeLong(412, Dosiermenge3);
+        Dosierpumpen[2].Dosiermenge = setDisplayInteger (key, Dosierpumpen[2].Dosiermenge, 0, 1000, false, 11, 1);
+        EEPROM.writeLong(412, Dosierpumpen[2].Dosiermenge);
     }    
     
     //Uhrzeit 1 zur Dosierung von Dosierpumpe 3
@@ -2086,12 +2086,12 @@ void MenuWerteSetzen()
       if (FirstSelect)
       {
         FirstSelect = false;
-        Dosierung3_1 = setDisplayTime (-1, Dosierung3_1, 11, 1);
+        Dosierpumpen[2].Dosierung[0] = setDisplayTime (-1, Dosierpumpen[2].Dosierung[0], 11, 1);
       }
       else
-        Dosierung3_1 = setDisplayTime (key, Dosierung3_1, 11, 1);
-        EEPROM.writeInt(415, Dosierung3_1.hour);
-        EEPROM.writeInt(417, Dosierung3_1.min);
+        Dosierpumpen[2].Dosierung[0] = setDisplayTime (key, Dosierpumpen[2].Dosierung[0], 11, 1);
+        EEPROM.writeInt(415, Dosierpumpen[2].Dosierung[0].hour);
+        EEPROM.writeInt(417, Dosierpumpen[2].Dosierung[0].min);
     }   
     
     //Uhrzeit 2 zur Dosierung von Dosierpumpe 3
@@ -2101,12 +2101,12 @@ void MenuWerteSetzen()
       if (FirstSelect)
       {
         FirstSelect = false;
-        Dosierung3_2 = setDisplayTime (-1, Dosierung3_2, 11, 1);
+        Dosierpumpen[2].Dosierung[1] = setDisplayTime (-1, Dosierpumpen[2].Dosierung[1], 11, 1);
       }
       else
-        Dosierung3_2 = setDisplayTime (key, Dosierung3_2, 11, 1);
-        EEPROM.writeInt(419, Dosierung3_2.hour);
-        EEPROM.writeInt(421, Dosierung3_2.min);
+        Dosierpumpen[2].Dosierung[1] = setDisplayTime (key, Dosierpumpen[2].Dosierung[1], 11, 1);
+        EEPROM.writeInt(419, Dosierpumpen[2].Dosierung[1].hour);
+        EEPROM.writeInt(421, Dosierpumpen[2].Dosierung[1].min);
     }   
     
     //Uhrzeit 3 zur Dosierung von Dosierpumpe 3
@@ -2116,12 +2116,12 @@ void MenuWerteSetzen()
       if (FirstSelect)
       {
         FirstSelect = false;
-        Dosierung3_3 = setDisplayTime (-1, Dosierung3_3, 11, 1);
+        Dosierpumpen[2].Dosierung[2] = setDisplayTime (-1, Dosierpumpen[2].Dosierung[2], 11, 1);
       }
       else
-        Dosierung3_3 = setDisplayTime (key, Dosierung3_3, 11, 1);
-        EEPROM.writeInt(423, Dosierung3_3.hour);
-        EEPROM.writeInt(425, Dosierung3_3.min);
+        Dosierpumpen[2].Dosierung[2] = setDisplayTime (key, Dosierpumpen[2].Dosierung[2], 11, 1);
+        EEPROM.writeInt(423, Dosierpumpen[2].Dosierung[2].hour);
+        EEPROM.writeInt(425, Dosierpumpen[2].Dosierung[2].min);
     }   
     
     //Uhrzeit 4 zur Dosierung von Dosierpumpe 3
@@ -2131,12 +2131,12 @@ void MenuWerteSetzen()
       if (FirstSelect)
       {
         FirstSelect = false;
-        Dosierung3_4 = setDisplayTime (-1, Dosierung3_4, 11, 1);
+        Dosierpumpen[2].Dosierung[3] = setDisplayTime (-1, Dosierpumpen[2].Dosierung[3], 11, 1);
       }
       else
-        Dosierung3_4 = setDisplayTime (key, Dosierung3_4, 11, 1);
-        EEPROM.writeInt(427, Dosierung3_4.hour);
-        EEPROM.writeInt(429, Dosierung3_4.min);
+        Dosierpumpen[2].Dosierung[3] = setDisplayTime (key, Dosierpumpen[2].Dosierung[3], 11, 1);
+        EEPROM.writeInt(427, Dosierpumpen[2].Dosierung[3].hour);
+        EEPROM.writeInt(429, Dosierpumpen[2].Dosierung[3].min);
     }   
     
     //Uhrzeit 5 zur Dosierung von Dosierpumpe 3
@@ -2146,12 +2146,12 @@ void MenuWerteSetzen()
       if (FirstSelect)
       {
         FirstSelect = false;
-        Dosierung3_5 = setDisplayTime (-1, Dosierung3_5, 11, 1);
+        Dosierpumpen[2].Dosierung[4] = setDisplayTime (-1, Dosierpumpen[2].Dosierung[4], 11, 1);
       }
       else
-        Dosierung3_5 = setDisplayTime (key, Dosierung3_5, 11, 1);
-        EEPROM.writeInt(431, Dosierung3_5.hour);
-        EEPROM.writeInt(433, Dosierung3_5.min);
+        Dosierpumpen[2].Dosierung[4] = setDisplayTime (key, Dosierpumpen[2].Dosierung[4], 11, 1);
+        EEPROM.writeInt(431, Dosierpumpen[2].Dosierung[4].hour);
+        EEPROM.writeInt(433, Dosierpumpen[2].Dosierung[4].min);
     }   
     
     //Uhrzeit 6 zur Dosierung von Dosierpumpe 3
@@ -2161,12 +2161,12 @@ void MenuWerteSetzen()
       if (FirstSelect)
       {
         FirstSelect = false;
-        Dosierung3_6 = setDisplayTime (-1, Dosierung3_6, 11, 1);
+        Dosierpumpen[2].Dosierung[5] = setDisplayTime (-1, Dosierpumpen[2].Dosierung[5], 11, 1);
       }
       else
-        Dosierung3_6 = setDisplayTime (key, Dosierung3_6, 11, 1);
-        EEPROM.writeInt(435, Dosierung3_6.hour);
-        EEPROM.writeInt(437, Dosierung3_6.min);
+        Dosierpumpen[2].Dosierung[5] = setDisplayTime (key, Dosierpumpen[2].Dosierung[5], 11, 1);
+        EEPROM.writeInt(435, Dosierpumpen[2].Dosierung[5].hour);
+        EEPROM.writeInt(437, Dosierpumpen[2].Dosierung[5].min);
     }   
     
     //Uhrzeit 7 zur Dosierung von Dosierpumpe 3
@@ -2176,12 +2176,12 @@ void MenuWerteSetzen()
       if (FirstSelect)
       {
         FirstSelect = false;
-        Dosierung3_7 = setDisplayTime (-1, Dosierung3_7, 11, 1);
+        Dosierpumpen[2].Dosierung[6] = setDisplayTime (-1, Dosierpumpen[2].Dosierung[6], 11, 1);
       }
       else
-        Dosierung3_7 = setDisplayTime (key, Dosierung3_7, 11, 1);
-        EEPROM.writeInt(439, Dosierung3_7.hour);
-        EEPROM.writeInt(441, Dosierung3_7.min);
+        Dosierpumpen[2].Dosierung[6] = setDisplayTime (key, Dosierpumpen[2].Dosierung[6], 11, 1);
+        EEPROM.writeInt(439, Dosierpumpen[2].Dosierung[6].hour);
+        EEPROM.writeInt(441, Dosierpumpen[2].Dosierung[6].min);
     }   
     
     //Uhrzeit 8 zur Dosierung von Dosierpumpe 3
@@ -2191,12 +2191,12 @@ void MenuWerteSetzen()
       if (FirstSelect)
       {
         FirstSelect = false;
-        Dosierung3_8 = setDisplayTime (-1, Dosierung3_8, 11, 1);
+        Dosierpumpen[2].Dosierung[7] = setDisplayTime (-1, Dosierpumpen[2].Dosierung[7], 11, 1);
       }
       else
-        Dosierung3_8 = setDisplayTime (key, Dosierung3_8, 11, 1);
-        EEPROM.writeInt(443, Dosierung3_8.hour);
-        EEPROM.writeInt(445, Dosierung3_8.min);
+        Dosierpumpen[2].Dosierung[7] = setDisplayTime (key, Dosierpumpen[2].Dosierung[7], 11, 1);
+        EEPROM.writeInt(443, Dosierpumpen[2].Dosierung[7].hour);
+        EEPROM.writeInt(445, Dosierpumpen[2].Dosierung[7].min);
     }   
     
     //Uhrzeit 9 zur Dosierung von Dosierpumpe 3
@@ -2206,12 +2206,12 @@ void MenuWerteSetzen()
       if (FirstSelect)
       {
         FirstSelect = false;
-        Dosierung3_9 = setDisplayTime (-1, Dosierung3_9, 11, 1);
+        Dosierpumpen[2].Dosierung[8] = setDisplayTime (-1, Dosierpumpen[2].Dosierung[8], 11, 1);
       }
       else
-        Dosierung3_9 = setDisplayTime (key, Dosierung3_9, 11, 1);
-        EEPROM.writeInt(447, Dosierung3_9.hour);
-        EEPROM.writeInt(449, Dosierung3_9.min);
+        Dosierpumpen[2].Dosierung[8] = setDisplayTime (key, Dosierpumpen[2].Dosierung[8], 11, 1);
+        EEPROM.writeInt(447, Dosierpumpen[2].Dosierung[8].hour);
+        EEPROM.writeInt(449, Dosierpumpen[2].Dosierung[8].min);
     }   
     
     //Uhrzeit 10 zur Dosierung von Dosierpumpe 3
@@ -2221,12 +2221,12 @@ void MenuWerteSetzen()
       if (FirstSelect)
       {
         FirstSelect = false;
-        Dosierung3_10 = setDisplayTime (-1, Dosierung3_10, 11, 1);
+        Dosierpumpen[2].Dosierung[9] = setDisplayTime (-1, Dosierpumpen[2].Dosierung[9], 11, 1);
       }
       else
-        Dosierung3_10 = setDisplayTime (key, Dosierung3_10, 11, 1);
-        EEPROM.writeInt(451, Dosierung3_10.hour);
-        EEPROM.writeInt(453, Dosierung3_10.min);
+        Dosierpumpen[2].Dosierung[9] = setDisplayTime (key, Dosierpumpen[2].Dosierung[9], 11, 1);
+        EEPROM.writeInt(451, Dosierpumpen[2].Dosierung[9].hour);
+        EEPROM.writeInt(453, Dosierpumpen[2].Dosierung[9].min);
     }   
     
     //Uhrzeit 11 zur Dosierung von Dosierpumpe 3
@@ -2236,12 +2236,12 @@ void MenuWerteSetzen()
       if (FirstSelect)
       {
         FirstSelect = false;
-        Dosierung3_11 = setDisplayTime (-1, Dosierung3_11, 11, 1);
+        Dosierpumpen[2].Dosierung[10] = setDisplayTime (-1, Dosierpumpen[2].Dosierung[10], 11, 1);
       }
       else
-        Dosierung3_11 = setDisplayTime (key, Dosierung3_11, 11, 1);
-        EEPROM.writeInt(455, Dosierung3_11.hour);
-        EEPROM.writeInt(457, Dosierung3_11.min);
+        Dosierpumpen[2].Dosierung[10] = setDisplayTime (key, Dosierpumpen[2].Dosierung[10], 11, 1);
+        EEPROM.writeInt(455, Dosierpumpen[2].Dosierung[10].hour);
+        EEPROM.writeInt(457, Dosierpumpen[2].Dosierung[10].min);
     }   
     
     //Uhrzeit 12 zur Dosierung von Dosierpumpe 3
@@ -2251,12 +2251,12 @@ void MenuWerteSetzen()
       if (FirstSelect)
       {
         FirstSelect = false;
-        Dosierung3_12 = setDisplayTime (-1, Dosierung3_12, 11, 1);
+        Dosierpumpen[2].Dosierung[11] = setDisplayTime (-1, Dosierpumpen[2].Dosierung[11], 11, 1);
       }
       else
-        Dosierung3_12 = setDisplayTime (key, Dosierung3_12, 11, 1);
-        EEPROM.writeInt(459, Dosierung3_12.hour);
-        EEPROM.writeInt(461, Dosierung3_12.min);
+        Dosierpumpen[2].Dosierung[11] = setDisplayTime (key, Dosierpumpen[2].Dosierung[11], 11, 1);
+        EEPROM.writeInt(459, Dosierpumpen[2].Dosierung[11].hour);
+        EEPROM.writeInt(461, Dosierpumpen[2].Dosierung[11].min);
     }   
     //----------------------------- bis hier hin Dosierer 3-----------------------------------------------------------------------
     
@@ -2349,11 +2349,11 @@ void MenuWerteSetzen()
       if (FirstSelect)
       {
         FirstSelect = false;
-        Dosiermenge4 = setDisplayInteger (-1, Dosiermenge4, 0, 1000, false, 11, 1);
+        Dosierpumpen[3].Dosiermenge = setDisplayInteger (-1, Dosierpumpen[3].Dosiermenge, 0, 1000, false, 11, 1);
       }
       else
-        Dosiermenge4 = setDisplayInteger (key, Dosiermenge4, 0, 1000, false, 11, 1);
-        EEPROM.writeLong(467, Dosiermenge4);
+        Dosierpumpen[3].Dosiermenge = setDisplayInteger (key, Dosierpumpen[3].Dosiermenge, 0, 1000, false, 11, 1);
+        EEPROM.writeLong(467, Dosierpumpen[3].Dosiermenge);
     }    
     
     //Uhrzeit 1 zur Dosierung von Dosierpumpe 4
@@ -2363,12 +2363,12 @@ void MenuWerteSetzen()
       if (FirstSelect)
       {
         FirstSelect = false;
-        Dosierung4_1 = setDisplayTime (-1, Dosierung4_1, 11, 1);
+        Dosierpumpen[3].Dosierung[0] = setDisplayTime (-1, Dosierpumpen[3].Dosierung[0], 11, 1);
       }
       else
-        Dosierung4_1 = setDisplayTime (key, Dosierung4_1, 11, 1);
-        EEPROM.writeInt(470, Dosierung4_1.hour);
-        EEPROM.writeInt(472, Dosierung4_1.min);
+        Dosierpumpen[3].Dosierung[0] = setDisplayTime (key, Dosierpumpen[3].Dosierung[0], 11, 1);
+        EEPROM.writeInt(470, Dosierpumpen[3].Dosierung[0].hour);
+        EEPROM.writeInt(472, Dosierpumpen[3].Dosierung[0].min);
     }   
     
     //Uhrzeit 2 zur Dosierung von Dosierpumpe 4
@@ -2378,12 +2378,12 @@ void MenuWerteSetzen()
       if (FirstSelect)
       {
         FirstSelect = false;
-        Dosierung4_2 = setDisplayTime (-1, Dosierung4_2, 11, 1);
+        Dosierpumpen[3].Dosierung[1] = setDisplayTime (-1, Dosierpumpen[3].Dosierung[1], 11, 1);
       }
       else
-        Dosierung4_2 = setDisplayTime (key, Dosierung4_2, 11, 1);
-        EEPROM.writeInt(474, Dosierung4_2.hour);
-        EEPROM.writeInt(476, Dosierung4_2.min);
+        Dosierpumpen[3].Dosierung[1] = setDisplayTime (key, Dosierpumpen[3].Dosierung[1], 11, 1);
+        EEPROM.writeInt(474, Dosierpumpen[3].Dosierung[1].hour);
+        EEPROM.writeInt(476, Dosierpumpen[3].Dosierung[1].min);
     }   
     
     //Uhrzeit 3 zur Dosierung von Dosierpumpe 4
@@ -2393,12 +2393,12 @@ void MenuWerteSetzen()
       if (FirstSelect)
       {
         FirstSelect = false;
-        Dosierung4_3 = setDisplayTime (-1, Dosierung4_3, 11, 1);
+        Dosierpumpen[3].Dosierung[2] = setDisplayTime (-1, Dosierpumpen[3].Dosierung[2], 11, 1);
       }
       else
-        Dosierung4_3 = setDisplayTime (key, Dosierung4_3, 11, 1);
-        EEPROM.writeInt(478, Dosierung4_3.hour);
-        EEPROM.writeInt(480, Dosierung4_3.min);
+        Dosierpumpen[3].Dosierung[2] = setDisplayTime (key, Dosierpumpen[3].Dosierung[2], 11, 1);
+        EEPROM.writeInt(478, Dosierpumpen[3].Dosierung[2].hour);
+        EEPROM.writeInt(480, Dosierpumpen[3].Dosierung[2].min);
     }   
     
     //Uhrzeit 4 zur Dosierung von Dosierpumpe 4
@@ -2408,12 +2408,12 @@ void MenuWerteSetzen()
       if (FirstSelect)
       {
         FirstSelect = false;
-        Dosierung4_4 = setDisplayTime (-1, Dosierung4_4, 11, 1);
+        Dosierpumpen[3].Dosierung[3] = setDisplayTime (-1, Dosierpumpen[3].Dosierung[3], 11, 1);
       }
       else
-        Dosierung4_4 = setDisplayTime (key, Dosierung4_4, 11, 1);
-        EEPROM.writeInt(482, Dosierung4_4.hour);
-        EEPROM.writeInt(484, Dosierung4_4.min);
+        Dosierpumpen[3].Dosierung[3] = setDisplayTime (key, Dosierpumpen[3].Dosierung[3], 11, 1);
+        EEPROM.writeInt(482, Dosierpumpen[3].Dosierung[3].hour);
+        EEPROM.writeInt(484, Dosierpumpen[3].Dosierung[3].min);
     }   
     
     //Uhrzeit 5 zur Dosierung von Dosierpumpe 4
@@ -2423,12 +2423,12 @@ void MenuWerteSetzen()
       if (FirstSelect)
       {
         FirstSelect = false;
-        Dosierung4_5 = setDisplayTime (-1, Dosierung4_5, 11, 1);
+        Dosierpumpen[3].Dosierung[4] = setDisplayTime (-1, Dosierpumpen[3].Dosierung[4], 11, 1);
       }
       else
-        Dosierung4_5 = setDisplayTime (key, Dosierung4_5, 11, 1);
-        EEPROM.writeInt(486, Dosierung4_5.hour);
-        EEPROM.writeInt(488, Dosierung4_5.min);
+        Dosierpumpen[3].Dosierung[4] = setDisplayTime (key, Dosierpumpen[3].Dosierung[4], 11, 1);
+        EEPROM.writeInt(486, Dosierpumpen[3].Dosierung[4].hour);
+        EEPROM.writeInt(488, Dosierpumpen[3].Dosierung[4].min);
     }   
     
     //Uhrzeit 6 zur Dosierung von Dosierpumpe 4
@@ -2438,12 +2438,12 @@ void MenuWerteSetzen()
       if (FirstSelect)
       {
         FirstSelect = false;
-        Dosierung4_6 = setDisplayTime (-1, Dosierung4_6, 11, 1);
+        Dosierpumpen[3].Dosierung[5] = setDisplayTime (-1, Dosierpumpen[3].Dosierung[5], 11, 1);
       }
       else
-        Dosierung4_6 = setDisplayTime (key, Dosierung4_6, 11, 1);
-        EEPROM.writeInt(490, Dosierung4_6.hour);
-        EEPROM.writeInt(492, Dosierung4_6.min);
+        Dosierpumpen[3].Dosierung[5] = setDisplayTime (key, Dosierpumpen[3].Dosierung[5], 11, 1);
+        EEPROM.writeInt(490, Dosierpumpen[3].Dosierung[5].hour);
+        EEPROM.writeInt(492, Dosierpumpen[3].Dosierung[5].min);
     }   
     
     //Uhrzeit 7 zur Dosierung von Dosierpumpe 4
@@ -2453,12 +2453,12 @@ void MenuWerteSetzen()
       if (FirstSelect)
       {
         FirstSelect = false;
-        Dosierung4_7 = setDisplayTime (-1, Dosierung4_7, 11, 1);
+        Dosierpumpen[3].Dosierung[6] = setDisplayTime (-1, Dosierpumpen[3].Dosierung[6], 11, 1);
       }
       else
-        Dosierung4_7 = setDisplayTime (key, Dosierung4_7, 11, 1);
-        EEPROM.writeInt(494, Dosierung4_7.hour);
-        EEPROM.writeInt(496, Dosierung4_7.min);
+        Dosierpumpen[3].Dosierung[6] = setDisplayTime (key, Dosierpumpen[3].Dosierung[6], 11, 1);
+        EEPROM.writeInt(494, Dosierpumpen[3].Dosierung[6].hour);
+        EEPROM.writeInt(496, Dosierpumpen[3].Dosierung[6].min);
     }   
     
     //Uhrzeit 8 zur Dosierung von Dosierpumpe 4
@@ -2468,12 +2468,12 @@ void MenuWerteSetzen()
       if (FirstSelect)
       {
         FirstSelect = false;
-        Dosierung4_8 = setDisplayTime (-1, Dosierung4_8, 11, 1);
+        Dosierpumpen[3].Dosierung[7] = setDisplayTime (-1, Dosierpumpen[3].Dosierung[7], 11, 1);
       }
       else
-        Dosierung4_8 = setDisplayTime (key, Dosierung4_8, 11, 1);
-        EEPROM.writeInt(498, Dosierung4_8.hour);
-        EEPROM.writeInt(500, Dosierung4_8.min);
+        Dosierpumpen[3].Dosierung[7] = setDisplayTime (key, Dosierpumpen[3].Dosierung[7], 11, 1);
+        EEPROM.writeInt(498, Dosierpumpen[3].Dosierung[7].hour);
+        EEPROM.writeInt(500, Dosierpumpen[3].Dosierung[7].min);
     }   
     
     //Uhrzeit 9 zur Dosierung von Dosierpumpe 4
@@ -2483,12 +2483,12 @@ void MenuWerteSetzen()
       if (FirstSelect)
       {
         FirstSelect = false;
-        Dosierung4_9 = setDisplayTime (-1, Dosierung4_9, 11, 1);
+        Dosierpumpen[3].Dosierung[8] = setDisplayTime (-1, Dosierpumpen[3].Dosierung[8], 11, 1);
       }
       else
-        Dosierung4_9 = setDisplayTime (key, Dosierung4_9, 11, 1);
-        EEPROM.writeInt(502, Dosierung4_9.hour);
-        EEPROM.writeInt(504, Dosierung4_9.min);
+        Dosierpumpen[3].Dosierung[8] = setDisplayTime (key, Dosierpumpen[3].Dosierung[8], 11, 1);
+        EEPROM.writeInt(502, Dosierpumpen[3].Dosierung[8].hour);
+        EEPROM.writeInt(504, Dosierpumpen[3].Dosierung[8].min);
     }   
     
     //Uhrzeit 10 zur Dosierung von Dosierpumpe 4
@@ -2498,12 +2498,12 @@ void MenuWerteSetzen()
       if (FirstSelect)
       {
         FirstSelect = false;
-        Dosierung4_10 = setDisplayTime (-1, Dosierung4_10, 11, 1);
+        Dosierpumpen[3].Dosierung[9] = setDisplayTime (-1, Dosierpumpen[3].Dosierung[9], 11, 1);
       }
       else
-        Dosierung4_10 = setDisplayTime (key, Dosierung4_10, 11, 1);
-        EEPROM.writeInt(506, Dosierung4_10.hour);
-        EEPROM.writeInt(508, Dosierung4_10.min);
+        Dosierpumpen[3].Dosierung[9] = setDisplayTime (key, Dosierpumpen[3].Dosierung[9], 11, 1);
+        EEPROM.writeInt(506, Dosierpumpen[3].Dosierung[9].hour);
+        EEPROM.writeInt(508, Dosierpumpen[3].Dosierung[9].min);
     }   
     
     //Uhrzeit 11 zur Dosierung von Dosierpumpe 4
@@ -2513,12 +2513,12 @@ void MenuWerteSetzen()
       if (FirstSelect)
       {
         FirstSelect = false;
-        Dosierung4_11 = setDisplayTime (-1, Dosierung4_11, 11, 1);
+        Dosierpumpen[3].Dosierung[10] = setDisplayTime (-1, Dosierpumpen[3].Dosierung[10], 11, 1);
       }
       else
-        Dosierung4_11 = setDisplayTime (key, Dosierung4_11, 11, 1);
-        EEPROM.writeInt(510, Dosierung4_11.hour);
-        EEPROM.writeInt(512, Dosierung4_11.min);
+        Dosierpumpen[3].Dosierung[10] = setDisplayTime (key, Dosierpumpen[3].Dosierung[10], 11, 1);
+        EEPROM.writeInt(510, Dosierpumpen[3].Dosierung[10].hour);
+        EEPROM.writeInt(512, Dosierpumpen[3].Dosierung[10].min);
     }   
     
     //Uhrzeit 12 zur Dosierung von Dosierpumpe 4
@@ -2528,12 +2528,12 @@ void MenuWerteSetzen()
       if (FirstSelect)
       {
         FirstSelect = false;
-        Dosierung4_12 = setDisplayTime (-1, Dosierung4_12, 11, 1);
+        Dosierpumpen[3].Dosierung[11] = setDisplayTime (-1, Dosierpumpen[3].Dosierung[11], 11, 1);
       }
       else
-        Dosierung4_12 = setDisplayTime (key, Dosierung4_12, 11, 1);
-        EEPROM.writeInt(514, Dosierung4_12.hour);
-        EEPROM.writeInt(516, Dosierung4_12.min);
+        Dosierpumpen[3].Dosierung[11] = setDisplayTime (key, Dosierpumpen[3].Dosierung[11], 11, 1);
+        EEPROM.writeInt(514, Dosierpumpen[3].Dosierung[11].hour);
+        EEPROM.writeInt(516, Dosierpumpen[3].Dosierung[11].min);
     }   
     //----------------------------- bis hier hin Dosierer 4-----------------------------------------------------------------------
     
