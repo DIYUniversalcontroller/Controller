@@ -618,6 +618,27 @@ void setup() {
   Serial.println(EEPROM.readInt(0));
   requestEEPROM();
   
+  for (int n; n < 4; n++) {
+
+          for (int i; i < 12; i++) {
+            Dosierpumpen[n].Dosierung[i].hour = EEPROM.getAddress(sizeof(int));
+            //Dosierpumpen[n].Dosierung[i].min = EEPROM.getAddress(sizeof(int));
+            
+            Serial.print("adress for hour of Dosierpumpe no. ");
+            Serial.print(n);
+            Serial.print("  with dosing time no. ");
+            Serial.print(i);
+            Serial.println(Dosierpumpen[n].Dosierung[i].hour);
+            
+//            Serial.print("adress for min of Dosierpumpe no. ");
+//            Serial.print(n);
+//            Serial.print("  with dosing time no. ");
+//            Serial.print(i);
+//            Serial.println(Dosierpumpen[n].Dosierung[i].min);
+            
+          }
+      }
+  
   //Alle PinModes
   pinMode(BUZZERPORT, OUTPUT); // set a pin for buzzer output
   pinMode(S_Sensor, INPUT); // set a pin for liquidsensor output
