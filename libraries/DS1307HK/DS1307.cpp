@@ -50,6 +50,18 @@ Time::Time()
 	this->dow  = 5;
 }
 
+/**
+*	My code
+*/
+Time::Time(uint8_t h, uint8_t m, uint8_t s)
+{
+	this->hour = h;
+	this->min  = m;
+	this->sec  = s;
+}
+		
+
+
 DS1307_RAM::DS1307_RAM()
 {
 	for (int i=0; i<56; i++)

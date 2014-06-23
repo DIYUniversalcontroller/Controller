@@ -69,7 +69,8 @@ public:
 	uint16_t	year;
 	uint8_t		dow;
 
-		Time();
+	Time();
+	Time(uint8_t h, uint8_t m, uint8_t s);
 };
 
 class DS1307_RAM

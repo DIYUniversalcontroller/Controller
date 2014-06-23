@@ -50,7 +50,16 @@ typedef struct {
   long Endtime;
 }PUMP;
 
-PUMP Dosierpumpen[8];
+PUMP Dosierpumpen[8] ={
+	{100, {Time(8,0,0), Time(9,0,0), Time(9,30,0), Time(14,30,0), Time(15,30,0), Time(17,0,0), Time(17,30,0), Time(18,0,0), Time(18,30,0), Time(19,0,0), Time(19,30,0), Time(20,30,0)},0,0,{0,0,0,0,0,0,0,0,0,0,0,0},0,0,0}, //Dosiermenge, {{Dosierung.hour},{Dosierung.min},{Dosierung.sec}}, Dosierdauer, Kalibrierung, {Dosierautomatzeit}, Dosiernachfuell, Doseirmanuel, Endtime
+        {0, {Time(14,0,0), Time(14,0,0), Time(14,0,0), Time(14,0,0), Time(14,0,0), Time(14,0,0), Time(14,0,0), Time(14,0,0), Time(14,0,0), Time(14,0,0), Time(14,0,0), Time(14,0,0)},0,0,{0,0,0,0,0,0,0,0,0,0,0,0},0,0,0},
+        {0, {Time(14,0,0), Time(14,0,0), Time(14,0,0), Time(14,0,0), Time(14,0,0), Time(14,0,0), Time(14,0,0), Time(14,0,0), Time(14,0,0), Time(14,0,0), Time(14,0,0), Time(14,0,0)},0,0,{0,0,0,0,0,0,0,0,0,0,0,0},0,0,0},
+        {0, {Time(14,0,0), Time(14,0,0), Time(14,0,0), Time(14,0,0), Time(14,0,0), Time(14,0,0), Time(14,0,0), Time(14,0,0), Time(14,0,0), Time(14,0,0), Time(14,0,0), Time(14,0,0)},0,0,{0,0,0,0,0,0,0,0,0,0,0,0},0,0,0},
+        {0, {Time(14,0,0), Time(14,0,0), Time(14,0,0), Time(14,0,0), Time(14,0,0), Time(14,0,0), Time(14,0,0), Time(14,0,0), Time(14,0,0), Time(14,0,0), Time(14,0,0), Time(14,0,0)},0,0,{0,0,0,0,0,0,0,0,0,0,0,0},0,0,0},
+        {0, {Time(14,0,0), Time(14,0,0), Time(14,0,0), Time(14,0,0), Time(14,0,0), Time(14,0,0), Time(14,0,0), Time(14,0,0), Time(14,0,0), Time(14,0,0), Time(14,0,0), Time(14,0,0)},0,0,{0,0,0,0,0,0,0,0,0,0,0,0},0,0,0},
+        {0, {Time(14,0,0), Time(14,0,0), Time(14,0,0), Time(14,0,0), Time(14,0,0), Time(14,0,0), Time(14,0,0), Time(14,0,0), Time(14,0,0), Time(14,0,0), Time(14,0,0), Time(14,0,0)},0,0,{0,0,0,0,0,0,0,0,0,0,0,0},0,0,0},
+        {0, {Time(14,0,0), Time(14,0,0), Time(14,0,0), Time(14,0,0), Time(14,0,0), Time(14,0,0), Time(14,0,0), Time(14,0,0), Time(14,0,0), Time(14,0,0), Time(14,0,0), Time(14,0,0)},0,0,{0,0,0,0,0,0,0,0,0,0,0,0},0,0,0}
+};
 
 //  Erstellung eines Fish-Symbols das nach rechts schaut
 byte newChar[8] = {
@@ -216,6 +225,8 @@ Time HintergrundbeleuchtungAn;
 Time HintergrundbeleuchtungAus;
 boolean prevBacklightSwitch = 0;
 boolean backlightSwitch = 0; 
+
+int Value = 0;
 
 
 
@@ -618,23 +629,33 @@ void setup() {
   Serial.println(EEPROM.readInt(0));
   requestEEPROM();
   
-  for (int n; n < 4; n++) {
+  for (int n = 0; n < 4; n++) {
 
-          for (int i; i < 12; i++) {
+          for (int i = 0; i < 12; i++) {
             Dosierpumpen[n].Dosierung[i].hour = EEPROM.getAddress(sizeof(int));
-            //Dosierpumpen[n].Dosierung[i].min = EEPROM.getAddress(sizeof(int));
+            Value = EEPROM.readInt(Dosierpumpen[n].Dosierung[i].hour);
+            Dosierpumpen[n].Dosierung[i].min = EEPROM.getAddress(sizeof(int));
+            
             
             Serial.print("adress for hour of Dosierpumpe no. ");
             Serial.print(n);
-            Serial.print("  with dosing time no. ");
+            Serial.print("  with dosing hour no. ");
             Serial.print(i);
+            Serial.print("    ");
             Serial.println(Dosierpumpen[n].Dosierung[i].hour);
+            Serial.print("Value of this adress");
+            Serial.println(Value);
             
-//            Serial.print("adress for min of Dosierpumpe no. ");
-//            Serial.print(n);
-//            Serial.print("  with dosing time no. ");
-//            Serial.print(i);
-//            Serial.println(Dosierpumpen[n].Dosierung[i].min);
+            
+            Serial.print("adress for min of Dosierpumpe no. ");
+            Serial.print(n);
+            Serial.print("  with dosing min no. ");
+            Serial.print(i);
+            Serial.print("    ");
+            Serial.println(Dosierpumpen[n].Dosierung[i].min);
+            Value = EEPROM.readInt(Dosierpumpen[n].Dosierung[i].hour);
+            Serial.print("Value of this adress");
+            Serial.println(Value);
             
           }
       }
