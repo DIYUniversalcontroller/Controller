@@ -76,6 +76,11 @@ boolean backlightSwitch = 0;
 int Value = 0;
 
 //-------------------------------------------------------------------------------------------------------
+//-------------------------------- L I Q U I D - L E V E L S E N S O R - P O R T  ---------------------------
+const int S_Sensor = 24;         // Fill Level Sensors are connected to digital port 24 (Schwimmerschalter 1) Technikbecken Füllstand High
+int liquidSensorValue = 0;
+//-------------------------------------------------------------------------------------------------------
+
 
 //HD44780U (LCD-II)Oktal-Codes für Umlaute (-see page 17 on Datasheet for ROM Code: A00-):
 //ö =  \357
@@ -118,14 +123,14 @@ const int MENUDOSIERPUMPENEINSTELLUNG2 = 5;
 
 
 PUMP Dosierpumpen[8] = {
-  {100, {Time(8, 0, 0), Time(9, 0, 0), Time(9, 30, 0), Time(14, 30, 0), Time(15, 30, 0), Time(17, 0, 0), Time(17, 30, 0), Time(18, 0, 0), Time(18, 30, 0), Time(19, 0, 0), Time(19, 30, 0), Time(20, 30, 0)}, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 0, 0}, //Dosiermenge, {{Dosierung.hour},{Dosierung.min},{Dosierung.sec}}, Dosierdauer, Kalibrierung, {Dosierautomatzeit}, Dosiernachfuell, Doseirmanuel, Endtime
-  {0, {Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0)}, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 0, 0},
-  {0, {Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0)}, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 0, 0},
-  {0, {Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0)}, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 0, 0},
-  {0, {Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0)}, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 0, 0},
-  {0, {Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0)}, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 0, 0},
-  {0, {Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0)}, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 0, 0},
-  {0, {Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0)}, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 0, 0}
+  {100, {Time(8, 0, 0), Time(9, 0, 0), Time(9, 30, 0), Time(14, 30, 0), Time(15, 30, 0), Time(17, 0, 0), Time(17, 30, 0), Time(18, 0, 0), Time(18, 30, 0), Time(19, 0, 0), Time(19, 30, 0), Time(20, 30, 0)}, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 0, 0, 0}, //Dosiermenge, {{Dosierung.hour},{Dosierung.min},{Dosierung.sec}}, Dosierdauer, Kalibrierung, {Dosierautomatzeit}, Dosiernachfuell, Doseirmanuel, Endtime, Dosierspeed
+  {0, {Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0)}, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 0, 0, 0},
+  {0, {Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0)}, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 0, 0, 0},
+  {0, {Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0)}, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 0, 0, 0},
+  {0, {Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0)}, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 0, 0, 0},
+  {0, {Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0)}, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 0, 0, 0},
+  {0, {Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0)}, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 0, 0, 0},
+  {0, {Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0)}, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 0, 0, 0}
 };
 
 
@@ -139,26 +144,21 @@ const int MENUDOSIERER1MANUELL = 1;
 char sMenuDosierer1Manuell[MENUDOSIERER1MANUELL + 1][17] = {
   "zur\365ck          ", "Manuell         "
 }; //ml in 1 Minute gemessen; wieviel ml soll dosiert werden; wann soll dosiert werden
-boolean Dosiermanuell_1;
 
 const int MENUDOSIERER1KALIB = 2;
 char sMenuDosierer1Kalib[MENUDOSIERER1KALIB + 1][17] = {
   "zur\365ck          ", "Kalib        ml", "Set Time Loop   "
 }; //ml in 1 Minute gemessen; wieviel ml soll dosiert werden; wann soll dosiert werden
-int Kalibrierung1;
-long Endtime1;
 
 const int MENUDOSIERER1NACHFUELL = 1;
 char sMenuDosierer1Nachfuell[MENUDOSIERER1NACHFUELL + 1][17] = {
   "zur\365ck          ", "Nachf\365llaut.    "
 }; //ml in 1 Minute gemessen; wieviel ml soll dosiert werden; wann soll dosiert werden
-boolean Dosiernachfuell_1;
 
 const int MENUDOSIERER1SPEED = 1;
 char sMenuDosierer1Speed[MENUDOSIERER1SPEED + 1][17] = {
   "zur\365ck          ", "Speed           "
 }; //mit welcher Geschwindigkeit soll sich die Pumpe drehen; Werte von 0-255 sind moeglich
-int Dosierspeed_1;
 
 const int MENUDOSIERER1DOSIEREN = 13;
 char sMenuDosierer1Dosieren[MENUDOSIERER1DOSIEREN + 1][17] = {
@@ -187,30 +187,38 @@ const int MENUDOSIERER2MANUELL = 1;
 char sMenuDosierer2Manuell[MENUDOSIERER2MANUELL + 1][17] = {
   "zur\365ck          ", "Manuell         "
 }; //ml in 1 Minute gemessen; wieviel ml soll dosiert werden; wann soll dosiert werden
-boolean Dosiermanuell_2;
 
 const int MENUDOSIERER2KALIB = 2;
 char sMenuDosierer2Kalib[MENUDOSIERER2KALIB + 1][17] = {
   "zur\365ck          ", "Kalib        ml", "Set Time Loop   "
 }; //ml in 1 Minute gemessen; wieviel ml soll dosiert werden; wann soll dosiert werden
-int Kalibrierung2;
-long Endtime2;
 
 const int MENUDOSIERER2NACHFUELL = 1;
 char sMenuDosierer2Nachfuell[MENUDOSIERER2NACHFUELL + 1][17] = {
   "zur\365ck          ", "Nachf\365llaut.    "
 }; //ml in 1 Minute gemessen; wieviel ml soll dosiert werden; wann soll dosiert werden
-boolean Dosiernachfuell_2;
 
 const int MENUDOSIERER2SPEED = 1;
 char sMenuDosierer2Speed[MENUDOSIERER2SPEED + 1][17] = {
   "zur\365ck          ", "Speed           "
 }; //mit welcher Geschwindigkeit soll sich die Pumpe drehen; Werte von 0-255 sind moeglich
-int Dosierspeed_2;
 
 const int MENUDOSIERER2DOSIEREN = 13;
 char sMenuDosierer2Dosieren[MENUDOSIERER2DOSIEREN + 1][17] = {
-  "zur\365ck          ", "Dosiermenge   ml", "Dos-Zeit1       ", "Dos-Zeit2       ", "Dos-Zeit3       ", "Dos-Zeit4       ", "Dos-Zeit5       ", "Dos-Zeit6       ", "Dos-Zeit7       ", "Dos-Zeit8       ", "Dos-Zeit9       ", "Dos-Zeit10      ", "Dos-Zeit11      ", "Dos-Zeit12      "
+  "zur\365ck          ",
+  "Dosiermenge   ml",
+  "Dos-Zeit1       ",
+  "Dos-Zeit2       ",
+  "Dos-Zeit3       ",
+  "Dos-Zeit4       ",
+  "Dos-Zeit5       ",
+  "Dos-Zeit6       ",
+  "Dos-Zeit7       ",
+  "Dos-Zeit8       ",
+  "Dos-Zeit9       ",
+  "Dos-Zeit10      ",
+  "Dos-Zeit11      ",
+  "Dos-Zeit12      "
 }; //ml in 1 Minute gemessen; wieviel ml soll dosiert werden; wann soll dosiert werden
 //-----------------------------------------bis hier hin:  Dosierpumpe 2-------------------------------------------------------------------------------
 
@@ -320,72 +328,168 @@ void loop() {
   Minute = (time.min * MINUTE);
   HourTime = Sekunde + Minute;
 
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++ S C H W I M M E R S E N S O R    A U S L E S E N / S T A T U S A B F R A G E ++++++++++++++++++++++++++++++++++++++++++++++++++
+  liquidSensorValue = digitalRead(S_Sensor);
 
-  //+++++++++++++++++++++++++++++++++++++ D O S I E R P U M P E N +++++++++++++++++++++++++++++++++++++++++++++++++++
+//+++++++++++++++++++++++++++++++++++++ D O S I E R P U M P E N +++++++++++++++++++++++++++++++++++++++++++++++++++
 
-  Dosierpumpen[0].Dosierdauer = kalibrieren ( Dosierpumpen[0].Kalibrierung, Dosierpumpen[0].Dosiermenge, Dosierpumpen[0].Dosierdauer);
-  Dosierpumpen[1].Dosierdauer = kalibrieren ( Dosierpumpen[1].Kalibrierung, Dosierpumpen[1].Dosiermenge, Dosierpumpen[1].Dosierdauer);
-//  Dosierdauer2 = kalibrieren ( Kalibrierung2, Dosiermenge2, Dosierdauer2);
+// Berechne Uhrzeit in Sekunden wann gedüngt werden soll
+  for (int n = 0; n < 2; n++) {
 
-  Dosierpumpen[0].Dosierautomatzeit[0] = (Dosierpumpen[0].Dosierung[0].hour * HOUR) + (Dosierpumpen[0].Dosierung[0].min * MINUTE) + Dosierpumpen[0].Dosierung[0].sec;
-  Dosierpumpen[0].Dosierautomatzeit[1] = (Dosierpumpen[0].Dosierung[1].hour * HOUR) + (Dosierpumpen[0].Dosierung[1].min * MINUTE) + Dosierpumpen[0].Dosierung[1].sec;
-  Dosierpumpen[0].Dosierautomatzeit[2] = (Dosierpumpen[0].Dosierung[2].hour * HOUR) + (Dosierpumpen[0].Dosierung[2].min * MINUTE) + Dosierpumpen[0].Dosierung[2].sec;
-  Dosierpumpen[0].Dosierautomatzeit[3] = (Dosierpumpen[0].Dosierung[3].hour * HOUR) + (Dosierpumpen[0].Dosierung[3].min * MINUTE) + Dosierpumpen[0].Dosierung[3].sec;
-  Dosierpumpen[0].Dosierautomatzeit[4] = (Dosierpumpen[0].Dosierung[4].hour * HOUR) + (Dosierpumpen[0].Dosierung[4].min * MINUTE) + Dosierpumpen[0].Dosierung[4].sec;
-  Dosierpumpen[0].Dosierautomatzeit[5] = (Dosierpumpen[0].Dosierung[5].hour * HOUR) + (Dosierpumpen[0].Dosierung[5].min * MINUTE) + Dosierpumpen[0].Dosierung[5].sec;
-  Dosierpumpen[0].Dosierautomatzeit[6] = (Dosierpumpen[0].Dosierung[6].hour * HOUR) + (Dosierpumpen[0].Dosierung[6].min * MINUTE) + Dosierpumpen[0].Dosierung[6].sec;
-  Dosierpumpen[0].Dosierautomatzeit[7] = (Dosierpumpen[0].Dosierung[7].hour * HOUR) + (Dosierpumpen[0].Dosierung[7].min * MINUTE) + Dosierpumpen[0].Dosierung[7].sec;
-  Dosierpumpen[0].Dosierautomatzeit[8] = (Dosierpumpen[0].Dosierung[8].hour * HOUR) + (Dosierpumpen[0].Dosierung[8].min * MINUTE) + Dosierpumpen[0].Dosierung[8].sec;
-  Dosierpumpen[0].Dosierautomatzeit[9] = (Dosierpumpen[0].Dosierung[9].hour * HOUR) + (Dosierpumpen[0].Dosierung[9].min * MINUTE) + Dosierpumpen[0].Dosierung[9].sec;
-  Dosierpumpen[0].Dosierautomatzeit[10] = (Dosierpumpen[0].Dosierung[10].hour * HOUR) + (Dosierpumpen[0].Dosierung[10].min * MINUTE) + Dosierpumpen[0].Dosierung[10].sec;
-  Dosierpumpen[0].Dosierautomatzeit[11] = (Dosierpumpen[0].Dosierung[11].hour * HOUR) + (Dosierpumpen[0].Dosierung[11].min * MINUTE) + Dosierpumpen[0].Dosierung[11].sec;
+    for (int i = 0; i < 12; i++) {
+      Dosierpumpen[n].Dosierautomatzeit[i] = (Dosierpumpen[n].Dosierung[i].hour, Dosierpumpen[n].Dosierung[i].min, Dosierpumpen[n].Dosierung[i].sec);
+      
+      Dosierpumpen[n].Dosierdauer = kalibrieren ( Dosierpumpen[n].Kalibrierung, Dosierpumpen[n].Dosiermenge, Dosierpumpen[n].Dosierdauer);
 
-  Dosierpumpen[1].Dosierautomatzeit[0] = (Dosierpumpen[1].Dosierung[0].hour * HOUR) + (Dosierpumpen[1].Dosierung[0].min * MINUTE) + Dosierpumpen[1].Dosierung[0].sec;
-  Dosierpumpen[1].Dosierautomatzeit[1] = (Dosierpumpen[1].Dosierung[1].hour * HOUR) + (Dosierpumpen[1].Dosierung[1].min * MINUTE) + Dosierpumpen[1].Dosierung[1].sec;
-  Dosierpumpen[1].Dosierautomatzeit[2] = (Dosierpumpen[1].Dosierung[2].hour * HOUR) + (Dosierpumpen[1].Dosierung[2].min * MINUTE) + Dosierpumpen[1].Dosierung[2].sec;
-  Dosierpumpen[1].Dosierautomatzeit[3] = (Dosierpumpen[1].Dosierung[3].hour * HOUR) + (Dosierpumpen[1].Dosierung[3].min * MINUTE) + Dosierpumpen[1].Dosierung[3].sec;
-  Dosierpumpen[1].Dosierautomatzeit[4] = (Dosierpumpen[1].Dosierung[4].hour * HOUR) + (Dosierpumpen[1].Dosierung[4].min * MINUTE) + Dosierpumpen[1].Dosierung[4].sec;
-  Dosierpumpen[1].Dosierautomatzeit[5] = (Dosierpumpen[1].Dosierung[5].hour * HOUR) + (Dosierpumpen[1].Dosierung[5].min * MINUTE) + Dosierpumpen[1].Dosierung[5].sec;
-  Dosierpumpen[1].Dosierautomatzeit[6] = (Dosierpumpen[1].Dosierung[6].hour * HOUR) + (Dosierpumpen[1].Dosierung[6].min * MINUTE) + Dosierpumpen[1].Dosierung[6].sec;
-  Dosierpumpen[1].Dosierautomatzeit[7] = (Dosierpumpen[1].Dosierung[7].hour * HOUR) + (Dosierpumpen[1].Dosierung[7].min * MINUTE) + Dosierpumpen[1].Dosierung[7].sec;
-  Dosierpumpen[1].Dosierautomatzeit[8] = (Dosierpumpen[1].Dosierung[8].hour * HOUR) + (Dosierpumpen[1].Dosierung[8].min * MINUTE) + Dosierpumpen[1].Dosierung[8].sec;
-  Dosierpumpen[1].Dosierautomatzeit[9] = (Dosierpumpen[1].Dosierung[9].hour * HOUR) + (Dosierpumpen[1].Dosierung[9].min * MINUTE) + Dosierpumpen[1].Dosierung[9].sec;
-  Dosierpumpen[1].Dosierautomatzeit[10] = (Dosierpumpen[1].Dosierung[10].hour * HOUR) + (Dosierpumpen[1].Dosierung[10].min * MINUTE) + Dosierpumpen[1].Dosierung[10].sec;
-  Dosierpumpen[1].Dosierautomatzeit[11] = (Dosierpumpen[1].Dosierung[11].hour * HOUR) + (Dosierpumpen[1].Dosierung[11].min * MINUTE) + Dosierpumpen[1].Dosierung[11].sec;
+      if  (((lTime >= Dosierpumpen[n].Dosierautomatzeit[i]) && (lTime <= Dosierpumpen[n].Dosierautomatzeit[i] + Dosierpumpen[n].Dosierdauer) && (Dosierpumpen[n].Dosierautomatzeit[i] != 0) && (Dosierpumpen[n].Dosiernachfuell == false)) ||
+           ((Dosierpumpen[n].Endtime > 0) && (lTime <= Dosierpumpen[n].Endtime)) ||
+           (Dosierpumpen[n].Dosiermanuell == true) ||
+           ((liquidSensorValue == 1) && (Dosierpumpen[n].Dosiernachfuell == true)))
+
+      {
+
+        if (n == 0) {
+          //digitalWrite(M1_MENUDOSIERPORT_1, HIGH); //255; HIGH
+          motor1.setSpeed(Dosierpumpen[0].Dosierspeed);
+          motor1.run(FORWARD);
+        }
+        if (n == 1) {
+          //digitalWrite(M1_MENUDOSIERPORT_2, HIGH); //255; HIGH
+          motor2.setSpeed(Dosierpumpen[1].Dosierspeed);
+          motor2.run(FORWARD);
+        }
+//        if (n == 2) {
+//          //digitalWrite(M1_MENUDOSIERPORT_3, HIGH); //255; HIGH
+//          motor3.setSpeed(Dosierpumpen[2].Dosierspeed);
+//          motor3.run(FORWARD);
+//        }
+//        if (n == 3) {
+//          //digitalWrite(M1_MENUDOSIERPORT_4, HIGH); //255; HIGH
+//          motor4.setSpeed(Dosierpumpen[3].Dosierspeed);
+//          motor4.run(FORWARD);
+//        }
 
 
-  //  //1. Abfrage: Wann soll dosiert werden
-  //  //2. Abfrage: manuelle Zeitschleifensteuerung zur Messung; hier default-Wert 60 Sekunden
-  //  //3. Abfrage: manuelle Streuerung An/Aus
-  //  //Dosierpumpe1
-  //  if  (((lTime >= Dosierautomatzeit1_1) && (lTime <= Dosierautomatzeit1_1 + Dosierdauer1) && (Dosierautomatzeit1_1 != 0) && (Dosiernachfuell_1 == false)) ||
-  //       ((lTime >= Dosierautomatzeit1_2) && (lTime <= Dosierautomatzeit1_2 + Dosierdauer1) && (Dosierautomatzeit1_2 != 0) && (Dosiernachfuell_1 == false)) ||
-  //       ((lTime >= Dosierautomatzeit1_3) && (lTime <= Dosierautomatzeit1_3 + Dosierdauer1) && (Dosierautomatzeit1_3 != 0) && (Dosiernachfuell_1 == false)) ||
-  //       ((lTime >= Dosierautomatzeit1_4) && (lTime <= Dosierautomatzeit1_4 + Dosierdauer1) && (Dosierautomatzeit1_4 != 0) && (Dosiernachfuell_1 == false)) ||
-  //       ((lTime >= Dosierautomatzeit1_5) && (lTime <= Dosierautomatzeit1_5 + Dosierdauer1) && (Dosierautomatzeit1_5 != 0) && (Dosiernachfuell_1 == false)) ||
-  //       ((lTime >= Dosierautomatzeit1_6) && (lTime <= Dosierautomatzeit1_6 + Dosierdauer1) && (Dosierautomatzeit1_6 != 0) && (Dosiernachfuell_1 == false)) ||
-  //       ((lTime >= Dosierautomatzeit1_7) && (lTime <= Dosierautomatzeit1_7 + Dosierdauer1) && (Dosierautomatzeit1_7 != 0) && (Dosiernachfuell_1 == false)) ||
-  //       ((lTime >= Dosierautomatzeit1_8) && (lTime <= Dosierautomatzeit1_8 + Dosierdauer1) && (Dosierautomatzeit1_8 != 0) && (Dosiernachfuell_1 == false)) ||
-  //       ((lTime >= Dosierautomatzeit1_9) && (lTime <= Dosierautomatzeit1_9 + Dosierdauer1) && (Dosierautomatzeit1_9 != 0) && (Dosiernachfuell_1 == false)) ||
-  //       ((lTime >= Dosierautomatzeit1_10) && (lTime <= Dosierautomatzeit1_10 + Dosierdauer1) && (Dosierautomatzeit1_10 != 0) && (Dosiernachfuell_1 == false)) ||
-  //       ((lTime >= Dosierautomatzeit1_11) && (lTime <= Dosierautomatzeit1_11 + Dosierdauer1) && (Dosierautomatzeit1_11 != 0) && (Dosiernachfuell_1 == false)) ||
-  //       ((lTime >= Dosierautomatzeit1_12) && (lTime <= Dosierautomatzeit1_12 + Dosierdauer1) && (Dosierautomatzeit1_12 != 0) && (Dosiernachfuell_1 == false)) ||
-  //       ((Endtime1 > 0) && (lTime <= Endtime1)) ||
-  //       (Dosiermanuell_1 == true) ||
-  //       ((liquidSensorValue == 1) && (Dosiernachfuell_1 == true)))
-  //
-  //  {
-  //    //digitalWrite(M1_MENUDOSIERPORT_1, HIGH); //255
-  //    motor1.setSpeed(Dosierspeed_1);
-  //    motor1.run(FORWARD);
-  //
-  //  }
-  //  else
-  //  {
-  //    //digitalWrite(M1_MENUDOSIERPORT_1, LOW);
-  //    motor1.run(RELEASE);
-  //    Endtime1 = 0;
-  //  }
+      }
+      else
+      {
+        if (n == 1) {
+          //digitalWrite(M1_MENUDOSIERPORT_1, LOW);
+          motor1.run(RELEASE);
+          Dosierpumpen[0].Endtime = 0;
+        if (n == 2) {
+          //digitalWrite(M1_MENUDOSIERPORT_2, LOW);
+          motor2.run(RELEASE);
+          Dosierpumpen[1].Endtime = 0;
+        }
+//        if (n == 3) {
+//          //digitalWrite(M1_MENUDOSIERPORT_3, LOW);
+//          motor3.run(RELEASE);
+//          Dosierpumpen[2].Endtime = 0;
+//        }
+//        if (n == 4) {
+//          //digitalWrite(M1_MENUDOSIERPORT_4, LOW);
+//          motor4.run(RELEASE);
+//          Dosierpumpen[3].Endtime = 0;
+//        }
+
+      }
+      
+    }
+
+  }
+  
+  }
+
+//  Dosierpumpen[0].Dosierdauer = kalibrieren ( Dosierpumpen[0].Kalibrierung, Dosierpumpen[0].Dosiermenge, Dosierpumpen[0].Dosierdauer);
+//  Dosierpumpen[1].Dosierdauer = kalibrieren ( Dosierpumpen[1].Kalibrierung, Dosierpumpen[1].Dosiermenge, Dosierpumpen[1].Dosierdauer);
+////  Dosierdauer2 = kalibrieren ( Kalibrierung2, Dosiermenge2, Dosierdauer2);
+//
+//  Dosierpumpen[0].Dosierautomatzeit[0] = (Dosierpumpen[0].Dosierung[0].hour * HOUR) + (Dosierpumpen[0].Dosierung[0].min * MINUTE) + Dosierpumpen[0].Dosierung[0].sec;
+//  Dosierpumpen[0].Dosierautomatzeit[1] = (Dosierpumpen[0].Dosierung[1].hour * HOUR) + (Dosierpumpen[0].Dosierung[1].min * MINUTE) + Dosierpumpen[0].Dosierung[1].sec;
+//  Dosierpumpen[0].Dosierautomatzeit[2] = (Dosierpumpen[0].Dosierung[2].hour * HOUR) + (Dosierpumpen[0].Dosierung[2].min * MINUTE) + Dosierpumpen[0].Dosierung[2].sec;
+//  Dosierpumpen[0].Dosierautomatzeit[3] = (Dosierpumpen[0].Dosierung[3].hour * HOUR) + (Dosierpumpen[0].Dosierung[3].min * MINUTE) + Dosierpumpen[0].Dosierung[3].sec;
+//  Dosierpumpen[0].Dosierautomatzeit[4] = (Dosierpumpen[0].Dosierung[4].hour * HOUR) + (Dosierpumpen[0].Dosierung[4].min * MINUTE) + Dosierpumpen[0].Dosierung[4].sec;
+//  Dosierpumpen[0].Dosierautomatzeit[5] = (Dosierpumpen[0].Dosierung[5].hour * HOUR) + (Dosierpumpen[0].Dosierung[5].min * MINUTE) + Dosierpumpen[0].Dosierung[5].sec;
+//  Dosierpumpen[0].Dosierautomatzeit[6] = (Dosierpumpen[0].Dosierung[6].hour * HOUR) + (Dosierpumpen[0].Dosierung[6].min * MINUTE) + Dosierpumpen[0].Dosierung[6].sec;
+//  Dosierpumpen[0].Dosierautomatzeit[7] = (Dosierpumpen[0].Dosierung[7].hour * HOUR) + (Dosierpumpen[0].Dosierung[7].min * MINUTE) + Dosierpumpen[0].Dosierung[7].sec;
+//  Dosierpumpen[0].Dosierautomatzeit[8] = (Dosierpumpen[0].Dosierung[8].hour * HOUR) + (Dosierpumpen[0].Dosierung[8].min * MINUTE) + Dosierpumpen[0].Dosierung[8].sec;
+//  Dosierpumpen[0].Dosierautomatzeit[9] = (Dosierpumpen[0].Dosierung[9].hour * HOUR) + (Dosierpumpen[0].Dosierung[9].min * MINUTE) + Dosierpumpen[0].Dosierung[9].sec;
+//  Dosierpumpen[0].Dosierautomatzeit[10] = (Dosierpumpen[0].Dosierung[10].hour * HOUR) + (Dosierpumpen[0].Dosierung[10].min * MINUTE) + Dosierpumpen[0].Dosierung[10].sec;
+//  Dosierpumpen[0].Dosierautomatzeit[11] = (Dosierpumpen[0].Dosierung[11].hour * HOUR) + (Dosierpumpen[0].Dosierung[11].min * MINUTE) + Dosierpumpen[0].Dosierung[11].sec;
+//
+//  Dosierpumpen[1].Dosierautomatzeit[0] = (Dosierpumpen[1].Dosierung[0].hour * HOUR) + (Dosierpumpen[1].Dosierung[0].min * MINUTE) + Dosierpumpen[1].Dosierung[0].sec;
+//  Dosierpumpen[1].Dosierautomatzeit[1] = (Dosierpumpen[1].Dosierung[1].hour * HOUR) + (Dosierpumpen[1].Dosierung[1].min * MINUTE) + Dosierpumpen[1].Dosierung[1].sec;
+//  Dosierpumpen[1].Dosierautomatzeit[2] = (Dosierpumpen[1].Dosierung[2].hour * HOUR) + (Dosierpumpen[1].Dosierung[2].min * MINUTE) + Dosierpumpen[1].Dosierung[2].sec;
+//  Dosierpumpen[1].Dosierautomatzeit[3] = (Dosierpumpen[1].Dosierung[3].hour * HOUR) + (Dosierpumpen[1].Dosierung[3].min * MINUTE) + Dosierpumpen[1].Dosierung[3].sec;
+//  Dosierpumpen[1].Dosierautomatzeit[4] = (Dosierpumpen[1].Dosierung[4].hour * HOUR) + (Dosierpumpen[1].Dosierung[4].min * MINUTE) + Dosierpumpen[1].Dosierung[4].sec;
+//  Dosierpumpen[1].Dosierautomatzeit[5] = (Dosierpumpen[1].Dosierung[5].hour * HOUR) + (Dosierpumpen[1].Dosierung[5].min * MINUTE) + Dosierpumpen[1].Dosierung[5].sec;
+//  Dosierpumpen[1].Dosierautomatzeit[6] = (Dosierpumpen[1].Dosierung[6].hour * HOUR) + (Dosierpumpen[1].Dosierung[6].min * MINUTE) + Dosierpumpen[1].Dosierung[6].sec;
+//  Dosierpumpen[1].Dosierautomatzeit[7] = (Dosierpumpen[1].Dosierung[7].hour * HOUR) + (Dosierpumpen[1].Dosierung[7].min * MINUTE) + Dosierpumpen[1].Dosierung[7].sec;
+//  Dosierpumpen[1].Dosierautomatzeit[8] = (Dosierpumpen[1].Dosierung[8].hour * HOUR) + (Dosierpumpen[1].Dosierung[8].min * MINUTE) + Dosierpumpen[1].Dosierung[8].sec;
+//  Dosierpumpen[1].Dosierautomatzeit[9] = (Dosierpumpen[1].Dosierung[9].hour * HOUR) + (Dosierpumpen[1].Dosierung[9].min * MINUTE) + Dosierpumpen[1].Dosierung[9].sec;
+//  Dosierpumpen[1].Dosierautomatzeit[10] = (Dosierpumpen[1].Dosierung[10].hour * HOUR) + (Dosierpumpen[1].Dosierung[10].min * MINUTE) + Dosierpumpen[1].Dosierung[10].sec;
+//  Dosierpumpen[1].Dosierautomatzeit[11] = (Dosierpumpen[1].Dosierung[11].hour * HOUR) + (Dosierpumpen[1].Dosierung[11].min * MINUTE) + Dosierpumpen[1].Dosierung[11].sec;
+//
+//
+//  //1. Abfrage: Wann soll dosiert werden
+//  //2. Abfrage: manuelle Zeitschleifensteuerung zur Messung; hier default-Wert 60 Sekunden
+//  //3. Abfrage: manuelle Streuerung An/Aus
+//  //Dosierpumpe1
+//  if  (((lTime >= Dosierpumpen[0].Dosierautomatzeit[0]) && (lTime <= Dosierpumpen[0].Dosierautomatzeit[0] + Dosierpumpen[0].Dosierdauer) && (Dosierpumpen[0].Dosierautomatzeit[0] != 0) && (Dosierpumpen[0].Dosiernachfuell == false)) ||
+//       ((lTime >= Dosierpumpen[0].Dosierautomatzeit[1]) && (lTime <= Dosierpumpen[0].Dosierautomatzeit[1] + Dosierpumpen[0].Dosierdauer) && (Dosierpumpen[0].Dosierautomatzeit[1] != 0) && (Dosierpumpen[0].Dosiernachfuell == false)) ||
+//       ((lTime >= Dosierpumpen[0].Dosierautomatzeit[2]) && (lTime <= Dosierpumpen[0].Dosierautomatzeit[2] + Dosierpumpen[0].Dosierdauer) && (Dosierpumpen[0].Dosierautomatzeit[2] != 0) && (Dosierpumpen[0].Dosiernachfuell == false)) ||
+//       ((lTime >= Dosierpumpen[0].Dosierautomatzeit[3]) && (lTime <= Dosierpumpen[0].Dosierautomatzeit[3] + Dosierpumpen[0].Dosierdauer) && (Dosierpumpen[0].Dosierautomatzeit[3] != 0) && (Dosierpumpen[0].Dosiernachfuell == false)) ||
+//       ((lTime >= Dosierpumpen[0].Dosierautomatzeit[4]) && (lTime <= Dosierpumpen[0].Dosierautomatzeit[4] + Dosierpumpen[0].Dosierdauer) && (Dosierpumpen[0].Dosierautomatzeit[4] != 0) && (Dosierpumpen[0].Dosiernachfuell == false)) ||
+//       ((lTime >= Dosierpumpen[0].Dosierautomatzeit[5]) && (lTime <= Dosierpumpen[0].Dosierautomatzeit[5] + Dosierpumpen[0].Dosierdauer) && (Dosierpumpen[0].Dosierautomatzeit[5] != 0) && (Dosierpumpen[0].Dosiernachfuell == false)) ||
+//       ((lTime >= Dosierpumpen[0].Dosierautomatzeit[6]) && (lTime <= Dosierpumpen[0].Dosierautomatzeit[6] + Dosierpumpen[0].Dosierdauer) && (Dosierpumpen[0].Dosierautomatzeit[6] != 0) && (Dosierpumpen[0].Dosiernachfuell == false)) ||
+//       ((lTime >= Dosierpumpen[0].Dosierautomatzeit[7]) && (lTime <= Dosierpumpen[0].Dosierautomatzeit[7] + Dosierpumpen[0].Dosierdauer) && (Dosierpumpen[0].Dosierautomatzeit[7] != 0) && (Dosierpumpen[0].Dosiernachfuell == false)) ||
+//       ((lTime >= Dosierpumpen[0].Dosierautomatzeit[8]) && (lTime <= Dosierpumpen[0].Dosierautomatzeit[8] + Dosierpumpen[0].Dosierdauer) && (Dosierpumpen[0].Dosierautomatzeit[8] != 0) && (Dosierpumpen[0].Dosiernachfuell == false)) ||
+//       ((lTime >= Dosierpumpen[0].Dosierautomatzeit[9]) && (lTime <= Dosierpumpen[0].Dosierautomatzeit[9] + Dosierpumpen[0].Dosierdauer) && (Dosierpumpen[0].Dosierautomatzeit[9] != 0) && (Dosierpumpen[0].Dosiernachfuell == false)) ||
+//       ((lTime >= Dosierpumpen[0].Dosierautomatzeit[10]) && (lTime <= Dosierpumpen[0].Dosierautomatzeit[10] + Dosierpumpen[0].Dosierdauer) && (Dosierpumpen[0].Dosierautomatzeit[10] != 0) && (Dosierpumpen[0].Dosiernachfuell == false)) ||
+//       ((lTime >= Dosierpumpen[0].Dosierautomatzeit[11]) && (lTime <= Dosierpumpen[0].Dosierautomatzeit[11] + Dosierpumpen[0].Dosierdauer) && (Dosierpumpen[0].Dosierautomatzeit[11] != 0) && (Dosierpumpen[0].Dosiernachfuell == false)) ||
+//       ((Dosierpumpen[0].Endtime > 0) && (lTime <= Dosierpumpen[0].Endtime)) ||
+//       (Dosierpumpen[0].Dosiermanuell == true) ||
+//       ((liquidSensorValue == 1) && (Dosierpumpen[0].Dosiernachfuell == true)))
+//   {
+//    //digitalWrite(M1_MENUDOSIERPORT_1, HIGH); //255
+//    motor1.setSpeed(Dosierpumpen[0].Dosierspeed);
+//    motor1.run(FORWARD);
+//   }
+//  else
+//  {
+//    //digitalWrite(M1_MENUDOSIERPORT_1, LOW);
+//    motor1.run(RELEASE);
+//    Dosierpumpen[0].Endtime = 0;
+//  }
+//  
+//  //Dosierpumpe2
+//  if  (((lTime >= Dosierpumpen[1].Dosierautomatzeit[0]) && (lTime <= Dosierpumpen[1].Dosierautomatzeit[0] + Dosierpumpen[1].Dosierdauer) && (Dosierpumpen[1].Dosierautomatzeit[0] != 0) && (Dosierpumpen[1].Dosiernachfuell == false)) ||
+//       ((lTime >= Dosierpumpen[1].Dosierautomatzeit[1]) && (lTime <= Dosierpumpen[1].Dosierautomatzeit[1] + Dosierpumpen[1].Dosierdauer) && (Dosierpumpen[1].Dosierautomatzeit[1] != 0) && (Dosierpumpen[1].Dosiernachfuell == false)) ||
+//       ((lTime >= Dosierpumpen[1].Dosierautomatzeit[2]) && (lTime <= Dosierpumpen[1].Dosierautomatzeit[2] + Dosierpumpen[1].Dosierdauer) && (Dosierpumpen[1].Dosierautomatzeit[2] != 0) && (Dosierpumpen[1].Dosiernachfuell == false)) ||
+//       ((lTime >= Dosierpumpen[1].Dosierautomatzeit[3]) && (lTime <= Dosierpumpen[1].Dosierautomatzeit[3] + Dosierpumpen[1].Dosierdauer) && (Dosierpumpen[1].Dosierautomatzeit[3] != 0) && (Dosierpumpen[1].Dosiernachfuell == false)) ||
+//       ((lTime >= Dosierpumpen[1].Dosierautomatzeit[4]) && (lTime <= Dosierpumpen[1].Dosierautomatzeit[4] + Dosierpumpen[1].Dosierdauer) && (Dosierpumpen[1].Dosierautomatzeit[4] != 0) && (Dosierpumpen[1].Dosiernachfuell == false)) ||
+//       ((lTime >= Dosierpumpen[1].Dosierautomatzeit[5]) && (lTime <= Dosierpumpen[1].Dosierautomatzeit[5] + Dosierpumpen[1].Dosierdauer) && (Dosierpumpen[1].Dosierautomatzeit[5] != 0) && (Dosierpumpen[1].Dosiernachfuell == false)) ||
+//       ((lTime >= Dosierpumpen[1].Dosierautomatzeit[6]) && (lTime <= Dosierpumpen[1].Dosierautomatzeit[6] + Dosierpumpen[1].Dosierdauer) && (Dosierpumpen[1].Dosierautomatzeit[6] != 0) && (Dosierpumpen[1].Dosiernachfuell == false)) ||
+//       ((lTime >= Dosierpumpen[1].Dosierautomatzeit[7]) && (lTime <= Dosierpumpen[1].Dosierautomatzeit[7] + Dosierpumpen[1].Dosierdauer) && (Dosierpumpen[1].Dosierautomatzeit[7] != 0) && (Dosierpumpen[1].Dosiernachfuell == false)) ||
+//       ((lTime >= Dosierpumpen[1].Dosierautomatzeit[8]) && (lTime <= Dosierpumpen[1].Dosierautomatzeit[8] + Dosierpumpen[1].Dosierdauer) && (Dosierpumpen[1].Dosierautomatzeit[8] != 0) && (Dosierpumpen[1].Dosiernachfuell == false)) ||
+//       ((lTime >= Dosierpumpen[1].Dosierautomatzeit[9]) && (lTime <= Dosierpumpen[1].Dosierautomatzeit[9] + Dosierpumpen[1].Dosierdauer) && (Dosierpumpen[1].Dosierautomatzeit[9] != 0) && (Dosierpumpen[1].Dosiernachfuell == false)) ||
+//       ((lTime >= Dosierpumpen[1].Dosierautomatzeit[10]) && (lTime <= Dosierpumpen[1].Dosierautomatzeit[10] + Dosierpumpen[1].Dosierdauer) && (Dosierpumpen[1].Dosierautomatzeit[10] != 0) && (Dosierpumpen[1].Dosiernachfuell == false)) ||
+//       ((lTime >= Dosierpumpen[1].Dosierautomatzeit[11]) && (lTime <= Dosierpumpen[1].Dosierautomatzeit[11] + Dosierpumpen[1].Dosierdauer) && (Dosierpumpen[1].Dosierautomatzeit[11] != 0) && (Dosierpumpen[1].Dosiernachfuell == false)) ||
+//       ((Dosierpumpen[1].Endtime > 0) && (lTime <= Dosierpumpen[1].Endtime)) ||
+//       (Dosierpumpen[1].Dosiermanuell == true) ||
+//       ((liquidSensorValue == 1) && (Dosierpumpen[1].Dosiernachfuell == true)))
+//   {
+//    //digitalWrite(M1_MENUDOSIERPORT_1, HIGH); //255
+//    motor2.setSpeed(Dosierpumpen[1].Dosierspeed);
+//    motor2.run(FORWARD);
+//   }
+//  else
+//  {
+//    //digitalWrite(M1_MENUDOSIERPORT_1, LOW);
+//    motor2.run(RELEASE);
+//    Dosierpumpen[1].Endtime = 0;
+//  }
 
 
 

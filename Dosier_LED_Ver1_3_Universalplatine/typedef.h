@@ -14,6 +14,7 @@ typedef struct {
   boolean Dosiernachfuell;
   boolean Dosiermanuell;
   long Endtime;
+  int Dosierspeed;
 } PUMP;
 
 #endif

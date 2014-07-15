@@ -54,10 +54,10 @@ void MenuWerteSetzen()
       if (FirstSelect)
       { 
         FirstSelect = false;
-        Dosiermanuell_1 = setDisplayBoolean2 (-1, Dosiermanuell_1, 11, 1);
+        Dosierpumpen[0].Dosiermanuell = setDisplayBoolean2 (-1, Dosierpumpen[0].Dosiermanuell, 11, 1);
       }
       else
-        Dosiermanuell_1 = setDisplayBoolean2 (key, Dosiermanuell_1, 11, 1);
+        Dosierpumpen[0].Dosiermanuell = setDisplayBoolean2 (key, Dosierpumpen[0].Dosiermanuell, 11, 1);
         //EEPROM.writeByte(10, Dosiermanuell_1);
     }   
    
@@ -68,10 +68,10 @@ void MenuWerteSetzen()
       if (FirstSelect)
       {
         FirstSelect = false;
-        Kalibrierung1 = setDisplayInteger (-1, Kalibrierung1, 0, 1000, false, 9, 1);
+        Dosierpumpen[0].Kalibrierung = setDisplayInteger (-1, Dosierpumpen[0].Kalibrierung, 0, 1000, false, 9, 1);
       }
       else
-        Kalibrierung1 = setDisplayInteger (key, Kalibrierung1, 0, 1000, false, 9, 1);
+        Dosierpumpen[0].Kalibrierung = setDisplayInteger (key, Dosierpumpen[0].Kalibrierung, 0, 1000, false, 9, 1);
         //EEPROM.writeInt(11, Kalibrierung1);
     }   
   
@@ -82,10 +82,10 @@ void MenuWerteSetzen()
       if (FirstSelect)
       { 
         FirstSelect = false;
-        Endtime1 = TimeStamp (-1, 60, Endtime1, 0, 1); //Select Key, Dauer der manuell gesetzten Rotation [sek], Einfrieren einer Zeit, Column, Row
+        Dosierpumpen[0].Endtime = TimeStamp (-1, 60, Dosierpumpen[0].Endtime, 0, 1); //Select Key, Dauer der manuell gesetzten Rotation [sek], Einfrieren einer Zeit, Column, Row
       }
       else
-        Endtime1 = TimeStamp (key, 60, Endtime1, 0, 1); //Select Key, Dauer der manuell gesetzten Rotation [sek], Einfrieren einer Zeit , Column, Row
+        Dosierpumpen[0].Endtime = TimeStamp (key, 60, Dosierpumpen[0].Endtime, 0, 1); //Select Key, Dauer der manuell gesetzten Rotation [sek], Einfrieren einer Zeit , Column, Row
     } 
 
     //Nachfüllautomatik Dosierer 1 (An/Aus)
@@ -95,15 +95,17 @@ void MenuWerteSetzen()
       if (FirstSelect)
       { 
         FirstSelect = false;
-        Dosiernachfuell_1 = setDisplayBoolean2 (-1, Dosiernachfuell_1, 12, 1);
+        Dosierpumpen[0].Dosiernachfuell = setDisplayBoolean2 (-1, Dosierpumpen[0].Dosiernachfuell, 12, 1);
       }
       else
-        Dosiernachfuell_1 = setDisplayBoolean2 (key, Dosiernachfuell_1, 12, 1);
+        Dosierpumpen[0].Dosiernachfuell = setDisplayBoolean2 (key, Dosierpumpen[0].Dosiernachfuell, 12, 1);
         //EEPROM.writeByte(13, Dosiernachfuell_1);
         
-        if (Dosiernachfuell_1 == true)
+        if (Dosierpumpen[0].Dosiernachfuell == true)
         {
-          Dosiernachfuell_2 = false;
+          Dosierpumpen[1].Dosiernachfuell = false;
+          //Dosierpumpen[2].Dosiernachfuell = false;
+          //Dosierpumpen[3].Dosiernachfuell = false;
           //EEPROM.writeByte(68, 0);
           //EEPROM.writeByte(123, 0);
           //EEPROM.writeByte(178, 0);
@@ -118,10 +120,10 @@ void MenuWerteSetzen()
       if (FirstSelect)
       {
         FirstSelect = false;
-        Dosierspeed_1 = setDisplayInteger (-1, Dosierspeed_1, 90, 255, false, 9, 1);
+        Dosierpumpen[0].Dosierspeed = setDisplayInteger (-1, Dosierpumpen[0].Dosierspeed, 90, 255, false, 9, 1);
       }
       else
-        Dosierspeed_1 = setDisplayInteger (key, Dosierspeed_1, 90, 255, false, 9, 1);
+        Dosierpumpen[0].Dosierspeed = setDisplayInteger (key, Dosierpumpen[0].Dosierspeed, 90, 255, false, 9, 1);
         //EEPROM.writeInt(234, Dosierspeed_1);
         
     } 
@@ -327,10 +329,10 @@ void MenuWerteSetzen()
       if (FirstSelect)
       { 
         FirstSelect = false;
-        Dosiermanuell_2 = setDisplayBoolean2 (-1, Dosiermanuell_2, 11, 1);
+        Dosierpumpen[1].Dosiermanuell = setDisplayBoolean2 (-1, Dosierpumpen[1].Dosiermanuell, 11, 1);
       }
       else
-        Dosiermanuell_2 = setDisplayBoolean2 (key, Dosiermanuell_2, 11, 1);
+        Dosierpumpen[1].Dosiermanuell = setDisplayBoolean2 (key, Dosierpumpen[1].Dosiermanuell, 11, 1);
         //EEPROM.writeByte(65, Dosiermanuell_2);
     }   
    
@@ -341,10 +343,10 @@ void MenuWerteSetzen()
       if (FirstSelect)
       {
         FirstSelect = false;
-        Kalibrierung2 = setDisplayInteger (-1, Kalibrierung2, 0, 1000, false, 9, 1);
+        Dosierpumpen[1].Kalibrierung = setDisplayInteger (-1, Dosierpumpen[1].Kalibrierung, 0, 1000, false, 9, 1);
       }
       else
-        Kalibrierung2 = setDisplayInteger (key, Kalibrierung2, 0, 1000, false, 9, 1);
+        Dosierpumpen[1].Kalibrierung = setDisplayInteger (key, Dosierpumpen[1].Kalibrierung, 0, 1000, false, 9, 1);
         //EEPROM.writeInt(66, Kalibrierung2);
     }   
   
@@ -355,10 +357,10 @@ void MenuWerteSetzen()
       if (FirstSelect)
       { 
         FirstSelect = false;
-        Endtime2 = TimeStamp (-1, 60, Endtime2, 0, 1); //Select Key, Dauer der manuell gesetzten Rotation [sek], Einfrieren einer Zeit, Column, Row
+        Dosierpumpen[1].Endtime = TimeStamp (-1, 60, Dosierpumpen[1].Endtime, 0, 1); //Select Key, Dauer der manuell gesetzten Rotation [sek], Einfrieren einer Zeit, Column, Row
       }
       else
-        Endtime2 = TimeStamp (key, 60, Endtime2, 0, 1); //Select Key, Dauer der manuell gesetzten Rotation [sek], Einfrieren einer Zeit , Column, Row
+        Dosierpumpen[1].Endtime = TimeStamp (key, 60, Dosierpumpen[1].Endtime, 0, 1); //Select Key, Dauer der manuell gesetzten Rotation [sek], Einfrieren einer Zeit , Column, Row
     } 
 
     //Nachfüllautomatik Dosierer 2 (An/Aus)
@@ -368,15 +370,15 @@ void MenuWerteSetzen()
       if (FirstSelect)
       { 
         FirstSelect = false;
-        Dosiernachfuell_2 = setDisplayBoolean2 (-1, Dosiernachfuell_2, 12, 1);
+        Dosierpumpen[1].Dosiernachfuell = setDisplayBoolean2 (-1, Dosierpumpen[1].Dosiernachfuell, 12, 1);
       }
       else
-        Dosiernachfuell_2 = setDisplayBoolean2 (key, Dosiernachfuell_2, 12, 1);
+        Dosierpumpen[1].Dosiernachfuell = setDisplayBoolean2 (key, Dosierpumpen[1].Dosiernachfuell, 12, 1);
         //EEPROM.writeByte(68, Dosiernachfuell_2);
         
-        if (Dosiernachfuell_2 == true)
+        if (Dosierpumpen[1].Dosiernachfuell == true)
         {
-          Dosiernachfuell_1 = false;
+          Dosierpumpen[0].Dosiernachfuell = false;
           //EEPROM.writeByte(13, 0);
           //EEPROM.writeByte(123, 0);
           //EEPROM.writeByte(178, 0);
@@ -390,10 +392,10 @@ void MenuWerteSetzen()
       if (FirstSelect)
       {
         FirstSelect = false;
-        Dosierspeed_2 = setDisplayInteger (-1, Dosierspeed_2, 90, 255, false, 9, 1);
+        Dosierpumpen[1].Dosierspeed = setDisplayInteger (-1, Dosierpumpen[1].Dosierspeed, 90, 255, false, 9, 1);
       }
       else
-        Dosierspeed_2 = setDisplayInteger (key, Dosierspeed_2, 90, 255, false, 9, 1);
+        Dosierpumpen[1].Dosierspeed = setDisplayInteger (key, Dosierpumpen[1].Dosierspeed, 90, 255, false, 9, 1);
         //EEPROM.writeInt(236, Dosierspeed_2);
         
     }    
