@@ -507,17 +507,8 @@ void displayDosierpumpeneinstellung(int pos)
   lcd.print(sMenuDosierpumpeneinstellung[pos]);
 }
 
-void displayDosierpumpeneinstellung2(int pos)
-{
-  //lcd.clear();
-  lcd.setCursor(0, 1);
-  lcd.print("                ");
-  lcd.setCursor(0, 1);
-  lcd.print(sMenuDosierpumpeneinstellung2[pos]);
-}
-
 //------------------------------------Dosierpumpe1------------------------------------------------------
-void displayDosierer1Manuell(int pos)
+void displayDosiererManuell(int pos)
 {
   //lcd.clear();
   lcd.setCursor(0, 1);
@@ -525,10 +516,10 @@ void displayDosierer1Manuell(int pos)
   lcd.setCursor(0, 2);
   lcd.print("                ");
   lcd.setCursor(0, 1);
-  lcd.print(sMenuDosierer1Manuell[pos]);
+  lcd.print(sMenuDosiererManuell[pos]);
 }
 
-void displayDosierer1Kalib(int pos)
+void displayDosiererKalib(int pos)
 {
   //lcd.clear();
   lcd.setCursor(0, 1);
@@ -536,10 +527,10 @@ void displayDosierer1Kalib(int pos)
   lcd.setCursor(0, 2);
   lcd.print("                ");
   lcd.setCursor(0, 1);
-  lcd.print(sMenuDosierer1Kalib[pos]);
+  lcd.print(sMenuDosiererKalib[pos]);
 }
 
-void displayDosierer1Nachfuell(int pos)
+void displayDosiererNachfuell(int pos)
 {
   //lcd.clear();
   lcd.setCursor(0, 1);
@@ -547,10 +538,10 @@ void displayDosierer1Nachfuell(int pos)
   lcd.setCursor(0, 2);
   lcd.print("                ");
   lcd.setCursor(0, 1);
-  lcd.print(sMenuDosierer1Nachfuell[pos]);
+  lcd.print(sMenuDosiererNachfuell[pos]);
 }
 
-void displayDosierer1Speed(int pos)
+void displayDosiererSpeed(int pos)
 {
   //lcd.clear();
   lcd.setCursor(0, 1);
@@ -558,10 +549,10 @@ void displayDosierer1Speed(int pos)
   lcd.setCursor(0, 2);
   lcd.print("                ");
   lcd.setCursor(0, 1);
-  lcd.print(sMenuDosierer1Speed[pos]);
+  lcd.print(sMenuDosiererSpeed[pos]);
 }
 
-void displayDosierer1Dosieren(int pos)
+void displayDosiererDosieren(int pos)
 {
   //lcd.clear();
   lcd.setCursor(0, 1);
@@ -569,67 +560,6 @@ void displayDosierer1Dosieren(int pos)
   lcd.setCursor(0, 2);
   lcd.print("                ");
   lcd.setCursor(0, 1);
-  lcd.print(sMenuDosierer1Dosieren[pos]);
+  lcd.print(sMenuDosiererDosieren[pos]);
 }
 //--------------------bis hier hin Dosierer 1----------------------------
-
-//------------------------------------Dosierpumpe2------------------------------------------------------
-void displayDosierer2Manuell(int pos)
-{
-  //lcd.clear();
-  lcd.setCursor(0, 1);
-  lcd.print("                ");
-  lcd.setCursor(0, 2);
-  lcd.print("                ");
-  lcd.setCursor(0, 1);
-  lcd.print(sMenuDosierer2Manuell[pos]);
-}
-
-void displayDosierer2Kalib(int pos)
-{
-  //lcd.clear();
-  lcd.setCursor(0, 1);
-  lcd.print("                ");
-  lcd.setCursor(0, 2);
-  lcd.print("                ");
-  lcd.setCursor(0, 1);
-  lcd.print(sMenuDosierer2Kalib[pos]);
-}
-
-void displayDosierer2Nachfuell(int pos)
-{
-  //lcd.clear();
-  lcd.setCursor(0, 1);
-  lcd.print("                ");
-  lcd.setCursor(0, 2);
-  lcd.print("                ");
-  lcd.setCursor(0, 1);
-  lcd.print(sMenuDosierer2Nachfuell[pos]);
-}
-
-void displayDosierer2Speed(int pos)
-{
-  //lcd.clear();
-  lcd.setCursor(0, 1);
-  lcd.print("                ");
-  lcd.setCursor(0, 2);
-  lcd.print("                ");
-  lcd.setCursor(0, 1);
-  lcd.print(sMenuDosierer2Speed[pos]);
-}
-
-void displayDosierer2Dosieren(int pos)
-{
-  //lcd.clear();
-  lcd.setCursor(0, 1);
-  lcd.print("                ");
-  lcd.setCursor(0, 2);
-  lcd.print("                ");
-  lcd.setCursor(0, 1);
-  lcd.print(sMenuDosierer2Dosieren[pos]);
-}
-//--------------------bis hier hin Dosierer 2----------------------------
-
-
-
-

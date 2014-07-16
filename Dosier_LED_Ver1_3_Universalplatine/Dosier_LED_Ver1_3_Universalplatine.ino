@@ -58,6 +58,8 @@ int SetDisplayHelper = 0;
 int SetDisplayHelperDate = 0;
 
 //Menü
+byte menuPump;	// Speicher welche Pumpe grade eingestellt wird
+byte menuPumpTime; // Speicher welche Pumpenzeit editiert wird
 int MenuTiefe = 0;
 int MenuEbene0 = 0;
 int MenuEbene1 = 0;
@@ -141,27 +143,32 @@ PUMP Dosierpumpen[8] = {
 AF_DCMotor motor1(1, MOTOR12_64KHZ); // create motor #1, 1KHz pwm; MOTOR12_64KHZ, MOTOR12_8KHZ, MOTOR12_2KHZ, orMOTOR12_1KHZ is possible
 
 const int MENUDOSIERER1MANUELL = 1;
-char sMenuDosierer1Manuell[MENUDOSIERER1MANUELL + 1][17] = {
-  "zur\365ck          ", "Manuell         "
+char sMenuDosiererManuell[MENUDOSIERER1MANUELL + 1][17] = {
+  "zur\365ck          ",
+  "Manuell         "
 }; //ml in 1 Minute gemessen; wieviel ml soll dosiert werden; wann soll dosiert werden
 
 const int MENUDOSIERER1KALIB = 2;
-char sMenuDosierer1Kalib[MENUDOSIERER1KALIB + 1][17] = {
-  "zur\365ck          ", "Kalib        ml", "Set Time Loop   "
+char sMenuDosiererKalib[MENUDOSIERER1KALIB + 1][17] = {
+  "zur\365ck          ",
+  "Kalib         ml",
+  "Set Time Loop   "
 }; //ml in 1 Minute gemessen; wieviel ml soll dosiert werden; wann soll dosiert werden
 
 const int MENUDOSIERER1NACHFUELL = 1;
-char sMenuDosierer1Nachfuell[MENUDOSIERER1NACHFUELL + 1][17] = {
-  "zur\365ck          ", "Nachf\365llaut.    "
+char sMenuDosiererNachfuell[MENUDOSIERER1NACHFUELL + 1][17] = {
+  "zur\365ck          ",
+  "Nachf\365llaut.    "
 }; //ml in 1 Minute gemessen; wieviel ml soll dosiert werden; wann soll dosiert werden
 
 const int MENUDOSIERER1SPEED = 1;
-char sMenuDosierer1Speed[MENUDOSIERER1SPEED + 1][17] = {
-  "zur\365ck          ", "Speed           "
+char sMenuDosiererSpeed[MENUDOSIERER1SPEED + 1][17] = {
+  "zur\365ck          ",
+  "Speed           "
 }; //mit welcher Geschwindigkeit soll sich die Pumpe drehen; Werte von 0-255 sind moeglich
 
 const int MENUDOSIERER1DOSIEREN = 13;
-char sMenuDosierer1Dosieren[MENUDOSIERER1DOSIEREN + 1][17] = {
+char sMenuDosiererDosieren[MENUDOSIERER1DOSIEREN + 1][17] = {
   "zur\365ck          ",
   "Dosiermenge   ml", 
   "Dos-Zeit1       ",
@@ -178,49 +185,6 @@ char sMenuDosierer1Dosieren[MENUDOSIERER1DOSIEREN + 1][17] = {
   "Dos-Zeit12      "
 }; //ml in 1 Minute gemessen; wieviel ml soll dosiert werden; wann soll dosiert werden
 //-----------------------------------------bis hier hin:  Dosierpumpe 1-------------------------------------------------------------------------------
-
-//--------------------------------------------Dosierpumpe 2-----------------------------------------------------------------------------------------
-//const int M1_MENUDOSIERPORT_2 = 4;
-AF_DCMotor motor2(2, MOTOR12_64KHZ); // create motor #2, 1KHz pwm; MOTOR12_64KHZ, MOTOR12_8KHZ, MOTOR12_2KHZ, orMOTOR12_1KHZ is possible
-
-const int MENUDOSIERER2MANUELL = 1;
-char sMenuDosierer2Manuell[MENUDOSIERER2MANUELL + 1][17] = {
-  "zur\365ck          ", "Manuell         "
-}; //ml in 1 Minute gemessen; wieviel ml soll dosiert werden; wann soll dosiert werden
-
-const int MENUDOSIERER2KALIB = 2;
-char sMenuDosierer2Kalib[MENUDOSIERER2KALIB + 1][17] = {
-  "zur\365ck          ", "Kalib        ml", "Set Time Loop   "
-}; //ml in 1 Minute gemessen; wieviel ml soll dosiert werden; wann soll dosiert werden
-
-const int MENUDOSIERER2NACHFUELL = 1;
-char sMenuDosierer2Nachfuell[MENUDOSIERER2NACHFUELL + 1][17] = {
-  "zur\365ck          ", "Nachf\365llaut.    "
-}; //ml in 1 Minute gemessen; wieviel ml soll dosiert werden; wann soll dosiert werden
-
-const int MENUDOSIERER2SPEED = 1;
-char sMenuDosierer2Speed[MENUDOSIERER2SPEED + 1][17] = {
-  "zur\365ck          ", "Speed           "
-}; //mit welcher Geschwindigkeit soll sich die Pumpe drehen; Werte von 0-255 sind moeglich
-
-const int MENUDOSIERER2DOSIEREN = 13;
-char sMenuDosierer2Dosieren[MENUDOSIERER2DOSIEREN + 1][17] = {
-  "zur\365ck          ",
-  "Dosiermenge   ml",
-  "Dos-Zeit1       ",
-  "Dos-Zeit2       ",
-  "Dos-Zeit3       ",
-  "Dos-Zeit4       ",
-  "Dos-Zeit5       ",
-  "Dos-Zeit6       ",
-  "Dos-Zeit7       ",
-  "Dos-Zeit8       ",
-  "Dos-Zeit9       ",
-  "Dos-Zeit10      ",
-  "Dos-Zeit11      ",
-  "Dos-Zeit12      "
-}; //ml in 1 Minute gemessen; wieviel ml soll dosiert werden; wann soll dosiert werden
-//-----------------------------------------bis hier hin:  Dosierpumpe 2-------------------------------------------------------------------------------
 
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++ D O S I E R P U M P E N - E N D E ++++++++++++++++++++++++++++++++++++++++++++++++++
