@@ -507,6 +507,15 @@ void displayDosierpumpeneinstellung(int pos)
   lcd.print(sMenuDosierpumpeneinstellung[pos]);
 }
 
+void displayDosierpumpeneinstellung2(int pos)
+{
+  //lcd.clear();
+  lcd.setCursor(0, 1);
+  lcd.print("                ");
+  lcd.setCursor(0, 1);
+  lcd.print(sMenuDosierpumpeneinstellung2[pos]);
+}
+
 //------------------------------------Dosierpumpe1------------------------------------------------------
 void displayDosiererManuell(int pos)
 {

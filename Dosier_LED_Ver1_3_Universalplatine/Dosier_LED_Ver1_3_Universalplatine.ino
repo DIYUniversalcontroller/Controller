@@ -141,6 +141,7 @@ PUMP Dosierpumpen[8] = {
 //--------------------------------------------Dosierpumpe 1-----------------------------------------------------------------------------------------
 //const int M1_MENUDOSIERPORT_1 = 3;
 AF_DCMotor motor1(1, MOTOR12_64KHZ); // create motor #1, 1KHz pwm; MOTOR12_64KHZ, MOTOR12_8KHZ, MOTOR12_2KHZ, orMOTOR12_1KHZ is possible
+AF_DCMotor motor2(2, MOTOR12_64KHZ); // create motor #2, 1KHz pwm; MOTOR12_64KHZ, MOTOR12_8KHZ, MOTOR12_2KHZ, orMOTOR12_1KHZ is possible
 
 const int MENUDOSIERER1MANUELL = 1;
 char sMenuDosiererManuell[MENUDOSIERER1MANUELL + 1][17] = {

@@ -120,7 +120,7 @@ void MenuWerteAuswahl()
       MenuEbene2++;
       if (MenuEbene2 > MENUDOSIERPUMPENEINSTELLUNG2)
         MenuEbene2 = 0;
-      displayDosierpumpeneinstellung2(MenuEbene2);
+      displayDosierpumpeneinstellung(MenuEbene2);
     }
     
     //Dosierpumpeneinstellungsuntermenü Dosierer 2
@@ -129,7 +129,7 @@ void MenuWerteAuswahl()
       MenuEbene2++;
       if (MenuEbene2 > MENUDOSIERPUMPENEINSTELLUNG2)
         MenuEbene2 = 0;
-      displayDosierpumpeneinstellung2(MenuEbene2);
+      displayDosierpumpeneinstellung(MenuEbene2);
     }
     
     //Dosierpumpeneinstellungsuntermenü Dosierer 3
@@ -138,7 +138,7 @@ void MenuWerteAuswahl()
       MenuEbene2++;
       if (MenuEbene2 > MENUDOSIERPUMPENEINSTELLUNG2)
         MenuEbene2 = 0;
-      displayDosierpumpeneinstellung2(MenuEbene2);
+      displayDosierpumpeneinstellung(MenuEbene2);
     }
     
     //Dosierpumpeneinstellungsuntermenü Dosierer 4
@@ -147,7 +147,7 @@ void MenuWerteAuswahl()
       MenuEbene2++;
       if (MenuEbene2 > MENUDOSIERPUMPENEINSTELLUNG2)
         MenuEbene2 = 0;
-      displayDosierpumpeneinstellung2(MenuEbene2);
+      displayDosierpumpeneinstellung(MenuEbene2);
     }
     
     //------------------------------------------------Dosierpumpe1------------------------------------------------------------------
@@ -232,7 +232,7 @@ void MenuWerteAuswahl()
     {
       MenuTiefe++;
       MenuEbene2 = 1;
-      displayDosierpumpeneinstellung2(MenuEbene2);
+      displayDosierpumpeneinstellung(MenuEbene2);
       break;
     }
     
@@ -300,7 +300,7 @@ void MenuWerteAuswahl()
     if (MenuTiefe == 4 && MenuEbene0 == 2 && MenuEbene3 == 0)
     {
       MenuTiefe--;
-      displayDosierpumpeneinstellung2(MenuEbene2);
+      displayDosierpumpeneinstellung(MenuEbene2);
       break;
     }
     
@@ -312,6 +312,7 @@ void MenuWerteAuswahl()
     if (MenuTiefe == 2 && MenuEbene1 != 0)
     {
       MenuTiefe++;
+      menuPump= MenuEbene1-1;
       FirstSelect = true;
       break;
     }
