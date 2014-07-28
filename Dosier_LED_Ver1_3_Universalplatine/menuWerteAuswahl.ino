@@ -55,7 +55,7 @@ void MenuWerteAuswahl()
     
     for (int n = 1; n <= 2; n++) {   //Wir haben erstmal nur 2 Dosierpumpen!
       
-            //---------------------------Dosiererpumpe 1--------------------------------------------------------
+            //---------------------------Dosiererpumpe 1 - 8 --------------------------------------------------------
             if (MenuTiefe == 4 && MenuEbene0 == 2 && MenuEbene1 == n && MenuEbene2 == 1) // Die jeweiligen Pumpen bekommen wiederum eine neue Ebene, in der ihr die Werte gesetzte werden können!
             {
               MenuEbene3--;

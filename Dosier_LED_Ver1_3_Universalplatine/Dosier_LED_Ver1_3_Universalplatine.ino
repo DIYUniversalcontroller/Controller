@@ -237,9 +237,9 @@ void setup() {
   //Dosierpumpen[0]=loadEEPROMdosier(0);
   //oder in schleife:
 
-  //  for(int i=0;i<8;i++){	// 8 die anzahl an pumpen die zur verfügung stehen.
-  //	Serial.print (Dosierpumpen[i]=loadEEPROMdosier(i));
-  //  }
+//    for(int i=0;i<8;i++){	// 8 die anzahl an pumpen die zur verfügung stehen.
+//  	Serial.print (Dosierpumpen[i]=loadEEPROMdosier(i));
+//    }
 
 
 }
