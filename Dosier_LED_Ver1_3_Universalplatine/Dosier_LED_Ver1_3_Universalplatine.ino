@@ -106,9 +106,9 @@ char sMenuGrundeinstellung[MENUGRUNDEINSTELLUNG + 1][17] = {
 };
 
 //Dosierpumpe-Menü
-const int MENUDOSIERPUMPENEINSTELLUNG = 2; //Hier gibt man an wieviele Dosierpumpen man hat.
+const int MENUDOSIERPUMPENEINSTELLUNG = 8; //Hier gibt man an wieviele Dosierpumpen man hat.
 char sMenuDosierpumpeneinstellung[MENUDOSIERPUMPENEINSTELLUNG + 1][17] = {
-  "Hauptmen\365", "Dosierer 1", "Dosierer 2"
+  "Hauptmen\365", "Dosierer 1", "Dosierer 2", "Dosierer 3", "Dosierer 4", "Dosierer 5", "Dosierer 6", "Dosierer 7", "Dosierer 8"
 };
 
 //Dosierpumpe-Untermenü
@@ -140,10 +140,12 @@ PUMP Dosierpumpen[8] = {
 
 
 //--------------------------------D O S I E R P U M P E N - M O D U L E-----------------------------------------------------------------------------
-//--------------------------------------------Dosierpumpe 1-----------------------------------------------------------------------------------------
+//--------------------------------------------Dosierpumpe 1 - 8 -----------------------------------------------------------------------------------------
 //const int M1_MENUDOSIERPORT_1 = 3;
 AF_DCMotor motor1(1, MOTOR12_64KHZ); // create motor #1, 1KHz pwm; MOTOR12_64KHZ, MOTOR12_8KHZ, MOTOR12_2KHZ, orMOTOR12_1KHZ is possible
 AF_DCMotor motor2(2, MOTOR12_64KHZ); // create motor #2, 1KHz pwm; MOTOR12_64KHZ, MOTOR12_8KHZ, MOTOR12_2KHZ, orMOTOR12_1KHZ is possible
+AF_DCMotor motor3(3, MOTOR12_64KHZ); // create motor #3, 1KHz pwm; MOTOR12_64KHZ, MOTOR12_8KHZ, MOTOR12_2KHZ, orMOTOR12_1KHZ is possible
+AF_DCMotor motor4(4, MOTOR12_64KHZ); // create motor #4, 1KHz pwm; MOTOR12_64KHZ, MOTOR12_8KHZ, MOTOR12_2KHZ, orMOTOR12_1KHZ is possible
 
 const int MENUDOSIERER1MANUELL = 1;
 char sMenuDosiererManuell[MENUDOSIERER1MANUELL + 1][17] = {
@@ -192,25 +194,25 @@ char sMenuDosiererDosieren[MENUDOSIERER1DOSIEREN + 1][17] = {
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++ D O S I E R P U M P E N - E N D E ++++++++++++++++++++++++++++++++++++++++++++++++++
 
-//++++++++++++++++++++++++++++++++++++++++++++++++++++++ E E P R O M ++++++++++++++++++++++++++++++++++++++++++++++++++
-
-void saveEEPROMdosier(PUMP pStruct,byte number){
-	// zuerst die Adresse wo wir anfangen sollen
-	int startAdresse = 300;
-	// davon errechnen wir uns die eigentliche Adresse des Structs und updaten dieses:
-	EEPROM.updateBlock(startAdresse+(number*sizeof(PUMP)),pStruct);
-}
-
-PUMP loadEEPROMdosier(byte number){
-	PUMP pStruct;
-	// zuerst die Adresse wo wir anfangen sollen
-	int startAdresse = 300;
-	// davon errechnen wir uns die eigentliche Adresse des Structs und updaten dieses:
-	EEPROM.readBlock(startAdresse+(number*sizeof(PUMP)),pStruct);
-	return pStruct;
-}
-
-//++++++++++++++++++++++++++++++++++++++++++++++++++++++ E E P R O M - E N D E ++++++++++++++++++++++++++++++++++++++++++++++++++
+////++++++++++++++++++++++++++++++++++++++++++++++++++++++ E E P R O M ++++++++++++++++++++++++++++++++++++++++++++++++++
+//
+//void saveEEPROMdosier(PUMP pStruct,byte number){
+//	// zuerst die Adresse wo wir anfangen sollen
+//	int startAdresse = 300;
+//	// davon errechnen wir uns die eigentliche Adresse des Structs und updaten dieses:
+//	EEPROM.updateBlock(startAdresse+(number*sizeof(PUMP)),pStruct);
+//}
+//
+//PUMP loadEEPROMdosier(byte number){
+//	PUMP pStruct;
+//	// zuerst die Adresse wo wir anfangen sollen
+//	int startAdresse = 300;
+//	// davon errechnen wir uns die eigentliche Adresse des Structs und updaten dieses:
+//	EEPROM.readBlock(startAdresse+(number*sizeof(PUMP)),pStruct);
+//	return pStruct;
+//}
+//
+////++++++++++++++++++++++++++++++++++++++++++++++++++++++ E E P R O M - E N D E ++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
 
@@ -219,6 +221,8 @@ void setup() {
 
   Serial.begin(9600);
   //lcd.begin(16, 2);
+  
+  EEPROM.setMemPool(memBase, EEPROMSizeMega);
 
   lcd.init();
   lcd.backlight();
@@ -231,16 +235,7 @@ void setup() {
   //Die Uhr
   rtc.halt(false);
 
-
-
-  // Zum auslesen der pumpe aus ram reicht (z.b. im Setup() )
-  //Dosierpumpen[0]=loadEEPROMdosier(0);
-  //oder in schleife:
-
-//    for(int i=0;i<8;i++){	// 8 die anzahl an pumpen die zur verfügung stehen.
-//  	Serial.print (Dosierpumpen[i]=loadEEPROMdosier(i));
-//    }
-
+ Serial.print(EEPROM.readBlock(300, Dosierpumpen,8));
 
 }
 
@@ -301,7 +296,7 @@ void loop() {
 //+++++++++++++++++++++++++++++++++++++ D O S I E R P U M P E N +++++++++++++++++++++++++++++++++++++++++++++++++++
 
 // Berechne Uhrzeit in Sekunden wann gedüngt werden soll
-  for (int n = 0; n < 2; n++) {
+  for (int n = 0; n < 8; n++) {
 
     for (int i = 0; i < 12; i++) {
       Dosierpumpen[n].Dosierautomatzeit[i] = (Dosierpumpen[n].Dosierung[i].hour * HOUR) + (Dosierpumpen[n].Dosierung[i].min * MINUTE) + (Dosierpumpen[n].Dosierung[i].sec);
@@ -325,16 +320,16 @@ void loop() {
           motor2.setSpeed(Dosierpumpen[1].Dosierspeed);
           motor2.run(FORWARD);
         }
-//        if (n == 2) {
-//          //digitalWrite(M1_MENUDOSIERPORT_3, HIGH); //255; HIGH
-//          motor3.setSpeed(Dosierpumpen[2].Dosierspeed);
-//          motor3.run(FORWARD);
-//        }
-//        if (n == 3) {
-//          //digitalWrite(M1_MENUDOSIERPORT_4, HIGH); //255; HIGH
-//          motor4.setSpeed(Dosierpumpen[3].Dosierspeed);
-//          motor4.run(FORWARD);
-//        }
+        if (n == 2) {
+          //digitalWrite(M1_MENUDOSIERPORT_3, HIGH); //255; HIGH
+          motor3.setSpeed(Dosierpumpen[2].Dosierspeed);
+          motor3.run(FORWARD);
+        }
+        if (n == 3) {
+          //digitalWrite(M1_MENUDOSIERPORT_4, HIGH); //255; HIGH
+          motor4.setSpeed(Dosierpumpen[3].Dosierspeed);
+          motor4.run(FORWARD);
+        }
 
 
       }
@@ -344,25 +339,26 @@ void loop() {
           //digitalWrite(M1_MENUDOSIERPORT_1, LOW);
           motor1.run(RELEASE);
           Dosierpumpen[0].Endtime = 0;
+        }
         if (n == 2) {
           //digitalWrite(M1_MENUDOSIERPORT_2, LOW);
           motor2.run(RELEASE);
           Dosierpumpen[1].Endtime = 0;
         }
-//        if (n == 3) {
-//          //digitalWrite(M1_MENUDOSIERPORT_3, LOW);
-//          motor3.run(RELEASE);
-//          Dosierpumpen[2].Endtime = 0;
-//        }
-//        if (n == 4) {
-//          //digitalWrite(M1_MENUDOSIERPORT_4, LOW);
-//          motor4.run(RELEASE);
-//          Dosierpumpen[3].Endtime = 0;
-//        }
+        if (n == 3) {
+          //digitalWrite(M1_MENUDOSIERPORT_3, LOW);
+          motor3.run(RELEASE);
+          Dosierpumpen[2].Endtime = 0;
+        }
+        if (n == 4) {
+          //digitalWrite(M1_MENUDOSIERPORT_4, LOW);
+          motor4.run(RELEASE);
+          Dosierpumpen[3].Endtime = 0;
+        }
 
       }
       
-    }
+    
 
   }
   

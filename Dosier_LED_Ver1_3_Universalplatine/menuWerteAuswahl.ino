@@ -34,8 +34,21 @@ void MenuWerteAuswahl()
       displayDosierpumpeneinstellung(MenuEbene1);
     }
     
-    //Dosierpumpeneinstellungsuntermenü Dosierer 1
-    if (MenuTiefe == 3 && MenuEbene0 == 2 &&  MenuEbene1 == 1) //Jeder Pumpe muss eine neue Ebene (MenuEbene1) zugeordnet werden!
+    //Dosierpumpeneinstellungsuntermenü Dosierer 1 - 8
+//    for (int j = 1; j <= 8; j++) {
+//    
+//      if (MenuTiefe == 3 && MenuEbene0 == 2 &&  MenuEbene1 == j) //Jeder Pumpe muss eine neue Ebene (MenuEbene1) zugeordnet werden!
+//      {
+//        MenuEbene2--;
+//        if (MenuEbene2 < 0)
+//          MenuEbene2 = MENUDOSIERPUMPENEINSTELLUNG2;
+//        displayDosierpumpeneinstellung2(MenuEbene2);
+//      }
+//    
+//    }
+
+//Dosierpumpeneinstellungsuntermenü Dosierer 1
+    if (MenuTiefe == 3 && MenuEbene0 == 2 &&  MenuEbene1 == 1)
     {
       MenuEbene2--;
       if (MenuEbene2 < 0)
@@ -50,10 +63,76 @@ void MenuWerteAuswahl()
       if (MenuEbene2 < 0)
         MenuEbene2 = MENUDOSIERPUMPENEINSTELLUNG2;
       displayDosierpumpeneinstellung2(MenuEbene2);
-    } 
+    }
+    
+    //Dosierpumpeneinstellungsuntermenü Dosierer 3
+    if (MenuTiefe == 3 && MenuEbene0 == 2 &&  MenuEbene1 == 3)
+    {
+      MenuEbene2--;
+      if (MenuEbene2 < 0)
+        MenuEbene2 = MENUDOSIERPUMPENEINSTELLUNG2;
+      displayDosierpumpeneinstellung2(MenuEbene2);
+    }
+    
+    //Dosierpumpeneinstellungsuntermenü Dosierer 4
+    if (MenuTiefe == 3 && MenuEbene0 == 2 &&  MenuEbene1 == 4)
+    {
+      MenuEbene2--;
+      if (MenuEbene2 < 0)
+        MenuEbene2 = MENUDOSIERPUMPENEINSTELLUNG2;
+      displayDosierpumpeneinstellung2(MenuEbene2);
+      
+    }
+      //Dosierpumpeneinstellungsuntermenü Dosierer 1
+    if (MenuTiefe == 3 && MenuEbene0 == 2 &&  MenuEbene1 == 5)
+    {
+      MenuEbene2--;
+      if (MenuEbene2 < 0)
+        MenuEbene2 = MENUDOSIERPUMPENEINSTELLUNG2;
+      displayDosierpumpeneinstellung2(MenuEbene2);
+    }
+    
+    //Dosierpumpeneinstellungsuntermenü Dosierer 2
+    if (MenuTiefe == 3 && MenuEbene0 == 2 &&  MenuEbene1 == 6)
+    {
+      MenuEbene2--;
+      if (MenuEbene2 < 0)
+        MenuEbene2 = MENUDOSIERPUMPENEINSTELLUNG2;
+      displayDosierpumpeneinstellung2(MenuEbene2);
+    }
+    
+    //Dosierpumpeneinstellungsuntermenü Dosierer 3
+    if (MenuTiefe == 3 && MenuEbene0 == 2 &&  MenuEbene1 == 7)
+    {
+      MenuEbene2--;
+      if (MenuEbene2 < 0)
+        MenuEbene2 = MENUDOSIERPUMPENEINSTELLUNG2;
+      displayDosierpumpeneinstellung2(MenuEbene2);
+    }
+    
+    //Dosierpumpeneinstellungsuntermenü Dosierer 4
+    if (MenuTiefe == 3 && MenuEbene0 == 2 &&  MenuEbene1 == 8)
+    {
+      MenuEbene2--;
+      if (MenuEbene2 < 0)
+        MenuEbene2 = MENUDOSIERPUMPENEINSTELLUNG2;
+      displayDosierpumpeneinstellung2(MenuEbene2);
+      
+    }
+
+
     
     
-    for (int n = 1; n <= 2; n++) {   //Wir haben erstmal nur 2 Dosierpumpen!
+    for (int n = 1; n <= 8; n++) {   //Wir haben erstmal nur 8 Dosierpumpen!
+    
+//            //Dosierpumpeneinstellungsuntermenü Dosierer 1 - 8
+//            if (MenuTiefe == 3 && MenuEbene0 == 2 &&  MenuEbene1 == n) //Jeder Pumpe muss eine neue Ebene (MenuEbene1) zugeordnet werden!
+//            {
+//              MenuEbene2--;
+//              if (MenuEbene2 < 0)
+//                MenuEbene2 = MENUDOSIERPUMPENEINSTELLUNG2;
+//              displayDosierpumpeneinstellung2(MenuEbene2);
+//            }
       
             //---------------------------Dosiererpumpe 1 - 8 --------------------------------------------------------
             if (MenuTiefe == 4 && MenuEbene0 == 2 && MenuEbene1 == n && MenuEbene2 == 1) // Die jeweiligen Pumpen bekommen wiederum eine neue Ebene, in der ihr die Werte gesetzte werden können!
@@ -127,6 +206,21 @@ void MenuWerteAuswahl()
       displayDosierpumpeneinstellung(MenuEbene1);
     }
     
+
+    //Dosierpumpeneinstellungsuntermenü Dosierer 1 - 8
+//    for (int j = 1; j <= 8; j++) {
+//
+//        //Dosierpumpeneinstellungsuntermenü Dosierer 1
+//        if (MenuTiefe == 3 && MenuEbene0 == 2 && MenuEbene1 == j )
+//        {
+//          MenuEbene2++;
+//          if (MenuEbene2 > MENUDOSIERPUMPENEINSTELLUNG2)
+//            MenuEbene2 = 0;
+//          displayDosierpumpeneinstellung2(MenuEbene2);
+//        }
+//    }
+    
+    
     //Dosierpumpeneinstellungsuntermenü Dosierer 1
     if (MenuTiefe == 3 && MenuEbene0 == 2 && MenuEbene1 == 1 )
     {
@@ -145,7 +239,70 @@ void MenuWerteAuswahl()
       displayDosierpumpeneinstellung2(MenuEbene2);
     }
     
-    for (int n = 1; n <= 2; n++) {
+    //Dosierpumpeneinstellungsuntermenü Dosierer 3
+    if (MenuTiefe == 3 && MenuEbene0 == 2 && MenuEbene1 == 3 )
+    {
+      MenuEbene2++;
+      if (MenuEbene2 > MENUDOSIERPUMPENEINSTELLUNG2)
+        MenuEbene2 = 0;
+      displayDosierpumpeneinstellung2(MenuEbene2);
+    }
+    
+    //Dosierpumpeneinstellungsuntermenü Dosierer 4
+    if (MenuTiefe == 3 && MenuEbene0 == 2 && MenuEbene1 == 4 )
+    {
+      MenuEbene2++;
+      if (MenuEbene2 > MENUDOSIERPUMPENEINSTELLUNG2)
+        MenuEbene2 = 0;
+      displayDosierpumpeneinstellung2(MenuEbene2);
+    }
+    //Dosierpumpeneinstellungsuntermenü Dosierer 1
+    if (MenuTiefe == 3 && MenuEbene0 == 2 && MenuEbene1 == 5 )
+    {
+      MenuEbene2++;
+      if (MenuEbene2 > MENUDOSIERPUMPENEINSTELLUNG2)
+        MenuEbene2 = 0;
+      displayDosierpumpeneinstellung2(MenuEbene2);
+    }
+    
+    //Dosierpumpeneinstellungsuntermenü Dosierer 2
+    if (MenuTiefe == 3 && MenuEbene0 == 2 && MenuEbene1 == 6 )
+    {
+      MenuEbene2++;
+      if (MenuEbene2 > MENUDOSIERPUMPENEINSTELLUNG2)
+        MenuEbene2 = 0;
+      displayDosierpumpeneinstellung2(MenuEbene2);
+    }
+    
+    //Dosierpumpeneinstellungsuntermenü Dosierer 3
+    if (MenuTiefe == 3 && MenuEbene0 == 2 && MenuEbene1 == 7 )
+    {
+      MenuEbene2++;
+      if (MenuEbene2 > MENUDOSIERPUMPENEINSTELLUNG2)
+        MenuEbene2 = 0;
+      displayDosierpumpeneinstellung2(MenuEbene2);
+    }
+    
+    //Dosierpumpeneinstellungsuntermenü Dosierer 4
+    if (MenuTiefe == 3 && MenuEbene0 == 2 && MenuEbene1 == 8 )
+    {
+      MenuEbene2++;
+      if (MenuEbene2 > MENUDOSIERPUMPENEINSTELLUNG2)
+        MenuEbene2 = 0;
+      displayDosierpumpeneinstellung2(MenuEbene2);
+    }
+    
+    
+    for (int n = 1; n <= 8; n++) {
+      
+//            //Dosierpumpeneinstellungsuntermenü Dosierer 1 - 8
+//            if (MenuTiefe == 3 && MenuEbene0 == 2 && MenuEbene1 == n )
+//              {
+//                MenuEbene2++;
+//                if (MenuEbene2 > MENUDOSIERPUMPENEINSTELLUNG2)
+//                  MenuEbene2 = 0;
+//                displayDosierpumpeneinstellung2(MenuEbene2);
+//              }
       
             //------------------------------------------------Dosierpumpe1------------------------------------------------------------------
             if (MenuTiefe == 4 && MenuEbene0 == 2 && MenuEbene1 == n &&  MenuEbene2 == 1)
@@ -226,28 +383,98 @@ void MenuWerteAuswahl()
       break;
     }
     
-    //Dosierpumpeneinstellungsuntermenü Dosierer 1
-    if (MenuTiefe == 2 && MenuEbene0 == 2 && MenuEbene1 == 1 )
-    {
-      MenuTiefe++;
-      MenuEbene2 = 1;
-      displayDosierpumpeneinstellung2(MenuEbene2);
-      break;
-    }
+    //Dosierpumpeneinstellungsuntermenü Dosierer 1 - 8
+//    for (int j = 1; j <= 8; j++) {
+//
+//        if (MenuTiefe == 2 && MenuEbene0 == 2 && MenuEbene1 == j )
+//        {
+//          MenuTiefe++;
+//          MenuEbene2 = 1;
+//          displayDosierpumpeneinstellung2(MenuEbene2);
+//          break;
+//        }
+//    }
+      if (MenuTiefe == 2 && MenuEbene0 == 2 && MenuEbene1 == 1 )
+        {
+          MenuTiefe++;
+          MenuEbene2 = 1;
+          displayDosierpumpeneinstellung2(MenuEbene2);
+          break;
+        }
+       
+       if (MenuTiefe == 2 && MenuEbene0 == 2 && MenuEbene1 == 2 )
+        {
+          MenuTiefe++;
+          MenuEbene2 = 1;
+          displayDosierpumpeneinstellung2(MenuEbene2);
+          break;
+        }
+        
+        if (MenuTiefe == 2 && MenuEbene0 == 2 && MenuEbene1 == 3 )
+        {
+          MenuTiefe++;
+          MenuEbene2 = 1;
+          displayDosierpumpeneinstellung2(MenuEbene2);
+          break;
+        }
+        
+        if (MenuTiefe == 2 && MenuEbene0 == 2 && MenuEbene1 == 4 )
+        {
+          MenuTiefe++;
+          MenuEbene2 = 1;
+          displayDosierpumpeneinstellung2(MenuEbene2);
+          break;
+        }
+        
+        if (MenuTiefe == 2 && MenuEbene0 == 2 && MenuEbene1 == 5 )
+        {
+          MenuTiefe++;
+          MenuEbene2 = 1;
+          displayDosierpumpeneinstellung2(MenuEbene2);
+          break;
+        }
+        
+        if (MenuTiefe == 2 && MenuEbene0 == 2 && MenuEbene1 == 6 )
+        {
+          MenuTiefe++;
+          MenuEbene2 = 1;
+          displayDosierpumpeneinstellung2(MenuEbene2);
+          break;
+        }
+        
+        if (MenuTiefe == 2 && MenuEbene0 == 2 && MenuEbene1 == 7 )
+        {
+          MenuTiefe++;
+          MenuEbene2 = 1;
+          displayDosierpumpeneinstellung2(MenuEbene2);
+          break;
+        }
+        
+        if (MenuTiefe == 2 && MenuEbene0 == 2 && MenuEbene1 == 8 )
+        {
+          MenuTiefe++;
+          MenuEbene2 = 1;
+          displayDosierpumpeneinstellung2(MenuEbene2);
+          break;
+        }
+        
+        
     
-    //Dosierpumpeneinstellungsuntermenü Dosierer 2
-    if (MenuTiefe == 2 && MenuEbene0 == 2 && MenuEbene1 == 2 )
-    {
-      MenuTiefe++;
-      MenuEbene2 = 1;
-      displayDosierpumpeneinstellung2(MenuEbene2);
-      break;
-    }
     
-    
-    for (int n = 1; n <= 2; n++) {
+    for (int n = 1; n <= 8; n++) {
       
-            //--------------------------------Dosiererpumpe 1 + 2-----------------------------------------------
+            
+//            //Dosierpumpeneinstellungsuntermenü Dosierer 1 - 8 
+//            if (MenuTiefe == 2 && MenuEbene0 == 2 && MenuEbene1 == n )
+//            {
+//              MenuTiefe++;
+//              MenuEbene2 = 1;
+//              displayDosierpumpeneinstellung2(MenuEbene2);
+//              break;
+//            }
+      
+      
+            //--------------------------------Dosiererpumpe 1 - 8-----------------------------------------------
             if (MenuTiefe == 3 && MenuEbene0 == 2 && MenuEbene1 == n &&  MenuEbene2 == 1)
             {
               MenuTiefe++;
@@ -302,6 +529,7 @@ void MenuWerteAuswahl()
     {
       MenuTiefe--;
       displayDosierpumpeneinstellung(MenuEbene1);
+      EEPROM.writeBlock(300,Dosierpumpen, 8);
       //Entweder man speichert spaeter hier ins EEPROM, wenn man alle Parameter der jeweiligen Dosierpumpe geändert hat, denn hier kommt man auf jedenfall auch immer hin...
       break;
     }

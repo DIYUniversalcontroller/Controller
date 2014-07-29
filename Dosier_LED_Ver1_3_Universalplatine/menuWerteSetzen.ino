@@ -46,7 +46,7 @@ void MenuWerteSetzen()
   }
   
   ///////////////////////////////////////////////////////////////// D O S I E R P U M P E N E I N S T E L L U N G E N ///////////////////////////////////////////////////////////
-  for (int n = 0; n <= 1; n++) { //0 bis 1 also 2 Dosierpumpen
+  for (int n = 0; n <= 7; n++) { //0 bis 7 also 8 Dosierpumpen
   
                   //---------------------------------------D O S I E R P U M P E   1 - 8 ----------------------------------------------
                     //Manuelle Steuerung fuer Dosierpumpe 1 - 8
@@ -60,7 +60,7 @@ void MenuWerteSetzen()
                       }
                       else
                         Dosierpumpen[n].Dosiermanuell = setDisplayBoolean2 (key, Dosierpumpen[n].Dosiermanuell, 11, 1);
-                        //EEPROM.writeByte(10, Dosiermanuell_1);
+                        
                     }   
                    
                     //Kalibrierungswert von Dosierpumpe 1 - 8
@@ -74,7 +74,7 @@ void MenuWerteSetzen()
                       }
                       else
                         Dosierpumpen[n].Kalibrierung = setDisplayInteger (key, Dosierpumpen[n].Kalibrierung, 0, 1000, false, 9, 1);
-                        //EEPROM.writeInt(11, Kalibrierung1);
+                        
                     }   
                   
                     //Fahre eine fest gesetzte Pumpszeit für Dosierpumpe 1 - 8
@@ -101,16 +101,14 @@ void MenuWerteSetzen()
                       }
                       else
                         Dosierpumpen[n].Dosiernachfuell = setDisplayBoolean2 (key, Dosierpumpen[n].Dosiernachfuell, 12, 1);
-                        //EEPROM.writeByte(13, Dosiernachfuell_1);
+                        
                         
 //                        if (Dosierpumpen[n].Dosiernachfuell == true)
 //                        {
 //                          Dosierpumpen[1].Dosiernachfuell = false;
 //                          //Dosierpumpen[2].Dosiernachfuell = false;
 //                          //Dosierpumpen[3].Dosiernachfuell = false;
-//                          //EEPROM.writeByte(68, 0);
-//                          //EEPROM.writeByte(123, 0);
-//                          //EEPROM.writeByte(178, 0);
+//                          
 //                        }
                         
                     }   
@@ -126,7 +124,7 @@ void MenuWerteSetzen()
                       }
                       else
                         Dosierpumpen[n].Dosierspeed = setDisplayInteger (key, Dosierpumpen[n].Dosierspeed, 90, 255, false, 9, 1);
-                        //EEPROM.writeInt(234, Dosierspeed_1);
+                        
                         
                     } 
                  
@@ -141,7 +139,7 @@ void MenuWerteSetzen()
                       }
                       else
                         Dosierpumpen[n].Dosiermenge = setDisplayInteger (key, Dosierpumpen[n].Dosiermenge, 0, 1000, false, 11, 1);
-                        //EEPROM.writeLong(14, Dosiermenge1);
+                        
                     }    
                     
                     
@@ -158,8 +156,7 @@ void MenuWerteSetzen()
                             }
                             else
                               Dosierpumpen[n].Dosierung[k] = setDisplayTime (key, Dosierpumpen[n].Dosierung[k], 11, 1);
-                              //EEPROM.writeInt(17, Dosierung1_1.hour);
-                              //EEPROM.writeInt(19, Dosierung1_1.min);
+                              
                           }   
                           
                     }

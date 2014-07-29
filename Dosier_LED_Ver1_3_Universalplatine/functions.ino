@@ -53,22 +53,34 @@ int kalibrieren ( int Kalibrierwert, int Dosiermenge, long Dosierzeit )
   return Dosierzeit;
 }
 
-//void requestEEPROM( )
-//{
-//
-//  if (EEPROM.readInt(0) != 1)
-//    {
-//      rtc.setDOW(SATURDAY);
-//      rtc.setTime(13, 30, 0);
-//      rtc.setDate(7, 9, 2013);
-//  
-//      //WRITING
-//      //Dosierer 1
-//      rtc.setDOW(SATURDAY);
-//      rtc.setTime(13, 30, 0);
-//      rtc.setDate(7, 9, 2013);
-//  
-//      //WRITING
+void requestEEPROM( )
+{
+
+  if (EEPROM.readInt(0) != 1)
+    {
+      rtc.setDOW(SATURDAY);
+      rtc.setTime(13, 30, 0);
+      rtc.setDate(7, 9, 2013);
+  
+      //WRITING
+      EEPROM.writeBlock(300, Dosierpumpen,8);
+      
+      //READING
+      EEPROM.readBlock(300, Dosierpumpen,8);
+      
+      EEPROM.writeInt(0,1);
+    }
+  
+    else
+    { 
+      EEPROM.readBlock(300, Dosierpumpen,8);
+    }
+    
+}
+      
+      
+  
+      //WRITING
 //      //Dosierer 1
 //      Dosiermanuell_1 = EEPROM.writeByte(10,0); //false;
 //      Kalibrierung1 = EEPROM.writeInt(11,100); //ml pro Minute
