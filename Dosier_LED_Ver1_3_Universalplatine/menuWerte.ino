@@ -286,6 +286,68 @@ Time setDisplayTime (int key, Time value, int displayColumn, int displayRow)
   return value;
 }
 
+double setDisplayTemperatur (int key, double value, int displayColumn, int displayRow)
+{
+  switch(key)
+  {
+  case UPKEY:
+    if (SetDisplayHelper == 0)
+    {
+      value++;
+      if (value > 99)
+        value = 99;
+    }
+    else
+    {
+      value = value + 0.1;
+    }
+    break;
+  case DOWNKEY:
+    if (SetDisplayHelper == 0)
+    {
+      value--;
+
+      if (value < 10)
+        value = 10;
+    }    
+    else
+    {        
+      value = value - 0.1;
+    }
+    break;
+  case LEFTKEY:
+  case RIGHTKEY:
+    if (SetDisplayHelper == 0)
+      SetDisplayHelper = 1;
+    else
+      SetDisplayHelper = 0; 
+    break;
+  case SELECTKEY:
+    MenuTiefe--;
+    lcd.noBlink();
+    break;
+  }
+
+  lcd.setCursor(displayColumn, displayRow);
+  lcd.print(printDouble(value, 1));
+  lcd.setCursor(displayColumn + 4, displayRow);
+  lcd.print((char)223);
+  lcd.print(" C");
+
+  if (SetDisplayHelper)
+    lcd.setCursor(displayColumn + 3, displayRow);
+  else  
+    lcd.setCursor(displayColumn + 1, displayRow);
+
+  if (key == SELECTKEY)
+  {
+    lcd.setCursor(displayColumn, displayRow);
+    lcd.print("          ");
+  }
+
+  return value;
+}
+
 void setDisplayDate (int key, int displayColumn, int displayRow)
 {
   Time t = rtc.getTime();
@@ -497,6 +559,34 @@ void displayGrundeinstellung(int pos)
   lcd.setCursor(0, 1);
   lcd.print(sMenuGrundeinstellung[pos]);
 }
+//------------------------------------Lampen - Einstellmoeglichkeiten------------------------------------------------------
+void displayLampeneinstellung(int pos)
+{
+  //lcd.clear();
+  lcd.setCursor(0, 1);
+  lcd.print("                    ");
+  lcd.setCursor(0, 1);
+  lcd.print(sMenuLampeneinstellung[pos]);
+}
+
+void displayMinMax(int pos)
+{
+  //lcd.clear();
+  lcd.setCursor(0, 1);
+  lcd.print("                    ");
+  lcd.setCursor(0, 1);
+  lcd.print(sMenuMinMax[pos]);
+}
+
+void displayLED(int pos)
+{
+  //lcd.clear();
+  lcd.setCursor(0, 1);
+  lcd.print("                    ");
+  lcd.setCursor(0, 1);
+  lcd.print(sMenuLED[pos]);
+}
+//--------------------bis hier hin Lampeneinstellmoeglichkeiten----------------------------
 
 void displayDosierpumpeneinstellung(int pos)
 {

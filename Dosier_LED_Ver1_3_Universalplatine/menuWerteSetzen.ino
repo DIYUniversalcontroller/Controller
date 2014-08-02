@@ -45,6 +45,33 @@ void MenuWerteSetzen()
     }
   }
   
+  //Temp1 Min
+    if (MenuTiefe == 3 && MenuEbene0 == 4 && MenuEbene1 == 1)
+    {
+      lcd.blink();
+      if (FirstSelect)
+      {
+        FirstSelect = false;
+        Temperaturen[0].TempMin = setDisplayTemperatur (-1, Temperaturen[0].TempMin, 10, 1);
+      }
+      else
+        Temperaturen[0].TempMin = setDisplayTemperatur (key, Temperaturen[0].TempMin, 10, 1);
+        //EEPROM.updateDouble(590, Temp1Min);
+    }  
+    //Temp1 Max
+    if (MenuTiefe == 3 && MenuEbene0 == 4 && MenuEbene1 == 2)
+    {
+      lcd.blink();
+      if (FirstSelect)
+      {
+        FirstSelect = false;
+        Temperaturen[0].TempMax = setDisplayTemperatur (-1, Temperaturen[0].TempMax, 10, 1);
+      }
+      else
+        Temperaturen[0].TempMax = setDisplayTemperatur (key, Temperaturen[0].TempMax, 10, 1);
+        //EEPROM.updateDouble(595, Temp1Max);
+    } 
+  
   ///////////////////////////////////////////////////////////////// D O S I E R P U M P E N E I N S T E L L U N G E N ///////////////////////////////////////////////////////////
   for (int n = 0; n <= 7; n++) { //0 bis 7 also 8 Dosierpumpen
   
@@ -99,18 +126,19 @@ void MenuWerteSetzen()
                         FirstSelect = false;
                         Dosierpumpen[n].Dosiernachfuell = setDisplayBoolean2 (-1, Dosierpumpen[n].Dosiernachfuell, 12, 1);
                       }
-                      else
+                      else{
                         Dosierpumpen[n].Dosiernachfuell = setDisplayBoolean2 (key, Dosierpumpen[n].Dosiernachfuell, 12, 1);
-                        
-                        
-//                        if (Dosierpumpen[n].Dosiernachfuell == true)
-//                        {
-//                          Dosierpumpen[1].Dosiernachfuell = false;
-//                          //Dosierpumpen[2].Dosiernachfuell = false;
-//                          //Dosierpumpen[3].Dosiernachfuell = false;
-//                          
-//                        }
-                        
+                      
+                        if(Dosierpumpen[n].Dosiernachfuell== true){
+                          for (int i = 0; i <= 7; i++) {
+                            if(i!= n){
+                              Dosierpumpen[i].Dosiernachfuell = false;
+                                     }
+                          }
+                        }
+                       
+                      }
+                       
                     }   
                    
                    //Speed Dosierer 1 - 8 (90-255)
@@ -163,7 +191,131 @@ void MenuWerteSetzen()
    
       }
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+  
+  ///////////////////////////////////////////////////////////////// L A M P E N E I N S T E L L U N G E N ///////////////////////////////////////////////////////////
+  for (int n = 0; n <= 14; n++) { //0 bis 14 also 15 Lampenkanaele
+  
+                  //---------------------------------------L E D   1 - 15 ----------------------------------------------
+                  if (MenuTiefe == 4 && MenuEbene0 == 3 && MenuEbene1 == (n+1) && MenuEbene2 == 1)
+                  {
+                    lcd.blink();
+                    if (FirstSelect)
+                    {
+                      light_channels[n].Min = setDisplayPercent (-1, light_channels[n].Min, 0, 100, false, 11, 1);
+                      FirstSelect = false;
+                    }
+                    else
+                      light_channels[n].Min = setDisplayPercent (key, light_channels[n].Min, 0, 100, false, 11, 1);
+                      
+                  }  
+                
+                  //Lampeneinstellung & LED1 Max
+                  if (MenuTiefe == 4 && MenuEbene0 == 3 && MenuEbene1 == (n+1) && MenuEbene2 == 2)
+                  {
+                    lcd.blink();
+                    if (FirstSelect)
+                    {
+                      light_channels[n].Max = setDisplayPercent (-1, light_channels[n].Max, 0, 100, false, 11, 1);
+                      FirstSelect = false;
+                    }
+                    else
+                      light_channels[n].Max = setDisplayPercent (key, light_channels[n].Max, 0, 100, false, 11, 1);
+                      
+                  }  
+                
+                  //Lampeneinstellung & LED1 Start
+                  if (MenuTiefe == 4 && MenuEbene0 == 3 && MenuEbene1 == (n+1) && MenuEbene2 == 3)
+                  {
+                    lcd.blink();
+                    if (FirstSelect)
+                    {
+                      light_channels[n].Sunrise = setDisplayTime(-1, light_channels[n].Sunrise, 11, 1);
+                      FirstSelect = false;
+                    }
+                    else
+                      light_channels[n].Sunrise = setDisplayTime(key, light_channels[n].Sunrise, 11, 1);
+                      
+                  }  
+                
+                  //Lampeneinstellung & LED1 Ende
+                  if (MenuTiefe == 4 && MenuEbene0 == 3 && MenuEbene1 == (n+1) && MenuEbene2 == 4)
+                  {
+                    lcd.blink();
+                    if (FirstSelect)
+                    {
+                      light_channels[n].Sunset = setDisplayTime(-1, light_channels[n].Sunset, 11, 1);
+                      FirstSelect = false;
+                    }
+                    else
+                      light_channels[n].Sunset = setDisplayTime(key, light_channels[n].Sunset, 11, 1);
+                      
+                  }  
+                
+                  //Lampeneinstellung & LED1 Dim_In
+                  if (MenuTiefe == 4 && MenuEbene0 == 3 && MenuEbene1 == (n+1) && MenuEbene2 == 5)
+                  {
+                    lcd.blink();
+                    if (FirstSelect)
+                    {
+                      light_channels[n].Dim_in = setDisplayInteger(-1, light_channels[n].Dim_in, 0, 1000, false, 11, 1);
+                      FirstSelect = false;
+                    }
+                    else
+                      light_channels[n].Dim_in = setDisplayInteger(key, light_channels[n].Dim_in, 0, 1000, false, 11, 1);
+                      
+                  }  
+                
+                  //Lampeneinstellung & LED1 Dim_Out
+                  if (MenuTiefe == 4 && MenuEbene0 == 3 && MenuEbene1 == (n+1) && MenuEbene2 == 6)
+                  {
+                    lcd.blink();
+                    if (FirstSelect)
+                    {
+                      light_channels[n].Dim_out = setDisplayInteger(-1, light_channels[n].Dim_out, 0, 1000, false, 11, 1);
+                      FirstSelect = false;
+                    }
+                    else
+                      light_channels[n].Dim_out = setDisplayInteger(key, light_channels[n].Dim_out, 0, 1000, false, 11, 1);
+                      
+                  } 
+              }
+  
+            //MOND
+            // Min
+            if (MenuTiefe == 4 && MenuEbene0 == 3 && MenuEbene1 == 16 && MenuEbene2 == 1)
+            {
+              lcd.blink();
+              if (FirstSelect)
+              {
+                //MondMin = setDisplayPercent (-1, MondMin, 0, 100, false, 11, 1);
+                light_channels[15].Min = setDisplayInteger(-1, light_channels[15].Min, 0, 4095, false, 11, 1);
+                FirstSelect = false;
+              }
+              else
+                //MondMin = setDisplayPercent (key, MondMin, 0, 100, false, 11, 1);
+                light_channels[15].Min = setDisplayInteger (key, light_channels[15].Min, 0, 4095, false, 11, 1);
+                //EEPROM.writeInt(600, MondMin);
+            }  
+          
+            // Max
+            if (MenuTiefe == 4 && MenuEbene0 == 3 && MenuEbene1 == 16 && MenuEbene2 == 2)
+            {
+              lcd.blink();
+              if (FirstSelect)
+              {
+                //MondMax = setDisplayPercent (-1, MondMax, 0, 100, false, 11, 1);
+                light_channels[15].Max = setDisplayInteger(-1, light_channels[15].Max, 0, 4095, false, 11, 1);
+                FirstSelect = false;
+              }
+              else
+                //MondMax = setDisplayPercent (key, MondMax, 0, 100, false, 11, 1);
+                light_channels[15].Max = setDisplayInteger (key, light_channels[15].Max, 0, 4095, false, 11, 1);
+                //EEPROM.writeInt(602, MondMax);
+            } 
+  
+  
+  
+  
 }
 
 

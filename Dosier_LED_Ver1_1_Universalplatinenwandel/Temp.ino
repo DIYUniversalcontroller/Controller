@@ -6,9 +6,7 @@ void requestTemperature(DeviceAddress deviceAddress)
   sensors.requestTemperatures(); // Send the command to get temperatures
 
     tempLampe1 = sensors.getTempC(lampeThermometer1);
-    tempLampe2 = sensors.getTempC(lampeThermometer2);
-    tempWasser = sensors.getTempC(wasserThermometer);
-    tempRaum = sensors.getTempC(raumThermometer);
+  tempLampe2 = sensors.getTempC(lampeThermometer2);
 
 }
 
