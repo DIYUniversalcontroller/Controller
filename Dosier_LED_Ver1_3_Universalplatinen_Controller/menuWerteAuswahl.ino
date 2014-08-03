@@ -53,7 +53,7 @@ void MenuWerteAuswahl()
     }
     
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ D O S I E R P U M P E ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    for (int n = 1; n <= 8; n++) {   //Wir haben erstmal nur 8 Dosierpumpen!
+    for (byte n = 1; n <= 8; n++) {   //Wir haben erstmal nur 8 Dosierpumpen!
     
             //Dosierpumpeneinstellungsuntermenü Dosierer 1 - 8
             if (MenuTiefe == 3 && MenuEbene0 == 2 &&  MenuEbene1 == n) //Jeder Pumpe muss eine neue Ebene (MenuEbene1) zugeordnet werden!
@@ -107,7 +107,7 @@ void MenuWerteAuswahl()
     }
     
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ L A M P E ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    for (int n = 1; n <= 15; n++) {
+    for (byte n = 1; n <= 15; n++) {
       
              //Lampeneinstellungsuntermenü LED 1 - 15
             if (MenuTiefe == 3 && MenuEbene0 == 3 &&  MenuEbene1 == n) //Jeder Pumpe muss eine neue Ebene (MenuEbene1) zugeordnet werden!
@@ -181,7 +181,7 @@ void MenuWerteAuswahl()
     
 
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ D O S I E R P U M P E ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    for (int n = 1; n <= 8; n++) {
+    for (byte n = 1; n <= 8; n++) {
       
             //Dosierpumpeneinstellungsuntermenü Dosierer 1 - 8
             if (MenuTiefe == 3 && MenuEbene0 == 2 && MenuEbene1 == n )
@@ -236,7 +236,7 @@ void MenuWerteAuswahl()
     }
     
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ L A M P E ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    for (int n = 1; n <= 15; n++) {
+    for (byte n = 1; n <= 15; n++) {
       
              //Lampeneinstellungsuntermenü LED 1 - 15
              if (MenuTiefe == 3 && MenuEbene0 == 3 && MenuEbene1 == n )
@@ -274,9 +274,9 @@ void MenuWerteAuswahl()
       MenuTiefe = 0;
       lcd.clear();
       lcd.setCursor(0, 0);
-      lcd.print("Please wait!");
+      lcd.print(F("Please wait!"));
       lcd.setCursor(0, 1);
-      lcd.print("Saving changes");
+      lcd.print(F("Saving changes"));
 //      EEPROM.updateDouble(100, Temp1Min);
 //      EEPROM.updateDouble(105, Temp1Max);
 //      EEPROM.updateInt(110, MondMin);

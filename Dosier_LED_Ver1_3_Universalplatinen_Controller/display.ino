@@ -14,7 +14,7 @@ void Display(int intDisplayAktuelleSeite)
     lcd.setCursor(6, 0);
     lcd.print(rtc.getDateStr()); 
     lcd.setCursor(0, 1);
-    lcd.print("Uhrzeit");
+    lcd.print(F("Uhrzeit"));
     lcd.setCursor(11, 1);
     lcd.print(rtc.getTimeStr(FORMAT_SHORT));
 //    lcd.setCursor(0, 2);
@@ -27,13 +27,13 @@ void Display(int intDisplayAktuelleSeite)
   case 1:
     lcd.clear();
     lcd.setCursor(0, 0);
-    lcd.print("Dosierpumpe 1");
+    lcd.print(F("Dosierpumpe 1"));
     lcd.setCursor(0, 1);
-    lcd.print("Dosierung");
+    lcd.print(F("Dosierung"));
     lcd.setCursor(11, 1);
     sprintf(sValue, "%02d", Dosierpumpen[0].Dosierung[0].hour);
     lcd.print(sValue);
-    lcd.print(":");
+    lcd.print(F(":"));
     sprintf(sValue, "%02d", Dosierpumpen[0].Dosierung[0].min);
     lcd.print(sValue);
     break; 
@@ -42,13 +42,13 @@ void Display(int intDisplayAktuelleSeite)
   case 2:
     lcd.clear();
     lcd.setCursor(0, 0);
-    lcd.print("Dosierpumpe 2");
+    lcd.print(F("Dosierpumpe 2"));
     lcd.setCursor(0, 1);
-    lcd.print("Dosierung");
+    lcd.print(F("Dosierung"));
     lcd.setCursor(11, 1);
     sprintf(sValue, "%02d", Dosierpumpen[1].Dosierung[0].hour);
     lcd.print(sValue);
-    lcd.print(":");
+    lcd.print(F(":"));
     sprintf(sValue, "%02d", Dosierpumpen[1].Dosierung[0].min);
     lcd.print(sValue);
     break; 

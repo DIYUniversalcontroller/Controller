@@ -31,7 +31,7 @@ String printDouble(double value, byte nachkomma)
 
 int get_key(unsigned int input)
 {
-  int k;
+  byte k;
   for (k = 0; k < NUM_KEYS; k++)
   {
     if (input < adc_key_val[k])
@@ -120,8 +120,3 @@ void requestEEPROM( )
     }
     
 }
-
-
-
-
-

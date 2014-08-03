@@ -77,10 +77,10 @@ DeviceAddress lampeThermometer1, lampeThermometer2;
 
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ K O N S T A N T E N +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-const int DISPLAY_LETZTE_SEITE = 3;
-const int DISPLAY_WARTEZEIT = 3;
-const long HOUR = 60 * 60;
-const long MINUTE = 60;
+const byte DISPLAY_LETZTE_SEITE = 3;
+const byte DISPLAY_WARTEZEIT = 3;
+const unsigned int HOUR = 60 * 60;
+const byte MINUTE = 60;
 
 Time rtcClock;
 long lTime;
@@ -102,7 +102,7 @@ const int memBase          = 0;
 //int adc_key_val[5] ={50, 240, 430, 630, 990 };
 //int adc_key_val[5] ={ 50, 200, 400, 600, 800 };
 int adc_key_val[5] = {50, 300, 550, 750, 950 };
-int NUM_KEYS = 5;
+byte NUM_KEYS = 5;
 int adc_key_in;
 int key = -1;
 int oldkey = -1;
@@ -120,26 +120,27 @@ int SetDisplayHelperDate = 0;
 //Menü
 byte menuPump;	// Speicher welche Pumpe grade eingestellt wird
 byte menuPumpTime; // Speicher welche Pumpenzeit editiert wird
-int MenuTiefe = 0;
-int MenuEbene0 = 0;
-int MenuEbene1 = 0;
-int MenuEbene2 = 0;
-int MenuEbene3 = 0;
+byte MenuTiefe = 0;
+byte MenuEbene0 = 0;
+byte MenuEbene1 = 0;
+byte MenuEbene2 = 0;
+byte MenuEbene3 = 0;
 boolean FirstSelect = false;
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++ H I N T E R G R U N D B E L E U C H T U N G ++++++++++++++++++++++++++++++++++++++++++++++++++
-long HintergrundbeleuchtungsAnZeit;
-long HintergrundbeleuchtungsAusZeit;
-Time HintergrundbeleuchtungAn;
-Time HintergrundbeleuchtungAus;
-boolean prevBacklightSwitch = 0;
-boolean backlightSwitch = 0;
+//  Ich vermute ds die garnicht benutzt werden. Zumindest kompiliert er ohne das die gesetzt werden. Hab sie daher raus genommen...
+//long HintergrundbeleuchtungsAnZeit;
+//long HintergrundbeleuchtungsAusZeit;
+//Time HintergrundbeleuchtungAn;
+//Time HintergrundbeleuchtungAus;
+//boolean prevBacklightSwitch = 0;
+//boolean backlightSwitch = 0;
 
 int Value = 0;
 
 //-------------------------------------------------------------------------------------------------------
 //-------------------------------- L I Q U I D - L E V E L S E N S O R - P O R T  ---------------------------
-const int S_Sensor = 24;         // Fill Level Sensors are connected to digital port 24 (Schwimmerschalter 1) Technikbecken Füllstand High
+const byte S_Sensor = 24;         // Fill Level Sensors are connected to digital port 24 (Schwimmerschalter 1) Technikbecken Füllstand High
 int liquidSensorValue = 0;
 //-------------------------------------------------------------------------------------------------------
 
@@ -153,41 +154,41 @@ int liquidSensorValue = 0;
 // ° = \337 oder char(223)
 
 //Hauptmenü; Menüebene0 = 0
-const int MENUHAUPT = 4;
+const byte MENUHAUPT = 4;
 char sMenuHaupt[MENUHAUPT + 1][17] = {
   "Starten", "Grundeinstellung", "Dosierpumpe", "Lampe", "Temp"
 };
 
 
 //Grundeinstellung-Menü
-const int MENUGRUNDEINSTELLUNG = 3; 
+const byte MENUGRUNDEINSTELLUNG = 3; 
 char sMenuGrundeinstellung[MENUGRUNDEINSTELLUNG + 1][17] = {
   "Hauptmen\365", "Datum", "Uhrzeit", "Tag"
 };
 
 //Dosierpumpe-Menü
-const int MENUDOSIERPUMPENEINSTELLUNG = 8; //Hier gibt man an wieviele Dosierpumpen man hat.
+const byte MENUDOSIERPUMPENEINSTELLUNG = 8; //Hier gibt man an wieviele Dosierpumpen man hat.
 char sMenuDosierpumpeneinstellung[MENUDOSIERPUMPENEINSTELLUNG + 1][17] = {
   "Hauptmen\365", "Dosierer 1", "Dosierer 2", "Dosierer 3", "Dosierer 4", "Dosierer 5", "Dosierer 6", "Dosierer 7", "Dosierer 8"
 };
 
 //Dosierpumpe-Untermenü
-const int MENUDOSIERPUMPENEINSTELLUNG2 = 5;
+const byte MENUDOSIERPUMPENEINSTELLUNG2 = 5;
 char sMenuDosierpumpeneinstellung2[MENUDOSIERPUMPENEINSTELLUNG2 + 1][17] = {
   "Hauptmen\365", "Manuell Betrieb ", "Kalibrieren     ", "Nachf\365llautomat ", "Speed           ", "Dosieren        "
 };
 
 //Lampeneinstellung
-const int MENULAMPENEINSTELLUNG = 16;
+const byte MENULAMPENEINSTELLUNG = 16;
 char sMenuLampeneinstellung[MENULAMPENEINSTELLUNG + 1][21] = {"Hauptmen\365", "LED1", "LED2", "LED3", "LED4", "LED5", "LED6", "LED7", "LED8", "LED9", "LED10", "LED11", "LED12", "LED13", "LED14", "LED15", "Mond"};
 
 //LED
-const int MENULED = 6;
+const byte MENULED = 6;
 char sMenuLED[MENULED + 1][21] = {"zur\365ck", "Min                %", "Max                %", "Start", "Ende", "Dauer Start      min", "Dauer Ende      min" };
 String DP;
 
 //Mond //Temp
-const int MENUMINMAX = 2;
+const byte MENUMINMAX = 2;
 char sMenuMinMax[MENUMINMAX + 1][21] = {"zur\365ck", "Min", "Max" };
 //double Temp1Min;
 //double Temp1Max;
@@ -196,7 +197,7 @@ double tempLampe2 = 0;
 
 //Luefter
 #define FAN          10                              // D16 PWM pin
-int     FanSpeed;                                    // Luefter Geschwindigkeit
+byte     FanSpeed;                                    // Luefter Geschwindigkeit
 int     fanSwitch = 0;
 int     prevFanSwitch = 0;
 
@@ -213,41 +214,44 @@ int moonled_out;                    // current LED output value
 
 //--------------------------------D O S I E R P U M P E N - M O D U L E-----------------------------------------------------------------------------
 //--------------------------------------------Dosierpumpe 1 - 8 -----------------------------------------------------------------------------------------
-#define M1_MENUDOSIERPORT_1  2
-#define M1_MENUDOSIERPORT_2  44
-#define M1_MENUDOSIERPORT_3  45
-#define M1_MENUDOSIERPORT_4  46
+const byte M1_MENUDOSIERPORT[]={2,44,45,46};
+//#define M1_MENUDOSIERPORT_1  2
+//#define M1_MENUDOSIERPORT_2  44
+//#define M1_MENUDOSIERPORT_3  45
+//#define M1_MENUDOSIERPORT_4  46
+/*
 AF_DCMotor motor1(1, MOTOR12_64KHZ); // create motor #1, 1KHz pwm; MOTOR12_64KHZ, MOTOR12_8KHZ, MOTOR12_2KHZ, orMOTOR12_1KHZ is possible
 AF_DCMotor motor2(2, MOTOR12_64KHZ); // create motor #2, 1KHz pwm; MOTOR12_64KHZ, MOTOR12_8KHZ, MOTOR12_2KHZ, orMOTOR12_1KHZ is possible
 AF_DCMotor motor3(3, MOTOR12_64KHZ); // create motor #3, 1KHz pwm; MOTOR12_64KHZ, MOTOR12_8KHZ, MOTOR12_2KHZ, orMOTOR12_1KHZ is possible
 AF_DCMotor motor4(4, MOTOR12_64KHZ); // create motor #4, 1KHz pwm; MOTOR12_64KHZ, MOTOR12_8KHZ, MOTOR12_2KHZ, orMOTOR12_1KHZ is possible
-
-const int MENUDOSIERER1MANUELL = 1;
+*/
+AF_DCMotor Motor[4]= {AF_DCMotor(1, MOTOR12_64KHZ),AF_DCMotor(2, MOTOR12_64KHZ),AF_DCMotor(3, MOTOR12_64KHZ),AF_DCMotor(4, MOTOR12_64KHZ)}; // Create Motor Array
+const byte MENUDOSIERER1MANUELL = 1;
 char sMenuDosiererManuell[MENUDOSIERER1MANUELL + 1][17] = {
   "zur\365ck          ",
   "Manuell         "
 }; //ml in 1 Minute gemessen; wieviel ml soll dosiert werden; wann soll dosiert werden
 
-const int MENUDOSIERER1KALIB = 2;
+const byte MENUDOSIERER1KALIB = 2;
 char sMenuDosiererKalib[MENUDOSIERER1KALIB + 1][17] = {
   "zur\365ck          ",
   "Kalib         ml",
   "Set Time Loop   "
 }; //ml in 1 Minute gemessen; wieviel ml soll dosiert werden; wann soll dosiert werden
 
-const int MENUDOSIERER1NACHFUELL = 1;
+const byte MENUDOSIERER1NACHFUELL = 1;
 char sMenuDosiererNachfuell[MENUDOSIERER1NACHFUELL + 1][17] = {
   "zur\365ck          ",
   "Nachf\365llaut.    "
 }; //ml in 1 Minute gemessen; wieviel ml soll dosiert werden; wann soll dosiert werden
 
-const int MENUDOSIERER1SPEED = 1;
+const byte MENUDOSIERER1SPEED = 1;
 char sMenuDosiererSpeed[MENUDOSIERER1SPEED + 1][17] = {
   "zur\365ck          ",
   "Speed           "
 }; //mit welcher Geschwindigkeit soll sich die Pumpe drehen; Werte von 0-255 sind moeglich
 
-const int MENUDOSIERER1DOSIEREN = 13;
+const byte MENUDOSIERER1DOSIEREN = 13;
 char sMenuDosiererDosieren[MENUDOSIERER1DOSIEREN + 1][17] = {
   "zur\365ck          ",
   "Dosiermenge   ml", 

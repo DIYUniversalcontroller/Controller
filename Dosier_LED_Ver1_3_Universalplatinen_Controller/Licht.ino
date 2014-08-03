@@ -1,7 +1,7 @@
 void setLight(){
   Time time = rtc.getTime();
   
-  for( int i=0;i < LIGHT_CHANEL; i++){
+  for( byte i=0;i < LIGHT_CHANEL; i++){
     
       light_channels[i].Sunrisetime = (light_channels[i].Sunrise.hour * HOUR) + (light_channels[i].Sunrise.min * MINUTE) + (light_channels[i].Sunrise.sec);
       light_channels[i].Sunsettime = (light_channels[i].Sunset.hour * HOUR) + (light_channels[i].Sunset.min * MINUTE) + (light_channels[i].Sunset.sec);
