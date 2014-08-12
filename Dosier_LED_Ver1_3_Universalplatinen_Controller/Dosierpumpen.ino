@@ -19,7 +19,7 @@ void runDosing() {
         if(n<4){
           analogWrite(M1_MENUDOSIERPORT[n], Dosierpumpen[n].Dosierspeed); //255; HIGH
         }else if(n<8){
-          Motor[n-4].setSpeed(Dosierpumpen[4].Dosierspeed);
+          Motor[n-4].setSpeed(Dosierpumpen[n].Dosierspeed);
           Motor[n-4].run(FORWARD);
         }
 /*
