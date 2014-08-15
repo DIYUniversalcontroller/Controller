@@ -3,9 +3,9 @@ void runDosing() {
 
 
   // Berechne Uhrzeit in Sekunden wann gedüngt werden soll
-  for (byte n = 0; n < 8; n++) {
+  for (int n = 0; n < 8; n++) {
 
-    for (byte i = 0; i < 12; i++) {
+    for (int i = 0; i < 12; i++) {
       Dosierpumpen[n].Dosierautomatzeit[i] = (Dosierpumpen[n].Dosierung[i].hour * HOUR) + (Dosierpumpen[n].Dosierung[i].min * MINUTE) + (Dosierpumpen[n].Dosierung[i].sec);
       
       Dosierpumpen[n].Dosierdauer = kalibrieren ( Dosierpumpen[n].Kalibrierung, Dosierpumpen[n].Dosiermenge, Dosierpumpen[n].Dosierdauer);

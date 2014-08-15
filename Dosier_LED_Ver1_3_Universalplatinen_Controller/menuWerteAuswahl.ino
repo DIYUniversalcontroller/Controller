@@ -53,7 +53,7 @@ void MenuWerteAuswahl()
     }
     
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ D O S I E R P U M P E ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    for (byte n = 1; n <= 8; n++) {   //Wir haben erstmal nur 8 Dosierpumpen!
+    for (int n = 1; n <= 8; n++) {   //Wir haben erstmal nur 8 Dosierpumpen!
     
             //Dosierpumpeneinstellungsuntermenü Dosierer 1 - 8
             if (MenuTiefe == 3 && MenuEbene0 == 2 &&  MenuEbene1 == n) //Jeder Pumpe muss eine neue Ebene (MenuEbene1) zugeordnet werden!
@@ -107,7 +107,7 @@ void MenuWerteAuswahl()
     }
     
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ L A M P E ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    for (byte n = 1; n <= 15; n++) {
+    for (int n = 1; n <= 15; n++) {
       
              //Lampeneinstellungsuntermenü LED 1 - 15
             if (MenuTiefe == 3 && MenuEbene0 == 3 &&  MenuEbene1 == n) //Jeder Pumpe muss eine neue Ebene (MenuEbene1) zugeordnet werden!
@@ -181,7 +181,7 @@ void MenuWerteAuswahl()
     
 
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ D O S I E R P U M P E ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    for (byte n = 1; n <= 8; n++) {
+    for (int n = 1; n <= 8; n++) {
       
             //Dosierpumpeneinstellungsuntermenü Dosierer 1 - 8
             if (MenuTiefe == 3 && MenuEbene0 == 2 && MenuEbene1 == n )
@@ -236,7 +236,7 @@ void MenuWerteAuswahl()
     }
     
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ L A M P E ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    for (byte n = 1; n <= 15; n++) {
+    for (int n = 1; n <= 15; n++) {
       
              //Lampeneinstellungsuntermenü LED 1 - 15
              if (MenuTiefe == 3 && MenuEbene0 == 3 && MenuEbene1 == n )
