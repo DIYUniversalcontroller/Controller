@@ -45,32 +45,50 @@ void MenuWerteSetzen()
     }
   }
   
-  //Temp1 Min
-    if (MenuTiefe == 3 && MenuEbene0 == 4 && MenuEbene1 == 1)
-    {
-      lcd.blink();
-      if (FirstSelect)
-      {
-        FirstSelect = false;
-        Temperaturen[0].TempMin = setDisplayTemperatur (-1, Temperaturen[0].TempMin, 10, 1);
-      }
-      else
-        Temperaturen[0].TempMin = setDisplayTemperatur (key, Temperaturen[0].TempMin, 10, 1);
-        //EEPROM.updateDouble(590, Temp1Min);
-    }  
-    //Temp1 Max
-    if (MenuTiefe == 3 && MenuEbene0 == 4 && MenuEbene1 == 2)
-    {
-      lcd.blink();
-      if (FirstSelect)
-      {
-        FirstSelect = false;
-        Temperaturen[0].TempMax = setDisplayTemperatur (-1, Temperaturen[0].TempMax, 10, 1);
-      }
-      else
-        Temperaturen[0].TempMax = setDisplayTemperatur (key, Temperaturen[0].TempMax, 10, 1);
-        //EEPROM.updateDouble(595, Temp1Max);
-    } 
+  ///////////////////////////////////////////////////////////////// T E M P E R A T U R E I N S T E L L U N G E N ///////////////////////////////////////////////////////////
+  for (int n = 0; n <= 2; n++) { 
+  
+                //Temp Min
+                  if (MenuTiefe == 4 && MenuEbene0 == 4 && MenuEbene1 == (n+1) && MenuEbene2 == 1)
+                  {
+                    lcd.blink();
+                    if (FirstSelect)
+                    {
+                      FirstSelect = false;
+                      Temperaturen[n].TempMin = setDisplayTemperatur (-1, Temperaturen[n].TempMin, 10, 1);
+                    }
+                    else
+                      Temperaturen[n].TempMin = setDisplayTemperatur (key, Temperaturen[n].TempMin, 10, 1);
+                      
+                  }  
+                  //Temp Max
+                  if (MenuTiefe == 4 && MenuEbene0 == 4 && MenuEbene1 == (n+1) && MenuEbene2 == 2)
+                  {
+                    lcd.blink();
+                    if (FirstSelect)
+                    {
+                      FirstSelect = false;
+                      Temperaturen[n].TempMax = setDisplayTemperatur (-1, Temperaturen[n].TempMax, 10, 1);
+                    }
+                    else
+                      Temperaturen[n].TempMax = setDisplayTemperatur (key, Temperaturen[n].TempMax, 10, 1);
+                      
+                  } 
+                  
+                  //Temp Alarm
+                  if (MenuTiefe == 4 && MenuEbene0 == 4 && MenuEbene1 == (n+1) && MenuEbene2 == 3)
+                  {
+                    //lcd.blink();
+                    if (FirstSelect)
+                    {
+                      FirstSelect = false;
+                      Temperaturen[n].TempAlarm = setDisplayBoolean2 (-1, Temperaturen[n].TempAlarm, 11, 1);
+                    }
+                    else
+                      Temperaturen[n].TempAlarm = setDisplayBoolean2 (key, Temperaturen[n].TempAlarm, 11, 1);
+                      
+                  } 
+  }
   
   ///////////////////////////////////////////////////////////////// D O S I E R P U M P E N E I N S T E L L U N G E N ///////////////////////////////////////////////////////////
   for (int n = 0; n <= 7; n++) { //0 bis 7 also 8 Dosierpumpen

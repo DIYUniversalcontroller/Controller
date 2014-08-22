@@ -63,12 +63,12 @@ void requestEEPROM( )
       rtc.setDate(7, 9, 2013);
   
       //WRITING
-      EEPROM.writeBlock(200, Temperaturen, 1);
+      EEPROM.writeBlock(200, Temperaturen, 3);
       EEPROM.writeBlock(300, Dosierpumpen, 8);
       EEPROM.writeBlock(600, light_channels, 16);
       
-      double MinTemp = 34.5;
-      double MaxTemp = 40.5;
+//      double MinTemp = 34.5;
+//      double MaxTemp = 40.5;
 //      Temp1Min = EEPROM.updateDouble(100,MinTemp);
 //      Temp1Min = EEPROM.updateDouble(105,MaxTemp);
 //      MondMin = EEPROM.writeInt(110,0);
@@ -81,7 +81,7 @@ void requestEEPROM( )
       
       
       //READING
-      EEPROM.readBlock(200, Temperaturen, 1);
+      EEPROM.readBlock(200, Temperaturen, 3);
       EEPROM.readBlock(300, Dosierpumpen, 8);
       EEPROM.readBlock(600, light_channels, 16);
       
@@ -103,7 +103,7 @@ void requestEEPROM( )
     else
     { 
       //READING
-      EEPROM.readBlock(200, Temperaturen, 1);
+      EEPROM.readBlock(200, Temperaturen, 3);
       EEPROM.readBlock(300, Dosierpumpen,8);
       EEPROM.readBlock(600, light_channels,16);
       

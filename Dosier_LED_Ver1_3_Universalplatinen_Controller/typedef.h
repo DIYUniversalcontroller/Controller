@@ -33,6 +33,7 @@ typedef struct {
 typedef struct {
   double TempMin;
   double TempMax;
+  boolean TempAlarm;
 }TEMP;
 
 #endif

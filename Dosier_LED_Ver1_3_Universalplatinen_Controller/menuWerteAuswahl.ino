@@ -48,9 +48,10 @@ void MenuWerteAuswahl()
     {
       MenuEbene1--;
       if (MenuEbene1 < 0)
-        MenuEbene1 = MENUMINMAX;
-      displayMinMax(MenuEbene1);
+        MenuEbene1 = MENUTEMPERATUREINSTELLUNG;
+      displayTemperatureinstellung(MenuEbene1);
     }
+      
     
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ D O S I E R P U M P E ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     for (int n = 1; n <= 8; n++) {   //Wir haben erstmal nur 8 Dosierpumpen!
@@ -129,7 +130,18 @@ void MenuWerteAuswahl()
       displayMinMax(MenuEbene2);
     }
     
-    
+    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ T E M P E R A T U R ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    for (int n = 1; n <= 3; n++) {
+            
+            if (MenuTiefe == 3 && MenuEbene0 == 4 && MenuEbene1 == n )
+            {
+              MenuEbene2--;
+              if (MenuEbene2 < 0)
+                MenuEbene2 = MENUTEMP;
+              displayTemp(MenuEbene2);
+            }
+      
+    }
     
     
 
@@ -174,9 +186,9 @@ void MenuWerteAuswahl()
     if (MenuTiefe == 2 && MenuEbene0 == 4 )
     {
       MenuEbene1++;
-      if (MenuEbene1 > MENUMINMAX)
+      if (MenuEbene1 > MENUTEMPERATUREINSTELLUNG)
         MenuEbene1 = 0;
-      displayMinMax(MenuEbene1);
+      displayTemperatureinstellung(MenuEbene1);
     }
     
 
@@ -256,6 +268,18 @@ void MenuWerteAuswahl()
         MenuEbene2 = 0;
       displayMinMax(MenuEbene2);
     }
+    
+    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ T E M P E R A T U R ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    for (int n = 1; n <= 3; n++) {
+            
+            if (MenuTiefe == 3 && MenuEbene0 == 4 && MenuEbene1 == n )
+            {
+                MenuEbene2++;
+                if (MenuEbene2 > MENUTEMP)
+                  MenuEbene2 = 0;
+                displayTemp(MenuEbene2);
+              }
+    }
              
 
     break;
@@ -284,7 +308,7 @@ void MenuWerteAuswahl()
 //      EEPROM.writeInt(110, MondMin);
 //      EEPROM.writeInt(112, MondMax);
       
-      EEPROM.updateBlock(200,Temperaturen, 1);
+      EEPROM.updateBlock(200,Temperaturen, 3);
       EEPROM.updateBlock(300,Dosierpumpen, 8);
       EEPROM.updateBlock(600, light_channels,16);
       
@@ -325,9 +349,11 @@ void MenuWerteAuswahl()
     {
       MenuTiefe++;
       MenuEbene1 = 1;
-      displayMinMax(MenuEbene1);
+      displayTemperatureinstellung(MenuEbene1);
       break;
     }
+    
+    
     
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ D O S I E R P U M P E ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     //Dosierpumpeneinstellungsuntermenü Dosierer 1 - 8 
@@ -597,6 +623,31 @@ void MenuWerteAuswahl()
       break;
     }
     
+    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ T E M P E R A T U R ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+      if (MenuTiefe == 2 && MenuEbene0 == 4 && MenuEbene1 == 1 )
+        {
+          MenuTiefe++;
+          MenuEbene2 = 1;
+          displayTemp(MenuEbene2);
+          break;
+        }
+      
+      if (MenuTiefe == 2 && MenuEbene0 == 4 && MenuEbene1 == 2 )
+        {
+          MenuTiefe++;
+          MenuEbene2 = 1;
+          displayTemp(MenuEbene2);
+          break;
+        }
+      
+      if (MenuTiefe == 2 && MenuEbene0 == 4 && MenuEbene1 == 3 )
+        {
+          MenuTiefe++;
+          MenuEbene2 = 1;
+          displayTemp(MenuEbene2);
+          break;
+        }
+    
     //Zurück
     if (MenuTiefe == 2 && MenuEbene1 == 0) //Hier kommt man zurueck auf die Erste ebene (Grundeinstellung, Dosierpumpe, ...)
     {
@@ -620,6 +671,14 @@ void MenuWerteAuswahl()
     {
       MenuTiefe--;
       displayLampeneinstellung(MenuEbene1);
+      break;
+    }
+    
+    //zurueck fuer Temperatureinstellung
+    if (MenuTiefe == 3 && MenuEbene0 == 4 && MenuEbene2 == 0)
+    {
+      MenuTiefe--;
+      displayTemperatureinstellung(MenuEbene1);
       break;
     }
     

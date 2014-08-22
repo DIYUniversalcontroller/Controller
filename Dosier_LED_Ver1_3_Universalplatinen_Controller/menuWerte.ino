@@ -662,3 +662,22 @@ void displayDosiererDosieren(int pos)
   lcd.print(sMenuDosiererDosieren[pos]);
 }
 //--------------------bis hier hin Dosierpumpeneinstellmoeglichkeiten----------------------------
+
+void displayTemperatureinstellung(int pos)
+{
+  //lcd.clear();
+  lcd.setCursor(0, 1);
+  lcd.print( "                ");
+  lcd.setCursor(0, 1);
+  lcd.print(sMenuTemperatureinstellung[pos]);
+}
+
+void displayTemp(int pos)
+{
+  //lcd.clear();
+  lcd.setCursor(0, 1);
+  lcd.print("                ");
+  lcd.setCursor(0, 1);
+  lcd.print(sMenuTemp[pos]);
+}
+//--------------------bis hier hin Temperatureinstellmoeglichkeiten----------------------------

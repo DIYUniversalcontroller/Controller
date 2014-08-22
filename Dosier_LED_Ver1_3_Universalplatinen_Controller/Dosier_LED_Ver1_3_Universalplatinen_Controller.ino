@@ -11,6 +11,7 @@
 #include <DallasTemperature.h>
 #include <AFMotor.h>
 #include"typeDef.h"
+#include <RCSwitch.h>
 
 
 // ********************************************* //
@@ -51,15 +52,21 @@ PUMP Dosierpumpen[8] = {
 };
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++ T E M P E R A T U R ++++++++++++++++++++++++++++++++++++++++++++++++++
-TEMP Temperaturen[1] = {
-  {34.5,40.5}
+TEMP Temperaturen[3] = {
+  {0,0,0},
+  {0,0,0},
+  {0,0,0}
   };
 
-
-
 DS1307 rtc(56, 57);
-LiquidCrystal_I2C lcd(0x27, 16, 2); // set the LCD address to 0x27 for a 20 chars and 4 line display, Backlight PWM PIN 10
+LiquidCrystal_I2C lcd(0x3F, 20, 4); // set the LCD address to 0x27 for a 20 chars and 4 line display, Backlight PWM PIN 10
 #define ONE_WIRE_BUS 13       // Data wire is plugged into port 2 on the Arduino
+
+#define rc_switch 38         // Remote Control Switch on Digital Pin 38
+#define buzzer 23            // Alarm on Digital Pin 23
+
+// Setup the Remote Control Switch
+RCSwitch mySwitch = RCSwitch();
 
 // called this way, it uses the default address 0x40
 Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver();
@@ -73,7 +80,7 @@ OneWire oneWire(ONE_WIRE_BUS);
 DallasTemperature sensors(&oneWire); 
 
 // arrays to hold device address
-DeviceAddress lampeThermometer1, lampeThermometer2;
+DeviceAddress lampeThermometer1, lampeThermometer2, wasserThermometer;
 
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ K O N S T A N T E N +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
@@ -156,7 +163,7 @@ int liquidSensorValue = 0;
 //Hauptmenü; Menüebene0 = 0
 const int MENUHAUPT = 4;
 char sMenuHaupt[MENUHAUPT + 1][17] = {
-  "Starten", "Grundeinstellung", "Dosierpumpe", "Lampe", "Temp"
+  "Starten", "Grundeinstellung", "Dosierpumpe", "Lampe", "Temperatur"
 };
 
 
@@ -175,7 +182,7 @@ char sMenuDosierpumpeneinstellung[MENUDOSIERPUMPENEINSTELLUNG + 1][17] = {
 //Dosierpumpe-Untermenü
 const int MENUDOSIERPUMPENEINSTELLUNG2 = 5;
 char sMenuDosierpumpeneinstellung2[MENUDOSIERPUMPENEINSTELLUNG2 + 1][17] = {
-  "Hauptmen\365", "Manuell Betrieb ", "Kalibrieren     ", "Nachf\365llautomat ", "Speed           ", "Dosieren        "
+  "zur\365ck", "Manuell Betrieb ", "Kalibrieren     ", "Nachf\365llautomat ", "Speed           ", "Dosieren        "
 };
 
 //Lampeneinstellung
@@ -187,13 +194,24 @@ const int MENULED = 6;
 char sMenuLED[MENULED + 1][21] = {"zur\365ck", "Min                %", "Max                %", "Start", "Ende", "Dauer Start      min", "Dauer Ende      min" };
 String DP;
 
+//Temperatureinstellung-Menü
+const int MENUTEMPERATUREINSTELLUNG = 3;
+char sMenuTemperatureinstellung[MENUTEMPERATUREINSTELLUNG + 1][21] = {"Hauptmen\365", "Wasser", "Lampe1", "Lampe2"};
+
+//Temp-Modul
+const int MENUTEMP = 3;
+char sMenuTemp[MENUTEMP + 1][21] = {"zur\365ck", "Min", "Max", "Alarm"};
+double tempLampe1 = 0;
+double tempLampe2 = 0;
+double tempWasser = 0;
+int tempSwitch = 0;
+int prevTempSwitch = 0;
+
 //Mond //Temp
 const int MENUMINMAX = 2;
 char sMenuMinMax[MENUMINMAX + 1][21] = {"zur\365ck", "Min", "Max" };
-//double Temp1Min;
-//double Temp1Max;
-double tempLampe1 = 0;
-double tempLampe2 = 0;
+
+
 
 //Luefter
 #define FAN          10                              // D16 PWM pin
@@ -413,7 +431,21 @@ FLASH_ARRAY(int, pwmtable,0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
                           3997, 3999, 4001, 4003, 4005, 4008,4010, 4012, 4014, 4016, 4018, 4021, 4023, 4025,4027, 4029, 4031, 4034, 4036, 4038, 4040, 4042,4045, 4047, 4049, 4051,
                           4053, 4056, 4058, 4060,4062, 4064, 4066, 4069, 4071, 4073, 4075, 4077,4080, 4082, 4084, 4086, 4088, 4091, 4093, 4095);
 
-
+/*|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||  D E F I N E  :  B U Z Z E R |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
+void buzz(int targetPin, long frequency, long length) {
+  long delayValue = 1000000/frequency/2; // calculate the delay value between transitions
+  //// 1 second's worth of microseconds, divided by the frequency, then split in half since
+  //// there are two phases to each cycle
+  long numCycles = frequency * length/ 1000; // calculate the number of cycles for proper timing
+  //// multiply frequency, which is really cycles per second, by the number of seconds to 
+  //// get the total number of cycles to produce
+ for (long i=0; i < numCycles; i++){ // for the calculated length of time...
+    digitalWrite(targetPin,HIGH); // write the buzzer pin high to push out the diaphram
+    delayMicroseconds(delayValue); // wait for the calculated delay value
+    digitalWrite(targetPin,LOW); // write the buzzer pin low to pull back the diaphram
+    delayMicroseconds(delayValue); // wait againf or the calculated delay value
+  }
+}
 
 // the setup routine runs once when you press reset:
 void setup() {
@@ -448,12 +480,19 @@ void setup() {
   sensors.begin();             // Start up the DS18B20 Temp library
   if (!sensors.getAddress(lampeThermometer1, 0)) Serial.println("Unable to find address for Device 0");
   if (!sensors.getAddress(lampeThermometer2, 1)) Serial.println("Unable to find address for Device 0");
+  if (!sensors.getAddress(wasserThermometer, 2)) Serial.println("Unable to find address for Device 0");
   
   //Luefter Test
   pinMode(FAN, OUTPUT);  
   digitalWrite(FAN, HIGH);                    // Volle Lueftergeschwindigkeit setzen
   delay(2000);
   digitalWrite(FAN, LOW);                     // Luefter auschalten
+  
+  // Setup Buzzer
+  pinMode(buzzer, OUTPUT); // set a pin for buzzer output
+  
+  // RC Switch
+  pinMode(rc_switch, OUTPUT);
 
  requestEEPROM( );
  
@@ -466,25 +505,38 @@ void loop() {
   Time time = rtc.getTime();
 
   //Display
-  if (intSekunden != time.sec && MenuTiefe == 0)
+//  if (intSekunden != time.sec && MenuTiefe == 0)
+//  {
+//    if (intDisplayWartezeit == DISPLAY_WARTEZEIT)
+//    {
+//      Display(intDisplayAktuelleSeite);
+//      intDisplayAktuelleSeite++;
+//
+//      if (intDisplayAktuelleSeite == DISPLAY_LETZTE_SEITE)
+//        intDisplayAktuelleSeite = 0;
+//
+//      intDisplayWartezeit = 0;
+//      
+//     requestTemperature(lampeThermometer1);
+//     requestTemperature(lampeThermometer2);
+//     requestTemperature(wasserThermometer);
+//    }
+//    intSekunden = time.sec ;
+//    intDisplayWartezeit++;
+//
+//  }
+
+if (intSekunden != time.sec && MenuTiefe == 0)
   {
-    if (intDisplayWartezeit == DISPLAY_WARTEZEIT)
-    {
-      Display(intDisplayAktuelleSeite);
-      intDisplayAktuelleSeite++;
-
-      if (intDisplayAktuelleSeite == DISPLAY_LETZTE_SEITE)
-        intDisplayAktuelleSeite = 0;
-
-      intDisplayWartezeit = 0;
-      
-     requestTemperature(lampeThermometer1);
-     requestTemperature(lampeThermometer2);
-    }
+    requestTemperature(lampeThermometer1);
+    requestTemperature(lampeThermometer2);
+    requestTemperature(wasserThermometer);
+    TestTempDisplay( );
+    
     intSekunden = time.sec ;
-    intDisplayWartezeit++;
 
   }
+  
 
 
   key = 0;
@@ -518,45 +570,10 @@ void loop() {
   liquidSensorValue = digitalRead(S_Sensor);
   
   
-//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ L U E F T E R A K T I V I T A E T +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-//  if ( (tempLampe1) >= Temperaturen[0].TempMax) //|| ((tempLampe2) >= Temp1Max) ) //42
-//        {
-//          digitalWrite(FAN, HIGH);
-////          lcd.setCursor(17, 3);
-////          lcd.print("On ");
-//        }
-//      if ( (tempLampe1) < Temperaturen[0].TempMin) //|| ((tempLampe2) < Temp1Min) ) //36
-//        {
-//          digitalWrite(FAN, LOW);
-////          lcd.setCursor(17, 3);
-////          lcd.print("Off");
-//        }
-  
-  
-  FanSpeed = map(tempLampe1, Temperaturen[0].TempMin, Temperaturen[0].TempMax, 0, 255);    // TempMin->0% // TempMax->100%
-  FanSpeed = map(tempLampe2, Temperaturen[0].TempMin, Temperaturen[0].TempMax, 0, 255);    // TempMin->0% // TempMax->100%
-  
-  //if (FanSpeed<200) FanSpeed = 0; //155
-  if (FanSpeed < 55) FanSpeed = 0; //25
-  
-  if (FanSpeed >= 55)
-               { fanSwitch = 1; }
-            else
-               { fanSwitch = 0; } 
-           
-                 if (fanSwitch != prevFanSwitch){
-                      if (fanSwitch == 1)
-                        {
-                          FanSpeed = 255; //Der Luefter soll mal kurz volle Pulle anlaufen damit er überhaupt anlaeuft!
-                          delay(1000);
-                        }      
-                   prevFanSwitch = fanSwitch;
-                 }
-     
-  if (FanSpeed > 255) FanSpeed = 255;
-  //Serial.println(FanSpeed); 
-  analogWrite(FAN, FanSpeed);               // PWM Geschwindigkeit setzen
-
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ L U E F T E R A K T I V I T A E T     L A M P E   &  +++++++++++++++++++++++++++++++++++++++++++++++++++++
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ T E M P E R A T U R E N   &   H E I Z E R E I N S T E L L U N G    I N K L. L U E F T E R A U T O M A T I K +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//runTemp();
+ 
 //+++++++++++++++++++++++++++++++++++++ D O S I E R P U M P E N +++++++++++++++++++++++++++++++++++++++++++++++++++
 runDosing();
 
