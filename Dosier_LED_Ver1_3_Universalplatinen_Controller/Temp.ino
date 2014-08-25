@@ -29,68 +29,76 @@ void runTemp( ) {
   //        }
   
   
-  FanSpeed = map(tempLampe1, Temperaturen[0].TempMin, Temperaturen[0].TempMax, 0, 255);    // TempMin->0% // TempMax->100%
-  FanSpeed = map(tempLampe2, Temperaturen[1].TempMin, Temperaturen[1].TempMax, 0, 255);    // TempMin->0% // TempMax->100%
+  if ((Temperaturen[1].FanActivity == true) || (Temperaturen[2].FanActivity == true)){
   
-  //if (FanSpeed<200) FanSpeed = 0; //155
-  if (FanSpeed < 55) FanSpeed = 0; //25
-  
-  if (FanSpeed >= 55)
-               { fanSwitch = 1; }
-            else
-               { fanSwitch = 0; } 
+        FanSpeed = map(tempLampe1, Temperaturen[1].TempMin, Temperaturen[1].TempMax, 0, 255);    // TempMin->0% // TempMax->100%
+        FanSpeed = map(tempLampe2, Temperaturen[2].TempMin, Temperaturen[2].TempMax, 0, 255);    // TempMin->0% // TempMax->100%
+        
+        //if (FanSpeed<200) FanSpeed = 0; //155
+        if (FanSpeed < 55) FanSpeed = 0; //25
+        
+        if (FanSpeed >= 55)
+                     { fanSwitch = 1; }
+                  else
+                     { fanSwitch = 0; } 
+                 
+                       if (fanSwitch != prevFanSwitch){
+                            if (fanSwitch == 1)
+                              {
+                                FanSpeed = 255; //Der Luefter soll mal kurz volle Pulle anlaufen damit er überhaupt anlaeuft!
+                                delay(1000);
+                              }      
+                         prevFanSwitch = fanSwitch;
+                       }
            
-                 if (fanSwitch != prevFanSwitch){
-                      if (fanSwitch == 1)
-                        {
-                          FanSpeed = 255; //Der Luefter soll mal kurz volle Pulle anlaufen damit er überhaupt anlaeuft!
-                          delay(1000);
-                        }      
-                   prevFanSwitch = fanSwitch;
-                 }
-     
-  if (FanSpeed > 255) FanSpeed = 255;
-  //Serial.println(FanSpeed); 
-  analogWrite(FAN, FanSpeed);               // PWM Geschwindigkeit setzen
+        if (FanSpeed > 255) FanSpeed = 255;
+        //Serial.println(FanSpeed); 
+        analogWrite(FAN, FanSpeed);               // PWM Geschwindigkeit setzen
+      
+  }
   
   
   //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ T E M P E R A T U R E N   &   H E I Z E R E I N S T E L L U N G    I N K L. L U E F T E R A U T O M A T I K +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   
   // Der Lüfter: springt mit 1.0 °C über Minimaltemperatur an und hat Maximalgeschwindigkeit bei maximal erlaubter Temperatur!
   
-  FanSpeed = map(tempWasser, (Temperaturen[2].TempMin + 1), Temperaturen[2].TempMax, 0, 255);    // TempMin->0% // TempMax->100%
+  if (Temperaturen[0].FanActivity == true){
   
-  //if (FanSpeed<200) FanSpeed = 0; //155
-  if (FanSpeed < 55) FanSpeed = 0; //25
+            FanSpeed = map(tempWasser, (Temperaturen[0].TempMin + 1), (Temperaturen[0].TempMax + 1), 0, 255);    // TempMin->0% // TempMax->100%
+            
+            //if (FanSpeed<200) FanSpeed = 0; //155
+            if (FanSpeed < 55) FanSpeed = 0; //25
+            
+            if (FanSpeed >= 55)
+                         { fanSwitch = 1; }
+                      else
+                         { fanSwitch = 0; } 
+                     
+                           if (fanSwitch != prevFanSwitch){
+                                if (fanSwitch == 1)
+                                  {
+                                    FanSpeed = 255; //Der Luefter soll mal kurz volle Pulle anlaufen damit er überhaupt anlaeuft!
+                                    delay(1000);
+                                  }      
+                             prevFanSwitch = fanSwitch;
+                           }
+               
+            if (FanSpeed > 255) FanSpeed = 255;
+            //Serial.println(FanSpeed); 
+            analogWrite(FAN, FanSpeed);               // PWM Geschwindigkeit setzen
   
-  if (FanSpeed >= 55)
-               { fanSwitch = 1; }
-            else
-               { fanSwitch = 0; } 
-           
-                 if (fanSwitch != prevFanSwitch){
-                      if (fanSwitch == 1)
-                        {
-                          FanSpeed = 255; //Der Luefter soll mal kurz volle Pulle anlaufen damit er überhaupt anlaeuft!
-                          delay(1000);
-                        }      
-                   prevFanSwitch = fanSwitch;
-                 }
-     
-  if (FanSpeed > 255) FanSpeed = 255;
-  //Serial.println(FanSpeed); 
-  analogWrite(FAN, FanSpeed);               // PWM Geschwindigkeit setzen
+  }
   
   // Die Heizstabaktivitaet
   
-  if ( (tempWasser) <= Temperaturen[2].TempMin - 0.5) //24.5
+  if ( (tempWasser) <= Temperaturen[0].TempMin - 0.5) //24.5
         {
           tempSwitch = 1;
           //mySwitch.switchOn("11001", 2);
           //lcd.setCursor(17, 3);
           //lcd.print("On ");
         }
-  if ( (tempWasser) >= Temperaturen[2].TempMax + 0.5) //25.5
+  if ( (tempWasser) >= Temperaturen[0].TempMax + 0.5) //25.5
         {
           tempSwitch = 0;
           //mySwitch.switchOff("11001", 2);
@@ -105,7 +113,7 @@ void runTemp( ) {
           //lcd.setCursor(17, 3);
           //lcd.print("Off");
         }
-  if ( (tempWasser) >= Temperaturen[2].TempMax + 1.0) //26.0
+  if ( (tempWasser) >= Temperaturen[0].TempMax + 1.0) //26.0
         {
           tempSwitch = 0;
           //buzz(buzzer, 3500, 200); // buzz the buzzer on pin 48 at 3500Hz for 200 milliseconds
@@ -114,7 +122,7 @@ void runTemp( ) {
           //lcd.print("Off");
         }
   
-  if ( (tempWasser) >= Temperaturen[2].TempMax + 1.5) //26.5
+  if ( (tempWasser) >= Temperaturen[0].TempMax + 1.5) //26.5
         {
           tempSwitch = 0;
           //buzz(buzzer, 3500, 200); // buzz the buzzer on pin 48 at 3500Hz for 200 milliseconds
@@ -123,7 +131,7 @@ void runTemp( ) {
           //lcd.print("Off");
         }
         
-  if ( (tempWasser) >= Temperaturen[2].TempMax + 2.0) //27.0
+  if ( (tempWasser) >= Temperaturen[0].TempMax + 2.0) //27.0
         {
           tempSwitch = 0;
           buzz(buzzer, 3500, 200); // buzz the buzzer on pin 48 at 3500Hz for 200 milliseconds

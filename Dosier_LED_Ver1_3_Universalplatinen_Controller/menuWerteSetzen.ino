@@ -75,8 +75,33 @@ void MenuWerteSetzen()
                       
                   } 
                   
-                  //Temp Alarm
+                  //Luefteraktivitaet
                   if (MenuTiefe == 4 && MenuEbene0 == 4 && MenuEbene1 == (n+1) && MenuEbene2 == 3)
+                  {
+                    lcd.blink();
+                    if (FirstSelect)
+                    {
+                      FirstSelect = false;
+                      Temperaturen[n].FanActivity = setDisplayBoolean2 (-1, Temperaturen[n].FanActivity, 11, 1);
+                    }
+                    else{
+                      Temperaturen[n].FanActivity = setDisplayBoolean2 (key, Temperaturen[n].FanActivity, 11, 1);
+                      
+                      if(Temperaturen[n].FanActivity== true){
+                          for (int i = 0; i <= 2; i++) {
+                            if(i!= n){
+                              Temperaturen[i].FanActivity = false;
+                                     }
+                          }
+                        }
+                      
+                      
+                    }
+                      
+                  } 
+                  
+                  //Temp Alarm
+                  if (MenuTiefe == 4 && MenuEbene0 == 4 && MenuEbene1 == (n+1) && MenuEbene2 == 4)
                   {
                     //lcd.blink();
                     if (FirstSelect)

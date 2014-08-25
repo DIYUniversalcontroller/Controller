@@ -53,9 +53,9 @@ PUMP Dosierpumpen[8] = {
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++ T E M P E R A T U R ++++++++++++++++++++++++++++++++++++++++++++++++++
 TEMP Temperaturen[3] = {
-  {0,0,0},
-  {0,0,0},
-  {0,0,0}
+  {0,0,0,0},
+  {0,0,0,0},
+  {0,0,0,0}
   };
 
 DS1307 rtc(56, 57);
@@ -84,8 +84,8 @@ DeviceAddress lampeThermometer1, lampeThermometer2, wasserThermometer;
 
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ K O N S T A N T E N +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-const int DISPLAY_LETZTE_SEITE = 3;
-const int DISPLAY_WARTEZEIT = 3;
+const int DISPLAY_LETZTE_SEITE = 5;
+const int DISPLAY_WARTEZEIT = 2;
 const long HOUR = 60 * 60;
 const long MINUTE = 60;
 
@@ -199,8 +199,8 @@ const int MENUTEMPERATUREINSTELLUNG = 3;
 char sMenuTemperatureinstellung[MENUTEMPERATUREINSTELLUNG + 1][21] = {"Hauptmen\365", "Wasser", "Lampe1", "Lampe2"};
 
 //Temp-Modul
-const int MENUTEMP = 3;
-char sMenuTemp[MENUTEMP + 1][21] = {"zur\365ck", "Min", "Max", "Alarm"};
+const int MENUTEMP = 4;
+char sMenuTemp[MENUTEMP + 1][21] = {"zur\365ck", "Min", "Max", "L\365fteraktivit\341t", "Alarm"};
 double tempLampe1 = 0;
 double tempLampe2 = 0;
 double tempWasser = 0;
@@ -505,37 +505,37 @@ void loop() {
   Time time = rtc.getTime();
 
   //Display
-//  if (intSekunden != time.sec && MenuTiefe == 0)
-//  {
-//    if (intDisplayWartezeit == DISPLAY_WARTEZEIT)
-//    {
-//      Display(intDisplayAktuelleSeite);
-//      intDisplayAktuelleSeite++;
-//
-//      if (intDisplayAktuelleSeite == DISPLAY_LETZTE_SEITE)
-//        intDisplayAktuelleSeite = 0;
-//
-//      intDisplayWartezeit = 0;
-//      
-//     requestTemperature(lampeThermometer1);
-//     requestTemperature(lampeThermometer2);
-//     requestTemperature(wasserThermometer);
-//    }
-//    intSekunden = time.sec ;
-//    intDisplayWartezeit++;
-//
-//  }
-
-if (intSekunden != time.sec && MenuTiefe == 0)
+  if (intSekunden != time.sec && MenuTiefe == 0)
   {
-    requestTemperature(lampeThermometer1);
-    requestTemperature(lampeThermometer2);
-    requestTemperature(wasserThermometer);
-    TestTempDisplay( );
-    
+    if (intDisplayWartezeit == DISPLAY_WARTEZEIT)
+    {
+      Display(intDisplayAktuelleSeite);
+      intDisplayAktuelleSeite++;
+
+      if (intDisplayAktuelleSeite == DISPLAY_LETZTE_SEITE)
+        intDisplayAktuelleSeite = 0;
+
+      intDisplayWartezeit = 0;
+      
+     requestTemperature(lampeThermometer1);
+     requestTemperature(lampeThermometer2);
+     requestTemperature(wasserThermometer);
+    }
     intSekunden = time.sec ;
+    intDisplayWartezeit++;
 
   }
+
+//if (intSekunden != time.sec && MenuTiefe == 0)
+//  {
+//    requestTemperature(lampeThermometer1);
+//    requestTemperature(lampeThermometer2);
+//    requestTemperature(wasserThermometer);
+//    TestTempDisplay( );
+//    
+//    intSekunden = time.sec ;
+//
+//  }
   
 
 

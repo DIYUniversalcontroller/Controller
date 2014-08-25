@@ -131,7 +131,7 @@ void MenuWerteAuswahl()
     }
     
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ T E M P E R A T U R ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    for (int n = 1; n <= 3; n++) {
+    for (int n = 1; n <= 4; n++) {
             
             if (MenuTiefe == 3 && MenuEbene0 == 4 && MenuEbene1 == n )
             {
@@ -270,7 +270,7 @@ void MenuWerteAuswahl()
     }
     
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ T E M P E R A T U R ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    for (int n = 1; n <= 3; n++) {
+    for (int n = 1; n <= 4; n++) {
             
             if (MenuTiefe == 3 && MenuEbene0 == 4 && MenuEbene1 == n )
             {
@@ -641,6 +641,14 @@ void MenuWerteAuswahl()
         }
       
       if (MenuTiefe == 2 && MenuEbene0 == 4 && MenuEbene1 == 3 )
+        {
+          MenuTiefe++;
+          MenuEbene2 = 1;
+          displayTemp(MenuEbene2);
+          break;
+        }
+      
+      if (MenuTiefe == 2 && MenuEbene0 == 4 && MenuEbene1 == 4 )
         {
           MenuTiefe++;
           MenuEbene2 = 1;
