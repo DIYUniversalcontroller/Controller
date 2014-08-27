@@ -41,7 +41,7 @@ int setDisplayInteger (int key, int value, int valueMin, int valueMax, boolean N
   if (key == SELECTKEY)
   {
     lcd.setCursor(displayColumn, displayRow);
-    lcd.print("   ");
+    lcd.print("                    ");
   }
 
   return value;
@@ -99,7 +99,7 @@ Time setDisplayMinute (int key, Time value, int displayColumn, int displayRow)
   if (key == SELECTKEY)
   {
     lcd.setCursor(displayColumn, displayRow);
-    lcd.print("    ");
+    lcd.print("                    ");
   }
 
   return value;
@@ -153,7 +153,7 @@ Time setDisplayHour (int key, Time value, int displayColumn, int displayRow)
   if (key == SELECTKEY)
   {
     lcd.setCursor(displayColumn, displayRow);
-    lcd.print("   ");
+    lcd.print("                    ");
   }
 
   return value;
@@ -201,7 +201,7 @@ int setDisplayPercent (int key, int value, int valueMin, int valueMax, boolean N
   if (key == SELECTKEY)
   {
     lcd.setCursor(displayColumn, displayRow);
-    lcd.print("      ");
+    lcd.print("                    ");
   }
 
   return value;
@@ -280,7 +280,7 @@ Time setDisplayTime (int key, Time value, int displayColumn, int displayRow)
   if (key == SELECTKEY)
   {
     lcd.setCursor(displayColumn, displayRow);
-    lcd.print("     ");
+    lcd.print("                    ");
   }
 
   return value;
@@ -342,7 +342,7 @@ double setDisplayTemperatur (int key, double value, int displayColumn, int displ
   if (key == SELECTKEY)
   {
     lcd.setCursor(displayColumn, displayRow);
-    lcd.print("          ");
+    lcd.print("                    ");
   }
 
   return value;
@@ -399,7 +399,7 @@ void setDisplayDate (int key, int displayColumn, int displayRow)
   if (key == SELECTKEY)
   {
     lcd.setCursor(displayColumn, displayRow);
-    lcd.print("          ");
+    lcd.print("                    ");
   }
 }
 
@@ -466,7 +466,7 @@ boolean setDisplayBoolean (int key, boolean value, int displayColumn, int displa
   if (key == SELECTKEY)
   {
     lcd.setCursor(displayColumn, displayRow);
-    lcd.print("    ");
+    lcd.print("                    ");
   }
 
   return value;
@@ -496,7 +496,7 @@ boolean setDisplayBoolean2 (int key, boolean value, int displayColumn, int displ
   if (key == SELECTKEY)
   {
     lcd.setCursor(displayColumn, displayRow);
-    lcd.print("    ");
+    lcd.print("                    ");
   }
 
   return value;
@@ -524,7 +524,7 @@ long TimeStamp (int key, int value, long endtime, int displayColumn, int display
   {
     lcd.setCursor(displayColumn, displayRow);
     //lcd.print("                    ");
-    lcd.print("Set Time Loop   ");   
+    lcd.print("Set Time Loop       ");   
   }
   
   return endtime;
@@ -592,7 +592,7 @@ void displayDosierpumpeneinstellung(int pos)
 {
   //lcd.clear();
   lcd.setCursor(0, 1);
-  lcd.print("                ");
+  lcd.print("                    ");
   lcd.setCursor(0, 1);
   lcd.print(sMenuDosierpumpeneinstellung[pos]);
 }
@@ -601,7 +601,7 @@ void displayDosierpumpeneinstellung2(int pos)
 {
   //lcd.clear();
   lcd.setCursor(0, 1);
-  lcd.print("                ");
+  lcd.print("                    ");
   lcd.setCursor(0, 1);
   lcd.print(sMenuDosierpumpeneinstellung2[pos]);
 }
@@ -611,9 +611,9 @@ void displayDosiererManuell(int pos)
 {
   //lcd.clear();
   lcd.setCursor(0, 1);
-  lcd.print("                ");
+  lcd.print("                    ");
   lcd.setCursor(0, 2);
-  lcd.print("                ");
+  lcd.print("                    ");
   lcd.setCursor(0, 1);
   lcd.print(sMenuDosiererManuell[pos]);
 }
@@ -622,9 +622,9 @@ void displayDosiererKalib(int pos)
 {
   //lcd.clear();
   lcd.setCursor(0, 1);
-  lcd.print("                ");
+  lcd.print("                    ");
   lcd.setCursor(0, 2);
-  lcd.print("                ");
+  lcd.print("                    ");
   lcd.setCursor(0, 1);
   lcd.print(sMenuDosiererKalib[pos]);
 }
@@ -633,9 +633,9 @@ void displayDosiererNachfuell(int pos)
 {
   //lcd.clear();
   lcd.setCursor(0, 1);
-  lcd.print("                ");
+  lcd.print("                    ");
   lcd.setCursor(0, 2);
-  lcd.print("                ");
+  lcd.print("                    ");
   lcd.setCursor(0, 1);
   lcd.print(sMenuDosiererNachfuell[pos]);
 }
@@ -644,9 +644,9 @@ void displayDosiererSpeed(int pos)
 {
   //lcd.clear();
   lcd.setCursor(0, 1);
-  lcd.print("                ");
+  lcd.print("                    ");
   lcd.setCursor(0, 2);
-  lcd.print("                ");
+  lcd.print("                    ");
   lcd.setCursor(0, 1);
   lcd.print(sMenuDosiererSpeed[pos]);
 }
@@ -655,9 +655,9 @@ void displayDosiererDosieren(int pos)
 {
   //lcd.clear();
   lcd.setCursor(0, 1);
-  lcd.print("                ");
+  lcd.print("                    ");
   lcd.setCursor(0, 2);
-  lcd.print("                ");
+  lcd.print("                    ");
   lcd.setCursor(0, 1);
   lcd.print(sMenuDosiererDosieren[pos]);
 }
@@ -667,7 +667,7 @@ void displayTemperatureinstellung(int pos)
 {
   //lcd.clear();
   lcd.setCursor(0, 1);
-  lcd.print( "                ");
+  lcd.print("                    ");
   lcd.setCursor(0, 1);
   lcd.print(sMenuTemperatureinstellung[pos]);
 }
@@ -676,7 +676,7 @@ void displayTemp(int pos)
 {
   //lcd.clear();
   lcd.setCursor(0, 1);
-  lcd.print("                ");
+  lcd.print("                    ");
   lcd.setCursor(0, 1);
   lcd.print(sMenuTemp[pos]);
 }

@@ -308,9 +308,9 @@ void MenuWerteAuswahl()
 //      EEPROM.writeInt(110, MondMin);
 //      EEPROM.writeInt(112, MondMax);
       
-      EEPROM.updateBlock(200,Temperaturen, 3);
-      EEPROM.updateBlock(300,Dosierpumpen, 8);
-      EEPROM.updateBlock(600, light_channels,16);
+      EEPROM.updateBlock(100,Temperaturen, 3);
+      EEPROM.updateBlock(500,Dosierpumpen, 8);
+      EEPROM.updateBlock(2000, light_channels,16);
       
 //      EEPROM.writeBlock(300,Dosierpumpen, 8);
 //      EEPROM.writeBlock(600, light_channels,15);

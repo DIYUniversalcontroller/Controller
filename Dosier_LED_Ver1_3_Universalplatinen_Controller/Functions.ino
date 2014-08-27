@@ -56,16 +56,16 @@ int kalibrieren ( int Kalibrierwert, int Dosiermenge, long Dosierzeit )
 void requestEEPROM( )
 {
 
-  if (EEPROM.readInt(0) != 3)
+  if (EEPROM.readInt(0) != 1)
     {
       rtc.setDOW(SATURDAY);
       rtc.setTime(13, 30, 0);
       rtc.setDate(7, 9, 2013);
   
       //WRITING
-      EEPROM.writeBlock(200, Temperaturen, 3);
-      EEPROM.writeBlock(300, Dosierpumpen, 8);
-      EEPROM.writeBlock(600, light_channels, 16);
+      EEPROM.writeBlock(100, Temperaturen, 3);
+      EEPROM.writeBlock(500, Dosierpumpen, 8);
+      EEPROM.writeBlock(2000, light_channels, 16);
       
 //      double MinTemp = 34.5;
 //      double MaxTemp = 40.5;
@@ -81,9 +81,9 @@ void requestEEPROM( )
       
       
       //READING
-      EEPROM.readBlock(200, Temperaturen, 3);
-      EEPROM.readBlock(300, Dosierpumpen, 8);
-      EEPROM.readBlock(600, light_channels, 16);
+      EEPROM.readBlock(100, Temperaturen, 3);
+      EEPROM.readBlock(500, Dosierpumpen, 8);
+      EEPROM.readBlock(2000, light_channels, 16);
       
 //      EEPROM.readFloat(100);
 //      EEPROM.readFloat(105);
@@ -97,15 +97,15 @@ void requestEEPROM( )
   
       
       
-      EEPROM.writeInt(0,3);
+      EEPROM.writeInt(0,1);
     }
   
     else
     { 
       //READING
-      EEPROM.readBlock(200, Temperaturen, 3);
-      EEPROM.readBlock(300, Dosierpumpen,8);
-      EEPROM.readBlock(600, light_channels,16);
+      EEPROM.readBlock(100, Temperaturen, 3);
+      EEPROM.readBlock(500, Dosierpumpen,8);
+      EEPROM.readBlock(2000, light_channels,16);
       
 //      EEPROM.readFloat(100);
 //      EEPROM.readFloat(105);

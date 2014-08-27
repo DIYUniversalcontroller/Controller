@@ -82,6 +82,7 @@ void runDosing() {
           Motor[n-4].run(RELEASE);
           Dosierpumpen[n].Endtime = 0;
         }
+        
         /*
         if (n == 0) {
 //          Serial.println("Here 1 Off");
@@ -124,7 +125,8 @@ void runDosing() {
           Motor[3].run(RELEASE);
           Dosierpumpen[7].Endtime = 0;
         }
-*/
+        */
+
       }
       
     

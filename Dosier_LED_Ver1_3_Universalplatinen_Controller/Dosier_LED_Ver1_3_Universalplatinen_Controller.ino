@@ -41,14 +41,14 @@ LIGHT light_channels[16] = {
   
   //++++++++++++++++++++++++++++++++++++++++++++++++++++++ D O S I E R P U M P E N ++++++++++++++++++++++++++++++++++++++++++++++++++
 PUMP Dosierpumpen[8] = {
-  {100, {Time(8, 0, 0), Time(9, 0, 0), Time(9, 30, 0), Time(14, 30, 0), Time(15, 30, 0), Time(17, 0, 0), Time(17, 30, 0), Time(18, 0, 0), Time(18, 30, 0), Time(19, 0, 0), Time(19, 30, 0), Time(20, 30, 0)}, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 0, 0, 90}, //Dosiermenge, {{Dosierung.hour},{Dosierung.min},{Dosierung.sec}}, Dosierdauer, Kalibrierung, {Dosierautomatzeit}, Dosiernachfuell, Doseirmanuel, Endtime, Dosierspeed
-  {0, {Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0)}, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 0, 0, 90},
-  {0, {Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0)}, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 0, 0, 90},
-  {0, {Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0)}, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 0, 0, 90},
-  {0, {Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0)}, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 0, 0, 90},
-  {0, {Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0)}, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 0, 0, 90},
-  {0, {Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0)}, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 0, 0, 90},
-  {0, {Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0)}, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 0, 0, 90}
+  {0, {Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0)}, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 0, 0, 90}, //Dosiermenge, {{Dosierung.hour},{Dosierung.min},{Dosierung.sec}}, Dosierdauer, Kalibrierung, {Dosierautomatzeit}, Dosiernachfuell, Doseirmanuel, Endtime, Dosierspeed
+  {0, {Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0)}, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 0, 0, 90},
+  {0, {Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0)}, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 0, 0, 90},
+  {0, {Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0)}, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 0, 0, 90},
+  {0, {Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0)}, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 0, 0, 90},
+  {0, {Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0)}, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 0, 0, 90},
+  {0, {Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0)}, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 0, 0, 90},
+  {0, {Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0)}, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 0, 0, 90}
 };
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++ T E M P E R A T U R ++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -182,7 +182,7 @@ char sMenuDosierpumpeneinstellung[MENUDOSIERPUMPENEINSTELLUNG + 1][17] = {
 //Dosierpumpe-Untermenü
 const int MENUDOSIERPUMPENEINSTELLUNG2 = 5;
 char sMenuDosierpumpeneinstellung2[MENUDOSIERPUMPENEINSTELLUNG2 + 1][17] = {
-  "zur\365ck", "Manuell Betrieb ", "Kalibrieren     ", "Nachf\365llautomat ", "Speed           ", "Dosieren        "
+  "zur\365ck", "Manuell Betrieb     ", "Kalibrieren         ", "Nachf\365llautomat     ", "Speed               ", "Dosieren            "
 };
 
 //Lampeneinstellung
@@ -191,7 +191,7 @@ char sMenuLampeneinstellung[MENULAMPENEINSTELLUNG + 1][21] = {"Hauptmen\365", "L
 
 //LED
 const int MENULED = 6;
-char sMenuLED[MENULED + 1][21] = {"zur\365ck", "Min                %", "Max                %", "Start", "Ende", "Dauer Start      min", "Dauer Ende      min" };
+char sMenuLED[MENULED + 1][21] = {"zur\365ck", "Min                 ", "Max                 ", "Start", "Ende", "Dauer Start      min", "Dauer Ende      min" };
 String DP;
 
 //Temperatureinstellung-Menü
@@ -492,6 +492,8 @@ void setup() {
   pinMode(buzzer, OUTPUT); // set a pin for buzzer output
   
   // RC Switch
+  // Transmitter is connected to Arduino Pin #38  
+  mySwitch.enableTransmit(rc_switch);
   pinMode(rc_switch, OUTPUT);
 
  requestEEPROM( );
@@ -531,7 +533,7 @@ void loop() {
 //    requestTemperature(lampeThermometer1);
 //    requestTemperature(lampeThermometer2);
 //    requestTemperature(wasserThermometer);
-//    TestTempDisplay( );
+//    TestTempDisplay2( );
 //    
 //    intSekunden = time.sec ;
 //

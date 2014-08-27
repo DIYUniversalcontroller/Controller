@@ -267,4 +267,43 @@ void TestTempDisplay( ){
   
 }
 
+void TestTempDisplay2( ){
+  
+  lcd.clear();
+    lcd.setCursor(0, 0);
+    lcd.print("Wasser-Temp");
+    lcd.setCursor(13, 0);
+    //sprintf(sValue, "%.2f", tempWasser);
+    lcd.print(tempWasser);
+    //lcd.print( tempHauptbecken);
+    lcd.setCursor(18, 0);
+    //lcd.print((char)223);
+    lcd.print("\337C");
+    
+    lcd.setCursor(0, 1);
+    if (Temperaturen[0].FanActivity == true)
+        {
+          if (fanSwitch == 1){
+            lcd.print("Temp High Fan:  ON");
+          }
+          else{
+             lcd.print("Temp Low Fan: OFF");
+          }
+        }
+    else{
+          lcd.print("L\365fter deaktiviert");
+      }
+    
+    
+    lcd.setCursor(0, 2);
+    if (tempSwitch == 1){
+        lcd.print("Temp Low Heater: ON");
+    }
+    else{
+        lcd.print("Temp High Heater:OFF");
+    } 
+    
+  
+}
+
 

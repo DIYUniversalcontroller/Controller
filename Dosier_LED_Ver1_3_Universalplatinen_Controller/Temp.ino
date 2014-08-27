@@ -147,7 +147,7 @@ void runTemp( ) {
       {
         //lcd.setCursor(7, 2);
         //lcd.print("On ");
-        mySwitch.switchOn("11001", 2);
+        mySwitch.switchOn("10000", 5);
         delay(100);
       } 
       
@@ -157,7 +157,7 @@ void runTemp( ) {
       {
         //lcd.setCursor(7, 2);
         //lcd.print("Off ");
-        mySwitch.switchOff("11001", 2);
+        mySwitch.switchOff("10000", 5);
         delay(100);
       } 
       
@@ -168,7 +168,7 @@ void runTemp( ) {
       {
         //lcd.setCursor(7, 2);
         //lcd.print("Off ");
-        mySwitch.switchOff("11001", 2);
+        mySwitch.switchOff("10000", 5);
         delay(100);
       } 
       
