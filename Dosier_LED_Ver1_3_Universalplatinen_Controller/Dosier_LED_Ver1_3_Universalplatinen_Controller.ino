@@ -162,27 +162,27 @@ int liquidSensorValue = 0;
 
 //Hauptmenü; Menüebene0 = 0
 const int MENUHAUPT = 4;
-char sMenuHaupt[MENUHAUPT + 1][17] = {
+char sMenuHaupt[MENUHAUPT + 1][21] = {
   "Starten", "Grundeinstellung", "Dosierpumpe", "Lampe", "Temperatur"
 };
 
 
 //Grundeinstellung-Menü
 const int MENUGRUNDEINSTELLUNG = 3; 
-char sMenuGrundeinstellung[MENUGRUNDEINSTELLUNG + 1][17] = {
+char sMenuGrundeinstellung[MENUGRUNDEINSTELLUNG + 1][21] = {
   "Hauptmen\365", "Datum", "Uhrzeit", "Tag"
 };
 
 //Dosierpumpe-Menü
 const int MENUDOSIERPUMPENEINSTELLUNG = 8; //Hier gibt man an wieviele Dosierpumpen man hat.
-char sMenuDosierpumpeneinstellung[MENUDOSIERPUMPENEINSTELLUNG + 1][17] = {
+char sMenuDosierpumpeneinstellung[MENUDOSIERPUMPENEINSTELLUNG + 1][21] = {
   "Hauptmen\365", "Dosierer 1", "Dosierer 2", "Dosierer 3", "Dosierer 4", "Dosierer 5", "Dosierer 6", "Dosierer 7", "Dosierer 8"
 };
 
 //Dosierpumpe-Untermenü
 const int MENUDOSIERPUMPENEINSTELLUNG2 = 5;
-char sMenuDosierpumpeneinstellung2[MENUDOSIERPUMPENEINSTELLUNG2 + 1][17] = {
-  "zur\365ck", "Manuell Betrieb     ", "Kalibrieren         ", "Nachf\365llautomat     ", "Speed               ", "Dosieren            "
+char sMenuDosierpumpeneinstellung2[MENUDOSIERPUMPENEINSTELLUNG2 + 1][21] = {
+  "zur\365ck", "Manuell Betrieb", "Kalibrieren", "Nachf\365llautomat ", "Speed", "Dosieren"
 };
 
 //Lampeneinstellung
