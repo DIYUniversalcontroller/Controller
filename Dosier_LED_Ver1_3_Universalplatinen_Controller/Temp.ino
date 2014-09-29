@@ -29,10 +29,16 @@ void runTemp( ) {
   //        }
   
   
-  if ((Temperaturen[1].FanActivity == true) || (Temperaturen[2].FanActivity == true)){
+  if ((Temperaturen[1].FanActivity == true) || (Temperaturen[2].FanActivity == true)){ // && (tempLampe2 < tempLampe1)){
   
-        FanSpeed = map(tempLampe1, Temperaturen[1].TempMin, Temperaturen[1].TempMax, 0, 255);    // TempMin->0% // TempMax->100%
-        FanSpeed = map(tempLampe2, Temperaturen[2].TempMin, Temperaturen[2].TempMax, 0, 255);    // TempMin->0% // TempMax->100%
+    if (tempLampe2 < tempLampe1){
+      FanSpeed = map(tempLampe1, Temperaturen[1].TempMin, Temperaturen[1].TempMax, 0, 255);    // TempMin->0% // TempMax->100% 
+    }
+      
+    if (tempLampe1 < tempLampe2){
+      FanSpeed = map(tempLampe2, Temperaturen[2].TempMin, Temperaturen[2].TempMax, 0, 255);    // TempMin->0% // TempMax->100%
+    
+    }
         
         //if (FanSpeed<200) FanSpeed = 0; //155
         if (FanSpeed < 55) FanSpeed = 0; //25
