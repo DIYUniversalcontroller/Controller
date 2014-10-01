@@ -114,7 +114,9 @@ void runTemp( ) {
   if ( (tempWasser) <= 0) //Fall: Thermometer ist Defekt
         {
           tempSwitch = 0;
-          buzz(buzzer, 3500, 200); // buzz the buzzer on pin 48 at 3500Hz for 200 milliseconds
+          if (Temperaturen[0].TempAlarm == true){
+            buzz(buzzer, 3500, 200); // buzz the buzzer on pin 48 at 3500Hz for 200 milliseconds
+          }
           //mySwitch.switchOff("11001", 2);
           //lcd.setCursor(17, 3);
           //lcd.print("Off");
@@ -140,7 +142,9 @@ void runTemp( ) {
   if ( (tempWasser) >= Temperaturen[0].TempMax + 2.0) //27.0
         {
           tempSwitch = 0;
-          buzz(buzzer, 3500, 200); // buzz the buzzer on pin 48 at 3500Hz for 200 milliseconds
+          if (Temperaturen[0].TempAlarm == true){
+            buzz(buzzer, 3500, 200); // buzz the buzzer on pin 48 at 3500Hz for 200 milliseconds
+          }
           //mySwitch.switchOff("11001", 2);
           //lcd.setCursor(17, 3);
           //lcd.print("Off");

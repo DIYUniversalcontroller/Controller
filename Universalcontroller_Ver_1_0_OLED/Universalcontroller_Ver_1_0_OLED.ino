@@ -82,7 +82,7 @@ DS1307 rtc(56, 57);
 #define ONE_WIRE_BUS 13       // Data wire is plugged into port 2 on the Arduino
 
 #define rc_switch 38         // Remote Control Switch on Digital Pin 38
-#define buzzer 23            // Alarm on Digital Pin 23
+const int buzzer = 23;            // Alarm on Digital Pin 23
 
 // Setup the Remote Control Switch
 RCSwitch mySwitch = RCSwitch();
@@ -410,10 +410,16 @@ void setup()
   // Transmitter is connected to Arduino Pin #38  
   mySwitch.enableTransmit(rc_switch);
   pinMode(rc_switch, OUTPUT);
+  pinMode(buzzer, OUTPUT); // set a pin for buzzer output
   
   Serial.print("EEPROM Wert:   ");
   Serial.println(EEPROM.readInt(0));
   requestEEPROM( );
+  
+  //Initial Buzzing 
+  //Untere 2 Zeilen Auskommentieren, wenn man beim Einschalten des Gerätes einen Ton hören möchte
+  buzz(buzzer, 2500, 200); // buzz the buzzer on pin 48 at 2500Hz for 200 milliseconds
+  buzz(buzzer, 3500, 200); // buzz the buzzer on pin 48 at 3500Hz for 200 milliseconds
   
   //menu.InitMenu(mnuRoot,cntRoot,1);
   mydisp.clearScreen(); //CLear screen
