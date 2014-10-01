@@ -63,7 +63,7 @@ LiquidCrystal_I2C lcd(0x3F, 20, 4); // set the LCD address to 0x27 for a 20 char
 #define ONE_WIRE_BUS 13       // Data wire is plugged into port 2 on the Arduino
 
 #define rc_switch 38         // Remote Control Switch on Digital Pin 38
-#define buzzer 23            // Alarm on Digital Pin 23
+const int buzzer = 23;            // Alarm on Digital Pin 23
 
 // Setup the Remote Control Switch
 RCSwitch mySwitch = RCSwitch();
@@ -497,6 +497,11 @@ void setup() {
   pinMode(rc_switch, OUTPUT);
 
  requestEEPROM( );
+ 
+ //Initial Buzzing 
+  //Untere 2 Zeilen Auskommentieren, wenn man beim Einschalten des Gerätes einen Ton hören möchte
+  buzz(buzzer, 2500, 200); // buzz the buzzer on pin 48 at 2500Hz for 200 milliseconds
+  buzz(buzzer, 3500, 200); // buzz the buzzer on pin 48 at 3500Hz for 200 milliseconds
  
 
 }
