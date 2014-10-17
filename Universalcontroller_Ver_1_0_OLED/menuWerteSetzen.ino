@@ -236,10 +236,9 @@ void MenuWerteSetzen()
                           Serial.println(MenuEbene4);
                     
                     } 
-
-                
-                    //Nachfüllautomatik Dosierer 1 - 8 (An/Aus)
-                      if (MenuTiefe == 4 && MenuEbene1 == 2 && MenuEbene2 == (n+1) && MenuEbene3 == 3 )
+                    
+                    //Nachfuellsteuerung An/Aus von Dosierpumpe 1 - 8
+                     if (MenuTiefe == 5 && MenuEbene1 == 2 && MenuEbene2 == (n+1) && MenuEbene3 == 3 && MenuEbene4 == 1)
                       {
                       //lcd.blink();
                       if (FirstSelect)
@@ -275,7 +274,77 @@ void MenuWerteSetzen()
                        
                       }
                        
+                    }  
+          
+  
+                  
+                    //Invertierung des Schwimmerschalters für Dosierpumpe 1 - 8
+                     if (MenuTiefe == 5 && MenuEbene1 == 2 && MenuEbene2 == (n+1) && MenuEbene3 == 3 && MenuEbene4 == 2)
+                      {
+                      //lcd.blink();
+                      if (FirstSelect)
+                      { 
+                        FirstSelect = false;
+                        Dosierpumpen[n].Invertnachfuell = setDisplayBoolean (-1, Dosierpumpen[n].Invertnachfuell, 4, 1); //Select Key, Dauer der manuell gesetzten Rotation [sek], Einfrieren einer Zeit, Column, Row
+                      }
+                      else
+                        Dosierpumpen[n].Invertnachfuell = setDisplayBoolean (key, Dosierpumpen[n].Invertnachfuell, 4, 1); //Select Key, Dauer der manuell gesetzten Rotation [sek], Einfrieren einer Zeit , Column, Row
+                        Serial.print("MenuTiefe:  ");
+                          Serial.print(MenuTiefe);
+                          Serial.print("  ");
+                          Serial.print("MenuEbene1:  ");
+                          Serial.print(MenuEbene1);
+                          Serial.print("  ");
+                          Serial.print("MenuEbene2:  ");
+                          Serial.print(MenuEbene2);
+                          Serial.print("  ");
+                          Serial.print("MenuEbene3:  ");
+                          Serial.print(MenuEbene3);
+                          Serial.print("  ");
+                          Serial.print("MenuEbene4:  ");
+                          Serial.println(MenuEbene4);
+                    
                     } 
+
+                
+//                    //Nachfüllautomatik Dosierer 1 - 8 (An/Aus)
+//                      if (MenuTiefe == 4 && MenuEbene1 == 2 && MenuEbene2 == (n+1) && MenuEbene3 == 3 )
+//                      {
+//                      //lcd.blink();
+//                      if (FirstSelect)
+//                      { 
+//                        FirstSelect = false;
+//                        Dosierpumpen[n].Dosiernachfuell = setDisplayBoolean2 (-1, Dosierpumpen[n].Dosiernachfuell, 4, 1);
+//                      }
+//                      else{
+//                        Dosierpumpen[n].Dosiernachfuell = setDisplayBoolean2 (key, Dosierpumpen[n].Dosiernachfuell, 4, 1);
+//                        Serial.print("MenuTiefe:  ");
+//                          Serial.print(MenuTiefe);
+//                          Serial.print("  ");
+//                          Serial.print("MenuEbene1:  ");
+//                          Serial.print(MenuEbene1);
+//                          Serial.print("  ");
+//                          Serial.print("MenuEbene2:  ");
+//                          Serial.print(MenuEbene2);
+//                          Serial.print("  ");
+//                          Serial.print("MenuEbene3:  ");
+//                          Serial.print(MenuEbene3);
+//                          Serial.print("  ");
+//                          Serial.print("MenuEbene4:  ");
+//                          Serial.println(MenuEbene4);
+//                        //MenuEbene3 = 0;
+//                      
+//                        if(Dosierpumpen[n].Dosiernachfuell== true){
+//                          for (int i = 0; i <= 7; i++) {
+//                            if(i!= n){
+//                              Dosierpumpen[i].Dosiernachfuell = false;
+//                                     }
+//                          }
+//                        }
+//                       
+//                      }
+//                       
+//                    } 
  
                    
                    //Speed Dosierer 1 - 8 (90-255)

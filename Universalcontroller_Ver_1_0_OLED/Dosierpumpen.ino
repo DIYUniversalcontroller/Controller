@@ -13,7 +13,7 @@ void runDosing() {
       if  (((lTime >= Dosierpumpen[n].Dosierautomatzeit[i]) && (lTime <= Dosierpumpen[n].Dosierautomatzeit[i] + Dosierpumpen[n].Dosierdauer) && (Dosierpumpen[n].Dosierautomatzeit[i] != 0) && (Dosierpumpen[n].Dosiernachfuell == false)) ||
            ((Dosierpumpen[n].Endtime > 0) && (lTime <= Dosierpumpen[n].Endtime)) ||
            (Dosierpumpen[n].Dosiermanuell == true) ||
-           ((liquidSensorValue == 1) && (Dosierpumpen[n].Dosiernachfuell == true)))
+           ((liquidSensorValue == Dosierpumpen[n].Invertnachfuell) && (Dosierpumpen[n].Dosiernachfuell == true)))
 
       {
 

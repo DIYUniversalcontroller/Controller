@@ -364,8 +364,7 @@ void MenuWerteAuswahl()
           Serial.print("MenuEbene4:  ");
           Serial.println(MenuEbene4);
            
-          keycode = true;
-          FirstSelect = true;
+          menu.InitMenu(mnuSubmenu2_1_3,cntSubmenu2_1_3,1); 
           break;
         case 4: //Speed
           MenuTiefe = 4;
@@ -499,6 +498,72 @@ void MenuWerteAuswahl()
           Serial.println(MenuEbene4);
           
           menu.InitMenu(mnuSubmenu2_1,cntSubmenu2_1,2);
+          break;
+      }
+    
+    // Logic for Dosierpumpen-Nachfuellregelung
+    else if (menu.CurrentMenu==mnuSubmenu2_1_3)
+      switch (clickedItem)
+      { //MenuTiefe == 4 && MenuEbene1 == 2 && MenuEbene2 == 1-8 && MenuEbene3 == 3
+        case 1: //Nachfuellregelung
+          MenuTiefe = 5;
+          MenuEbene4 = 1;
+          Serial.print("MenuTiefe:  ");
+          Serial.print(MenuTiefe);
+          Serial.print("  ");
+          Serial.print("MenuEbene1:  ");
+          Serial.print(MenuEbene1);
+          Serial.print("  ");
+          Serial.print("MenuEbene2:  ");
+          Serial.print(MenuEbene2);
+          Serial.print("  ");
+          Serial.print("MenuEbene3:  ");
+          Serial.print(MenuEbene3);
+          Serial.print("  ");
+          Serial.print("MenuEbene4:  ");
+          Serial.println(MenuEbene4);
+          keycode = true;
+          FirstSelect = true;
+          break;
+        case 2: //Invertierung Steuerung
+          MenuTiefe = 5;
+          MenuEbene4 = 2;
+          Serial.print("MenuTiefe:  ");
+          Serial.print(MenuTiefe);
+          Serial.print("  ");
+          Serial.print("MenuEbene1:  ");
+          Serial.print(MenuEbene1);
+          Serial.print("  ");
+          Serial.print("MenuEbene2:  ");
+          Serial.print(MenuEbene2);
+          Serial.print("  ");
+          Serial.print("MenuEbene3:  ");
+          Serial.print(MenuEbene3);
+          Serial.print("  ");
+          Serial.print("MenuEbene4:  ");
+          Serial.println(MenuEbene4);
+          keycode = true;
+          FirstSelect = true;
+          break; 
+        case 3:
+          MenuTiefe = 3;
+          MenuEbene4 = 0;
+          Serial.print("MenuTiefe:  ");
+          Serial.print(MenuTiefe);
+          Serial.print("  ");
+          Serial.print("MenuEbene1:  ");
+          Serial.print(MenuEbene1);
+          Serial.print("  ");
+          Serial.print("MenuEbene2:  ");
+          Serial.print(MenuEbene2);
+          Serial.print("  ");
+          Serial.print("MenuEbene3:  ");
+          Serial.print(MenuEbene3);
+          Serial.print("  ");
+          Serial.print("MenuEbene4:  ");
+          Serial.println(MenuEbene4);
+          
+          menu.InitMenu(mnuSubmenu2_1,cntSubmenu2_1,3);
           break;
       }
     

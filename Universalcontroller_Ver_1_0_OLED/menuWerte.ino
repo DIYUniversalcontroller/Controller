@@ -594,7 +594,7 @@ boolean setDisplayBoolean (int key, boolean value, int displayColumn, int displa
     break;
   case ACTION_SELECT:
     
-    keycode = false;
+    MenuTiefe--;
     break;
   }
 
@@ -613,6 +613,17 @@ boolean setDisplayBoolean (int key, boolean value, int displayColumn, int displa
   {
     mydisp.setPrintPos(displayColumn, displayRow);
     mydisp.print("                ");
+    
+        for (int n = 0; n <= 7; n++) { //0 bis 7 also 8 Dosierpumpen
+        
+        if (MenuTiefe == 4 && MenuEbene1 == 2 && MenuEbene2 == (n+1) && MenuEbene3 == 3 && MenuEbene4 == 2){//Invertierung Nachfuellsteuerung
+
+            menu.InitMenu(mnuSubmenu2_1_3,cntSubmenu2_1_3,2);
+            }
+            
+        }
+        
+       keycode = false;     
   }
 
   return value;
@@ -651,10 +662,15 @@ boolean setDisplayBoolean2 (int key, boolean value, int displayColumn, int displ
                 menu.InitMenu(mnuSubmenu2_1,cntSubmenu2_1,1);
                 
             }
-            if (MenuTiefe == 3 && MenuEbene1 == 2 && MenuEbene2 == (n+1) && MenuEbene3 == 3){ //Nachfuellregelung
-                menu.InitMenu(mnuSubmenu2_1,cntSubmenu2_1,3);
-              
+            
+            if (MenuTiefe == 4 && MenuEbene1 == 2 && MenuEbene2 == (n+1) && MenuEbene3 == 3 && MenuEbene4 == 1){//Nachfuellregelung
+
+            menu.InitMenu(mnuSubmenu2_1_3,cntSubmenu2_1_3,1);
             }
+//            if (MenuTiefe == 3 && MenuEbene1 == 2 && MenuEbene2 == (n+1) && MenuEbene3 == 3){ //Nachfuellregelung
+//                menu.InitMenu(mnuSubmenu2_1,cntSubmenu2_1,3);
+//              
+//            }
             
         }
         

@@ -66,7 +66,7 @@ void Display1( ){
   //mydisp.clearScreen(); //CLear screen
   mydisp.setFont(10);
   mydisp.disableCursor(); //disable cursor, enable cursore use: enableCursor();
-  mydisp.drawStr(2, 0, "Volkers Riff"); //display string at: x=4, y=0
+  mydisp.drawStr(2, 0, "Mein Riff"); //display string at: x=4, y=0
   
   mydisp.setPrintPos(0, 1);
   mydisp.print("Uhrzeit");
@@ -136,7 +136,7 @@ void Display2( ){
   
   mydisp.setFont(10);
   mydisp.disableCursor(); //disable cursor, enable cursore use: enableCursor();
-  mydisp.drawStr(2, 0, "Volkers Riff"); //display string at: x=4, y=0
+  mydisp.drawStr(2, 0, "Mein Riff"); //display string at: x=4, y=0
   
   //Display Uhrzeit
   mydisp.setPrintPos(0, 1);

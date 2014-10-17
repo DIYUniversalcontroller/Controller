@@ -14,6 +14,7 @@ prog_char itmSubmenu1[] PROGMEM = "Grundeinst.";
 prog_char itmSubmenu2[] PROGMEM = "Dosierer";
 prog_char itmSubmenu2_1[] PROGMEM = "Dos.-Einst.";
 prog_char itmSubmenu2_1_2[] PROGMEM = "Kalibrieren";
+prog_char itmSubmenu2_1_3[] PROGMEM = "Nachf\374llreg.";
 prog_char itmSubmenu2_1_5[] PROGMEM = "Dosiereinst.";
 prog_char itmSubmenu3[] PROGMEM = "Lampe";
 prog_char itmSubmenu3_1[] PROGMEM = "LED-Nr.";
@@ -46,9 +47,13 @@ prog_char itmItem2_1_3[] PROGMEM = "Nachf\374llreg.";
 prog_char itmItem2_1_4[] PROGMEM = "Speed";
 prog_char itmItem2_1_5[] PROGMEM = "Dosieren";
 
-//Doierpumpen-Kalibrieren
+//Dosierpumpen-Kalibrieren
 prog_char itmItem2_1_2_1[] PROGMEM = "Kal.-Wert";
 prog_char itmItem2_1_2_2[] PROGMEM = "Set timeloop";
+
+//Dosierpumpen-Nachfuellregelung
+prog_char itmItem2_1_3_1[] PROGMEM = "Steuer.An/Aus";
+prog_char itmItem2_1_3_2[] PROGMEM = "Invertieren";
 
 //Dosierpumpen-Dosieren
 prog_char itmItem2_1_5_1[] PROGMEM = "Dosiermenge";
@@ -139,6 +144,12 @@ PROGMEM const char * mnuSubmenu2_1_2[] = {
   itmSubmenu2_1_2,
   itmItem2_1_2_1,itmItem2_1_2_2,itmBack};
 PROGMEM const int cntSubmenu2_1_2 = 3;
+
+//Dosierpumpen-Nachfuellregelung
+PROGMEM const char * mnuSubmenu2_1_3[] = {
+  itmSubmenu2_1_3,
+  itmItem2_1_3_1,itmItem2_1_3_2,itmBack};
+PROGMEM const int cntSubmenu2_1_3 = 3;
 
 //Dosierpumpen-Dosieren
 PROGMEM const char * mnuSubmenu2_1_5[] = {

@@ -45,14 +45,14 @@ LIGHT light_channels[16] = {
   
   //++++++++++++++++++++++++++++++++++++++++++++++++++++++ D O S I E R P U M P E N ++++++++++++++++++++++++++++++++++++++++++++++++++
 PUMP Dosierpumpen[8] = {
-  {100, {Time(8, 0, 0), Time(9, 0, 0), Time(9, 30, 0), Time(14, 30, 0), Time(15, 30, 0), Time(17, 0, 0), Time(17, 30, 0), Time(18, 0, 0), Time(18, 30, 0), Time(19, 0, 0), Time(19, 30, 0), Time(20, 30, 0)}, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 0, 0, 90}, //Dosiermenge, {{Dosierung.hour},{Dosierung.min},{Dosierung.sec}}, Dosierdauer, Kalibrierung, {Dosierautomatzeit}, Dosiernachfuell, Doseirmanuel, Endtime, Dosierspeed
-  {0, {Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0)}, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 0, 0, 90},
-  {0, {Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0)}, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 0, 0, 90},
-  {0, {Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0)}, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 0, 0, 90},
-  {0, {Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0)}, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 0, 0, 90},
-  {0, {Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0)}, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 0, 0, 90},
-  {0, {Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0)}, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 0, 0, 90},
-  {0, {Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0)}, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 0, 0, 90}
+  {100, {Time(8, 0, 0), Time(9, 0, 0), Time(9, 30, 0), Time(14, 30, 0), Time(15, 30, 0), Time(17, 0, 0), Time(17, 30, 0), Time(18, 0, 0), Time(18, 30, 0), Time(19, 0, 0), Time(19, 30, 0), Time(20, 30, 0)}, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 0, 0, 90, 0}, //Dosiermenge, {{Dosierung.hour},{Dosierung.min},{Dosierung.sec}}, Dosierdauer, Kalibrierung, {Dosierautomatzeit}, Dosiernachfuell, Doseirmanuel, Endtime, Dosierspeed
+  {0, {Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0)}, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 0, 0, 90, 0},
+  {0, {Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0)}, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 0, 0, 90, 0},
+  {0, {Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0)}, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 0, 0, 90, 0},
+  {0, {Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0)}, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 0, 0, 90, 0},
+  {0, {Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0)}, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 0, 0, 90, 0},
+  {0, {Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0)}, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 0, 0, 90, 0},
+  {0, {Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0), Time(14, 0, 0)}, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 0, 0, 90, 0}
 };
 
 DOSINGSWITCH Dosierer[8] = {
@@ -418,8 +418,8 @@ void setup()
   
   //Initial Buzzing 
   //Untere 2 Zeilen Auskommentieren, wenn man beim Einschalten des Gerätes einen Ton hören möchte
-  buzz(buzzer, 2500, 200); // buzz the buzzer on pin 48 at 2500Hz for 200 milliseconds
-  buzz(buzzer, 3500, 200); // buzz the buzzer on pin 48 at 3500Hz for 200 milliseconds
+  //buzz(buzzer, 2500, 200); // buzz the buzzer on pin 48 at 2500Hz for 200 milliseconds
+  //buzz(buzzer, 3500, 200); // buzz the buzzer on pin 48 at 3500Hz for 200 milliseconds
   
   //menu.InitMenu(mnuRoot,cntRoot,1);
   mydisp.clearScreen(); //CLear screen
