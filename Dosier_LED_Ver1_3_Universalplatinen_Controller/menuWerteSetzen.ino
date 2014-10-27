@@ -87,16 +87,39 @@ void MenuWerteSetzen()
                     else{
                       Temperaturen[n].FanActivity = setDisplayBoolean2 (key, Temperaturen[n].FanActivity, 11, 1);
                       
-                      if(Temperaturen[n].FanActivity== true){
-                          for (int i = 0; i <= 2; i++) {
-                            if(i!= n){
-                              Temperaturen[i].FanActivity = false;
-                                     }
+                      if(Temperaturen[0].FanActivity== true){
+                          
+                              Temperaturen[1].FanActivity = false;
+                              Temperaturen[2].FanActivity = false;
+                                     
                           }
+                      
+                      if((Temperaturen[1].FanActivity== true) || (Temperaturen[2].FanActivity== true)){
+                          
+                              Temperaturen[0].FanActivity = false;
+                              Temperaturen[1].FanActivity = true;
+                              Temperaturen[2].FanActivity = true;
+                                     
+                          }
+                      
+                      if((Temperaturen[0].FanActivity== false) && (Temperaturen[1].FanActivity== false) && (Temperaturen[2].FanActivity== false)){
+                      
+                              digitalWrite(FAN, LOW);                     // Luefter auschalten
+                              
+                            }
+                      
                         }
                       
+//                      if(Temperaturen[n].FanActivity== true){
+//                          for (int i = 0; i <= 2; i++) {
+//                            if(i!= n){
+//                              Temperaturen[i].FanActivity = false;
+//                                     }
+//                          }
+//                        }
                       
-                    }
+                      
+//                    }
                       
                   } 
                   

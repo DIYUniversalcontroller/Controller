@@ -70,7 +70,7 @@ void runTemp( ) {
   
   if (Temperaturen[0].FanActivity == true){
   
-            FanSpeed = map(tempWasser, (Temperaturen[0].TempMin + 1), (Temperaturen[0].TempMax + 1), 0, 255);    // TempMin->0% // TempMax->100%
+            FanSpeed = map(tempWasser, (Temperaturen[0].TempMax), (Temperaturen[0].TempMax + 2.5), 0, 255);    // TempMin->0% // TempMax->100%
             
             //if (FanSpeed<200) FanSpeed = 0; //155
             if (FanSpeed < 55) FanSpeed = 0; //25
@@ -96,6 +96,16 @@ void runTemp( ) {
   }
   
   // Die Heizstabaktivitaet
+  if ( (tempWasser) <= Temperaturen[0].TempMin - 2.0) //23.0
+        {
+          tempSwitch = 1;
+          if (Temperaturen[0].TempAlarm == true){
+            buzz(buzzer, 3500, 200); // buzz the buzzer on pin 48 at 3500Hz for 200 milliseconds
+          }
+          //mySwitch.switchOff("11001", 2);
+          //lcd.setCursor(17, 3);
+          //lcd.print("Off");
+        }
   
   if ( (tempWasser) <= Temperaturen[0].TempMin - 0.5) //24.5
         {
@@ -139,7 +149,7 @@ void runTemp( ) {
           //lcd.print("Off");
         }
         
-  if ( (tempWasser) >= Temperaturen[0].TempMax + 2.0) //27.0
+  if ( (tempWasser) >= Temperaturen[0].TempMax + 2.5) //27.0
         {
           tempSwitch = 0;
           if (Temperaturen[0].TempAlarm == true){

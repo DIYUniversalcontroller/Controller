@@ -495,6 +495,9 @@ void setup() {
   // Transmitter is connected to Arduino Pin #38  
   mySwitch.enableTransmit(rc_switch);
   pinMode(rc_switch, OUTPUT);
+  
+  //Turn Temp Switch initial off!
+  mySwitch.switchOff("10000", 5);
 
  requestEEPROM( );
  
