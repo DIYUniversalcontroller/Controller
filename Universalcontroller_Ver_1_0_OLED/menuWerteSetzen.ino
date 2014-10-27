@@ -108,6 +108,11 @@ void MenuWerteSetzen()
                                      
                           }
                       
+                      if((Temperaturen[0].FanActivity== false) && (Temperaturen[1].FanActivity== false) && (Temperaturen[2].FanActivity== false)){
+                      
+                              digitalWrite(FAN, LOW);                     // Luefter auschalten
+                              
+                            }
                       
                         }
                       

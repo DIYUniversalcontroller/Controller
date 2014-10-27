@@ -164,23 +164,23 @@ float moonPhase(int moonYear, int moonMonth, int moonDay)
 
   //Determine the Lunar Phase
   if ((AG >= 0) && (AG <= 1.85))             //New Moon; ~0-12.5% illuminated
-    { LP = "New Moon       ";}
+    { LP = "Neumond";}
   if ((AG > 1.85) && (AG <= 5.54))           //New Crescent; ~12.5-37.5% illuminated
-    { LP = "Waxing Crescent";}
+    { LP = "Zunehmender Neumond";}
   if ((AG > 5.54) && (AG <= 9.23))           //First Quarter; ~37.5-62.5% illuminated
-    { LP = "First Quarter  ";}
+    { LP = "Zunehmender Halbmond";}
   if ((AG > 9.23) && (AG <= 12.92))          //Waxing Gibbous; ~62.5-87.5% illuminated
-    { LP = "Waxing Gibbous ";}
+    { LP = "Fast Vollmond ";}
   if ((AG > 12.92) && (AG <= 16.61))         //Full Moon; ~87.5-100-87.5% illuminated
-    { LP = "Full Moon      ";}    
+    { LP = "Vollmond";}    
   if ((AG > 16.61) && (AG <= 20.30))         //Waning Gibbous; ~87.5-62.5% illuminated
-    { LP = "Waning Gibbous ";}
+    { LP = "Abnehmender Vollmond";}
   if ((AG > 20.30) && (AG <= 23.99))         //Last Quarter; ~62.5-37.5% illuminated
-    { LP = "Last Quarter   ";}
+    { LP = "Abnehmender Halbmond";}
   if ((AG > 23.99) && (AG <= 27.68))         //Old Crescent; ~37.5-12.5% illuminated
-    { LP = "Waning Crescent"; }
+    { LP = "Fast Neumond"; }
   if ((AG >= 27.68) && (AG <= LC))           //New Moon; ~12.5-0% illuminated
-    { LP = "New Moon       "; }
+    { LP = "Neumond"; }
         
   return phase; 
 }

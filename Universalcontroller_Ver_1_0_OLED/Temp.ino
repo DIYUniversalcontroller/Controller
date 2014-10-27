@@ -32,11 +32,11 @@ void runTemp( ) {
   if ((Temperaturen[1].FanActivity == true) || (Temperaturen[2].FanActivity == true)){ // && (tempLampe2 < tempLampe1)){
   
     if (tempLampe2 < tempLampe1){
-      FanSpeed = map(tempLampe1, Temperaturen[1].TempMin, Temperaturen[1].TempMax, 0, 255);    // TempMin->0% // TempMax->100% 
+      FanSpeed = map(tempLampe1, Temperaturen[1].TempMin, Temperaturen[1].TempMax, 55, 255);    // TempMin->0% // TempMax->100% 
     }
       
     if (tempLampe1 < tempLampe2){
-      FanSpeed = map(tempLampe2, Temperaturen[2].TempMin, Temperaturen[2].TempMax, 0, 255);    // TempMin->0% // TempMax->100%
+      FanSpeed = map(tempLampe2, Temperaturen[2].TempMin, Temperaturen[2].TempMax, 55, 255);    // TempMin->0% // TempMax->100%
     
     }
         
@@ -63,6 +63,12 @@ void runTemp( ) {
       
   }
   
+//  if ((Temperaturen[1].FanActivity == false) || (Temperaturen[2].FanActivity == false)) { 
+//    
+//    digitalWrite(FAN, LOW);                     // Luefter auschalten
+//    
+//  }
+  
   
   //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ T E M P E R A T U R E N   &   H E I Z E R E I N S T E L L U N G    I N K L. L U E F T E R A U T O M A T I K +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   
@@ -70,7 +76,7 @@ void runTemp( ) {
   
   if (Temperaturen[0].FanActivity == true){
   
-            FanSpeed = map(tempWasser, (Temperaturen[0].TempMin + 1), (Temperaturen[0].TempMax + 1), 0, 255);    // TempMin->0% // TempMax->100%
+            FanSpeed = map(tempWasser, (Temperaturen[0].TempMax), (Temperaturen[0].TempMax + 2.5), 55, 255);    // TempMin->0% // TempMax->100%
             
             //if (FanSpeed<200) FanSpeed = 0; //155
             if (FanSpeed < 55) FanSpeed = 0; //25
@@ -95,8 +101,23 @@ void runTemp( ) {
   
   }
   
-  // Die Heizstabaktivitaet
+//  if (Temperaturen[0].FanActivity == false){
+//    
+//    digitalWrite(FAN, LOW);                     // Luefter auschalten
+//    
+//  }
   
+  // Die Heizstabaktivitaet
+  if ( (tempWasser) <= Temperaturen[0].TempMin - 2.0) //23.0
+        {
+          tempSwitch = 1;
+          if (Temperaturen[0].TempAlarm == true){
+            buzz(buzzer, 3500, 200); // buzz the buzzer on pin 48 at 3500Hz for 200 milliseconds
+          }
+          //mySwitch.switchOff("11001", 2);
+          //lcd.setCursor(17, 3);
+          //lcd.print("Off");
+        }
   if ( (tempWasser) <= Temperaturen[0].TempMin - 0.5) //24.5
         {
           tempSwitch = 1;
@@ -139,7 +160,7 @@ void runTemp( ) {
           //lcd.print("Off");
         }
         
-  if ( (tempWasser) >= Temperaturen[0].TempMax + 2.0) //27.0
+  if ( (tempWasser) >= Temperaturen[0].TempMax + 2.5) //27.0
         {
           tempSwitch = 0;
           if (Temperaturen[0].TempAlarm == true){

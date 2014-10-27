@@ -412,6 +412,9 @@ void setup()
   pinMode(rc_switch, OUTPUT);
   pinMode(buzzer, OUTPUT); // set a pin for buzzer output
   
+  //Turn Temp Switch initial off!
+  mySwitch.switchOff("10000", 5);
+  
   Serial.print("EEPROM Wert:   ");
   Serial.println(EEPROM.readInt(0));
   requestEEPROM( );

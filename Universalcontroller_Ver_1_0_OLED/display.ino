@@ -168,6 +168,12 @@ void Display2( ){
   mydisp.print("\xb0");
   mydisp.print("C");
   
+  //Display Mondphase
+  mydisp.setPrintPos(0, 5);
+//  mydisp.print("Mond:");
+//  mydisp.setPrintPos(6, 5);
+  mydisp.print(LP);
+  
 }
 
 
