@@ -34,20 +34,20 @@ void loop()
         digitalWrite(13,HIGH);
         switch(key)
         {
-           case 0:lcd.print("S1 OK  ");
-                  lcd.println(adc_key_in);   
+           case 0:Serial.print("S1 OK  ");
+                  Serial.println(adc_key_in);   
                   break;
-           case 1:lcd.print("S2 OK  ");
-                  lcd.println(adc_key_in);   
+           case 1:Serial.print("S2 OK  ");
+                  Serial.println(adc_key_in);   
                   break;
-           case 2:lcd.print("S3 OK  "); 
-                  lcd.println(adc_key_in);  
+           case 2:Serial.print("S3 OK  "); 
+                  Serial.println(adc_key_in);  
                   break;
-           case 3:lcd.print("S4 OK  "); 
-                  lcd.println(adc_key_in);  
+           case 3:Serial.print("S4 OK  "); 
+                  Serial.println(adc_key_in);  
                   break;      
-           case 4:lcd.print("S5 OK  ");
-                  lcd.println(adc_key_in);   
+           case 4:Serial.print("S5 OK  ");
+                  Serial.println(adc_key_in);   
                   break;  
         }                
       }

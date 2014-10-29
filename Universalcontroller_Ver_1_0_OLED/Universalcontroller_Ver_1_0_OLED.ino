@@ -113,7 +113,11 @@ long HourTime;
 const int memBase          = 0;
 
 // Tasten
+//Für Keypad
 int adc_key_val[5] = {50, 350, 600, 830, 900 };
+
+//Für OnBoard Keys
+//int adc_key_val[5] = {50, 200, 350, 550, 750 };
 int NUM_KEYS = 5;
 int adc_key_in;
 int key=-1;
