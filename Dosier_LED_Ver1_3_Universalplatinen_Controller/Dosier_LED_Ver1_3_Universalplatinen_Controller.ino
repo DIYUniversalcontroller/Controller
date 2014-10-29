@@ -108,7 +108,14 @@ const int memBase          = 0;
 //int adc_key_val[5] ={50, 250, 460, 650, 800 };
 //int adc_key_val[5] ={50, 240, 430, 630, 990 };
 //int adc_key_val[5] ={ 50, 200, 400, 600, 800 };
-int adc_key_val[5] = {50, 300, 550, 830, 950 };
+//int adc_key_val[5] = {50, 300, 550, 830, 950 };
+
+//Für Keypad
+int adc_key_val[5] = {50, 350, 600, 830, 900 };
+
+//Für OnBoard Keys
+//int adc_key_val[5] = {50, 200, 350, 550, 750 };
+
 int NUM_KEYS = 5;
 int adc_key_in;
 int key = -1;
