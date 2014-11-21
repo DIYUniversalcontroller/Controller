@@ -158,14 +158,16 @@ int moonled_out;                    // current LED output value
 
 //--------------------------------D O S I E R P U M P E N - M O D U L E-----------------------------------------------------------------------------
 //--------------------------------------------Dosierpumpe 1 - 8 -----------------------------------------------------------------------------------------
-#define M1_MENUDOSIERPORT_1  2
-#define M1_MENUDOSIERPORT_2  44
-#define M1_MENUDOSIERPORT_3  45
-#define M1_MENUDOSIERPORT_4  46
-AF_DCMotor motor1(1, MOTOR12_64KHZ); // create motor #1, 1KHz pwm; MOTOR12_64KHZ, MOTOR12_8KHZ, MOTOR12_2KHZ, orMOTOR12_1KHZ is possible
-AF_DCMotor motor2(2, MOTOR12_64KHZ); // create motor #2, 1KHz pwm; MOTOR12_64KHZ, MOTOR12_8KHZ, MOTOR12_2KHZ, orMOTOR12_1KHZ is possible
-AF_DCMotor motor3(3, MOTOR12_64KHZ); // create motor #3, 1KHz pwm; MOTOR12_64KHZ, MOTOR12_8KHZ, MOTOR12_2KHZ, orMOTOR12_1KHZ is possible
-AF_DCMotor motor4(4, MOTOR12_64KHZ); // create motor #4, 1KHz pwm; MOTOR12_64KHZ, MOTOR12_8KHZ, MOTOR12_2KHZ, orMOTOR12_1KHZ is possible
+const int M1_MENUDOSIERPORT[]={2,44,45,46};
+//#define M1_MENUDOSIERPORT_1  2
+//#define M1_MENUDOSIERPORT_2  44
+//#define M1_MENUDOSIERPORT_3  45
+//#define M1_MENUDOSIERPORT_4  46
+AF_DCMotor Motor[4]= {AF_DCMotor(1, MOTOR12_64KHZ),AF_DCMotor(2, MOTOR12_64KHZ),AF_DCMotor(3, MOTOR12_64KHZ),AF_DCMotor(4, MOTOR12_64KHZ)}; // Create Motor Array
+//AF_DCMotor motor1(1, MOTOR12_64KHZ); // create motor #1, 1KHz pwm; MOTOR12_64KHZ, MOTOR12_8KHZ, MOTOR12_2KHZ, orMOTOR12_1KHZ is possible
+//AF_DCMotor motor2(2, MOTOR12_64KHZ); // create motor #2, 1KHz pwm; MOTOR12_64KHZ, MOTOR12_8KHZ, MOTOR12_2KHZ, orMOTOR12_1KHZ is possible
+//AF_DCMotor motor3(3, MOTOR12_64KHZ); // create motor #3, 1KHz pwm; MOTOR12_64KHZ, MOTOR12_8KHZ, MOTOR12_2KHZ, orMOTOR12_1KHZ is possible
+//AF_DCMotor motor4(4, MOTOR12_64KHZ); // create motor #4, 1KHz pwm; MOTOR12_64KHZ, MOTOR12_8KHZ, MOTOR12_2KHZ, orMOTOR12_1KHZ is possible
 
 ///*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ D I M M U N G S T A B E L L E +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 FLASH_ARRAY(int, pwmtable,0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
