@@ -5,33 +5,32 @@ void runDosing() {
   // Berechne Uhrzeit in Sekunden wann gedüngt werden soll
   for (int n = 0; n < 8; n++) {
 
+    boolean isInTime = false;
     for (int i = 0; i < 12; i++) {
       Dosierpumpen[n].Dosierautomatzeit[i] = (Dosierpumpen[n].Dosierung[i].hour * HOUR) + (Dosierpumpen[n].Dosierung[i].min * MINUTE) + (Dosierpumpen[n].Dosierung[i].sec);
+      isInTime = isInTime || ((lTime >= Dosierpumpen[n].Dosierautomatzeit[i]) && (lTime <= Dosierpumpen[n].Dosierautomatzeit[i] + Dosierpumpen[n].Dosierdauer) && (Dosierpumpen[n].Dosierautomatzeit[i] != 0));
+    }
       
       Dosierpumpen[n].Dosierdauer = kalibrieren ( Dosierpumpen[n].Kalibrierung, Dosierpumpen[n].Dosiermenge, Dosierpumpen[n].Dosierdauer);
-
-      if  (((lTime >= Dosierpumpen[n].Dosierautomatzeit[i]) && (lTime <= Dosierpumpen[n].Dosierautomatzeit[i] + Dosierpumpen[n].Dosierdauer) && (Dosierpumpen[n].Dosierautomatzeit[i] != 0) && (Dosierpumpen[n].Dosiernachfuell == false)) ||
+ 
+      if  ((isInTime && (Dosierpumpen[n].Dosiernachfuell == false)) ||
            ((Dosierpumpen[n].Endtime > 0) && (lTime <= Dosierpumpen[n].Endtime)) ||
            (Dosierpumpen[n].Dosiermanuell == true) ||
            ((liquidSensorValue == 1) && (Dosierpumpen[n].Dosiernachfuell == true)))
 
       {
+        
         if(n<4){
           analogWrite(M1_MENUDOSIERPORT[n], Dosierpumpen[n].Dosierspeed); //255; HIGH
         }else if(n<8){
           Motor[n-4].setSpeed(Dosierpumpen[n].Dosierspeed);
           Motor[n-4].run(FORWARD);
         }
-/*
+        
+
+        /*
         if (n == 0) {
-//          Serial.print("Here 1 On");
-//          Serial.print("    ");
-//          Serial.print("M1_MENUDOSIERPORT[0]:  ");
-//          Serial.print(M1_MENUDOSIERPORT[0]);
-//          Serial.print("    ");
-//          Serial.print("Speed:  ");
-//          Serial.println(Dosierpumpen[0].Dosierspeed);
-          
+          Serial.println("Here 1 On");
           analogWrite(M1_MENUDOSIERPORT[0], Dosierpumpen[0].Dosierspeed); //255; HIGH
           
         }
@@ -70,11 +69,15 @@ void runDosing() {
           Motor[3].setSpeed(Dosierpumpen[7].Dosierspeed);
           Motor[3].run(FORWARD);
         }
-*/
+        */
+
 
       }
+      
+      
       else
       {
+        
         if(n<4){
           analogWrite(M1_MENUDOSIERPORT[n], LOW);
           Dosierpumpen[n].Endtime = 0;
@@ -83,9 +86,10 @@ void runDosing() {
           Dosierpumpen[n].Endtime = 0;
         }
         
+        
         /*
         if (n == 0) {
-//          Serial.println("Here 1 Off");
+          Serial.println("Here 1 Off");
           analogWrite(M1_MENUDOSIERPORT[0], LOW);
           Dosierpumpen[0].Endtime = 0;
         }
@@ -126,12 +130,11 @@ void runDosing() {
           Dosierpumpen[7].Endtime = 0;
         }
         */
+        
 
       }
       
     
-
-  }
   
   }
 }
