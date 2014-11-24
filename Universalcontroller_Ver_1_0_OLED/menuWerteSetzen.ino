@@ -290,10 +290,10 @@ void MenuWerteSetzen()
                       if (FirstSelect)
                       { 
                         FirstSelect = false;
-                        Dosierpumpen[n].Invertnachfuell = setDisplayBoolean (-1, Dosierpumpen[n].Invertnachfuell, 4, 1); //Select Key, Dauer der manuell gesetzten Rotation [sek], Einfrieren einer Zeit, Column, Row
+                        Dosierpumpen[n].Invertnachfuell = setDisplayBoolean (-1, Dosierpumpen[n].Invertnachfuell, 4, 1); //Select Key, Vorgang , Column, Row
                       }
                       else
-                        Dosierpumpen[n].Invertnachfuell = setDisplayBoolean (key, Dosierpumpen[n].Invertnachfuell, 4, 1); //Select Key, Dauer der manuell gesetzten Rotation [sek], Einfrieren einer Zeit , Column, Row
+                        Dosierpumpen[n].Invertnachfuell = setDisplayBoolean (key, Dosierpumpen[n].Invertnachfuell, 4, 1); //Select Key, Vorgang , Column, Row
                         Serial.print("MenuTiefe:  ");
                           Serial.print(MenuTiefe);
                           Serial.print("  ");

@@ -16,7 +16,7 @@ void runDosing() {
       if  ((isInTime && (Dosierpumpen[n].Dosiernachfuell == false)) ||
            ((Dosierpumpen[n].Endtime > 0) && (lTime <= Dosierpumpen[n].Endtime)) ||
            (Dosierpumpen[n].Dosiermanuell == true) ||
-           ((liquidSensorValue == 1) && (Dosierpumpen[n].Dosiernachfuell == true)))
+           ((liquidSensorValue == Dosierpumpen[n].Invertnachfuell) && (Dosierpumpen[n].Dosiernachfuell == true)))
 
       {
         
