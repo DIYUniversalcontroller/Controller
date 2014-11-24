@@ -41,14 +41,14 @@ LIGHT light_channels[16] = {
   
   //++++++++++++++++++++++++++++++++++++++++++++++++++++++ D O S I E R P U M P E N ++++++++++++++++++++++++++++++++++++++++++++++++++
 PUMP Dosierpumpen[8] = {
-  {0, {Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0)}, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 0, 0, 90}, //Dosiermenge, {{Dosierung.hour},{Dosierung.min},{Dosierung.sec}}, Dosierdauer, Kalibrierung, {Dosierautomatzeit}, Dosiernachfuell, Doseirmanuel, Endtime, Dosierspeed
-  {0, {Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0)}, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 0, 0, 90},
-  {0, {Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0)}, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 0, 0, 90},
-  {0, {Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0)}, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 0, 0, 90},
-  {0, {Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0)}, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 0, 0, 90},
-  {0, {Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0)}, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 0, 0, 90},
-  {0, {Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0)}, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 0, 0, 90},
-  {0, {Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0)}, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 0, 0, 90}
+  {0, {Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0)}, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 0, 0, 90, 0}, //Dosiermenge, {{Dosierung.hour},{Dosierung.min},{Dosierung.sec}}, Dosierdauer, Kalibrierung, {Dosierautomatzeit}, Dosiernachfuell, Doseirmanuel, Endtime, Dosierspeed
+  {0, {Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0)}, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 0, 0, 90, 0},
+  {0, {Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0)}, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 0, 0, 90, 0},
+  {0, {Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0)}, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 0, 0, 90, 0},
+  {0, {Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0)}, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 0, 0, 90, 0},
+  {0, {Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0)}, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 0, 0, 90, 0},
+  {0, {Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0)}, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 0, 0, 90, 0},
+  {0, {Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0), Time(0, 0, 0)}, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 0, 0, 90, 0}
 };
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++ T E M P E R A T U R ++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -264,10 +264,11 @@ char sMenuDosiererKalib[MENUDOSIERER1KALIB + 1][17] = {
   "Set Time Loop   "
 }; //ml in 1 Minute gemessen; wieviel ml soll dosiert werden; wann soll dosiert werden
 
-const int MENUDOSIERER1NACHFUELL = 1;
+const int MENUDOSIERER1NACHFUELL = 2;
 char sMenuDosiererNachfuell[MENUDOSIERER1NACHFUELL + 1][17] = {
   "zur\365ck          ",
-  "Nachf\365llaut.    "
+  "Nachf\365llaut.    ",
+  "Invertieren     "
 }; //ml in 1 Minute gemessen; wieviel ml soll dosiert werden; wann soll dosiert werden
 
 const int MENUDOSIERER1SPEED = 1;

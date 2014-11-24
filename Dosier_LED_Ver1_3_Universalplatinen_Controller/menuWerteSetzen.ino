@@ -206,6 +206,20 @@ void MenuWerteSetzen()
                       }
                        
                     }   
+                    
+                    if (MenuTiefe == 5 && MenuEbene0 == 2 && MenuEbene1 == (n+1) && MenuEbene2 == 3 && MenuEbene3 == 2)
+                    {
+                      //lcd.blink();
+                      if (FirstSelect)
+                      { 
+                        FirstSelect = false;
+                        Dosierpumpen[n].Invertnachfuell = setDisplayBoolean (-1, Dosierpumpen[n].Invertnachfuell, 12, 1);
+                      }
+                      else{
+                        Dosierpumpen[n].Invertnachfuell = setDisplayBoolean (key, Dosierpumpen[n].Invertnachfuell, 12, 1);                   
+                      }
+                       
+                    }   
                    
                    //Speed Dosierer 1 - 8 (90-255)
                     if (MenuTiefe == 5 && MenuEbene0 == 2 && MenuEbene1 == (n+1) && MenuEbene2 == 4 && MenuEbene3 == 1)
