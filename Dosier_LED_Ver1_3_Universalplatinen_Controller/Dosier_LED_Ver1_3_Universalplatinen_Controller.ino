@@ -1,13 +1,10 @@
 #include <Wire.h>
 #include <DS1307.h>
 #include <LiquidCrystal_I2C.h>
-#include <PCA9685.h>
 #include <Adafruit_PWMServoDriver.h>
 #include <EEPROMex.h>
-//#include <Timer.h>
 #include <Flash.h>
 #include <OneWire.h>
-//#include "writeAnything.h"
 #include <DallasTemperature.h>
 #include <AFMotor.h>
 #include"typeDef.h"
