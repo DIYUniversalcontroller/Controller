@@ -7,13 +7,13 @@ void setLight(){
       light_channels[i].Sunsettime = (light_channels[i].Sunset.hour * HOUR) + (light_channels[i].Sunset.min * MINUTE) + (light_channels[i].Sunset.sec);
           
       if(light_channels[i].Active==1){
-        int c_PWMProzent = dimmung(lTime, light_channels[i].Sunrisetime, light_channels[i].Sunsettime, light_channels[i].Dim_in, light_channels[i].Dim_out, light_channels[i].Min, light_channels[i].Max, light_channels[i].Invert,4095);
-        int c_PWM = dimmungPWM(lTime, light_channels[i].Sunrisetime, light_channels[i].Sunsettime, light_channels[i].Dim_in, light_channels[i].Dim_out, light_channels[i].Min, light_channels[i].Max, light_channels[i].Invert,4095); 
-        
+        //int c_PWMProzent = dimmung(lTime, light_channels[i].Sunrisetime, light_channels[i].Sunsettime, light_channels[i].Dim_in, light_channels[i].Dim_out, light_channels[i].Min, light_channels[i].Max, light_channels[i].Invert,PWM_MAX);
+        int c_PWM = dimmungPWM(lTime, light_channels[i].Sunrisetime, light_channels[i].Sunsettime, light_channels[i].Dim_in, light_channels[i].Dim_out, light_channels[i].Min, light_channels[i].Max, light_channels[i].Invert,PWM_MAX); 
+        int c_PWMProzent = PWM_MAX / 100 * c_PWM;
         if(c_PWM<0){
           c_PWM=0;
-        }else if(c_PWM>4095){
-          c_PWM=4095;
+        }else if(c_PWM>PWM_MAX){
+          c_PWM=PWM_MAX;
         }
        
        
@@ -26,9 +26,9 @@ void setLight(){
         //----------------bis hierhin!---------------------------------------------------------------------------------------------------------------
    
         
-        //pwm.setPWM(i,0, c_PWM);
+        pwm.setPWM(i,0, c_PWM);
         //pwm.setPWM(i,0, pwmtable[c_PWM]);
-        pwm.setPWM(i,0, pwmtable[c_PWM]);
+        //pwm.setPWM(i,0, pwmtable[c_PWM]);
 
         pwm.setPWM(15,0, moonled_out);
         
@@ -84,56 +84,46 @@ int dimmung (long time, long Start, long Ende, int  Dim_in, int Dim_out, int oMi
   return oMin;
 }
 
+int getVal(long lTime, long lStart, int lDimIn, long lStop, int lDimOut, int lMin, int lMax, int lInOut) 
+{
+
+  float f, y;
+  float pi = 3.1415926;
+  int hlMax = (lMax-lMin)/2;
+		
+  if (lInOut==0) {
+    f = ((pi/(lDimIn))*(lTime-lStart));
+    y = hlMax - (hlMax * cos(f));
+  } else {
+    f = ((pi/(lDimOut))*(lTime-lStop));
+    y = hlMax - (hlMax * cos(f));
+  }
+  return y + lMin;
+}
+
 int dimmungPWM (long time, long Start, long Ende, int  Dim_in, int Dim_out, int oMin, int oMax, boolean Invert,float s)
 {
-  int pwm,Max,Min;
   
-//  Serial.print("Start: ");
-//  Serial.println(Start);
-  
-  if(Invert==false){
-    Min=int(s/100*oMin);  // 0 = 0%... 
-    Max=int(s/100*oMax);  // 80% von 4095 sind 3276
-    pwm=0;
-  }else{
-    Min=int(s-(s/100*oMin));  // 0%=4095-(4095/100*0) = 
-    Max=int(s-(s/100*oMax)); // 80% von 4095-(4095/100*80) sind 819
-    pwm=s;
+  int intPwm;
+  int intInOut = 0;
+  int intMin = s / 100 * oMin;
+  int intMax = s / 100 * oMax;
+    
+  if (time < Start || time > Ende) {
+    intPwm = intMin;
+  } else if (time > Start+float(Dim_in) && time < Ende-float(Dim_out)) {
+    intPwm = intMax;    
+  } else if (time >= Start  && time <= Start+float(Dim_in)){
+    intPwm = getVal(time, Start, Dim_in, Ende, Dim_out, intMin, intMax, 0);
+  } else if (time >= Ende-float(Dim_out) && time <= Ende) {
+    intPwm = getVal(time, Start, Dim_in, Ende, Dim_out, intMin, intMax, 1);
+  } 
+
+  if(Invert==true){
+    intPwm = s - intPwm;
   }
   
-    // Starten der Dimmung von Min
-    if (time >= Start  && time <= Start+float(Dim_in*60)){ 
-     //Serial.println ("Raufdimmen");
-      float s = time-Start+0.5;    // vergangene Sekunden ~1616Sek ~ 27min
-      int m = Max-Min;    //3000-200=2800
-      float f= float(Dim_in*60)/float(m);    // 1800/2800=0,64
-      float p = s/f;    // 1616 / 0,64=2525   
-      pwm=Min+int(p);
-      
-      return pwm;
-    }
-  
-    // Voll an keine Dimmung
-    if (time > Start+float(Dim_in*60)  && time < Ende-float(Dim_out*60))
-    {
-   	return Max;
-    }
-  
-    // Ende der Dimmung
-    if (time >= Ende-float(Dim_out*60)  && time <= Ende)
-    {
-      float s = time+float(Dim_out*60)-Ende+0.5;    // vergangene Sekunden ~1616
-      int m = Max-Min;     // 135
-      float f= float(Dim_out*60)/float(m);    // 3000/135 ~22
-      float p = s/f;    // 1616 / 22
-      pwm = Max-int(p);
-      
-      return pwm;
-    }
-  
-    // Der Rest
-    return pwm;
-    
+  return intPwm;
 }
 
 /******************************* LUNAR PHASE FUNCTION *********************************/
