@@ -1,96 +1,42 @@
+#define DEF_DAY_SECONDS 86400
+#define DEF_PI 3.1415926
+
 void setLight(){
+  
   Time time = rtc.getTime();
   
   for( int i=0;i < LIGHT_CHANEL; i++){
     
-      light_channels[i].Sunrisetime = (light_channels[i].Sunrise.hour * HOUR) + (light_channels[i].Sunrise.min * MINUTE) + (light_channels[i].Sunrise.sec);
-      light_channels[i].Sunsettime = (light_channels[i].Sunset.hour * HOUR) + (light_channels[i].Sunset.min * MINUTE) + (light_channels[i].Sunset.sec);
-          
-      if(light_channels[i].Active==1){
-        //int c_PWMProzent = dimmung(lTime, light_channels[i].Sunrisetime, light_channels[i].Sunsettime, light_channels[i].Dim_in, light_channels[i].Dim_out, light_channels[i].Min, light_channels[i].Max, light_channels[i].Invert,PWM_MAX);
-        int c_PWM = dimmungPWM(lTime, light_channels[i].Sunrisetime, light_channels[i].Sunsettime, light_channels[i].Dim_in * MINUTE, light_channels[i].Dim_out * MINUTE, light_channels[i].Min, light_channels[i].Max, light_channels[i].Invert,PWM_MAX); 
-        int c_PWMProzent = PWM_MAX / 100 * c_PWM;
-        if(c_PWM<0){
-          c_PWM=0;
-        }else if(c_PWM>PWM_MAX){
-          c_PWM=PWM_MAX;
-        }
-       
-       
+    light_channels[i].Sunrisetime = (light_channels[i].Sunrise.hour * HOUR) + (light_channels[i].Sunrise.min * MINUTE) + (light_channels[i].Sunrise.sec);
+    light_channels[i].Sunsettime = (light_channels[i].Sunset.hour * HOUR) + (light_channels[i].Sunset.min * MINUTE) + (light_channels[i].Sunset.sec);
         
-        //----------------------------------------Mond Neu zum Test---------------------------------------------------------------------------------
-        float lunarCycle = moonPhase(time.year, time.mon, time.date); //get a value for the lunar cycle
-        //moonled_out = MondMin *(1 - lunarCycle) + MondMax * lunarCycle + 0.5;                  //MaximumIllumination * % of Full Moon (0-100)
-        moonled_out = light_channels[15].Min *(1 - lunarCycle) + light_channels[15].Max * lunarCycle + 0.5;                  //MaximumIllumination * % of Full Moon (0-100)
-        
-        //----------------bis hierhin!---------------------------------------------------------------------------------------------------------------
-   
-        
-        pwm.setPWM(i,0, c_PWM);
-        //pwm.setPWM(i,0, pwmtable[c_PWM]);
-        //pwm.setPWM(i,0, pwmtable[c_PWM]);
-
-        pwm.setPWM(15,0, moonled_out);
-        
-//        if(i <= 15){
-//        pwm.setPWM(i,0, pwmtable[c_PWM]);
-//        }
-//        else{
-//          int j = (i-16);
-//          pwm1.setPWM(j,0, pwmtable[c_PWM]);
-//          //pwm.setPWM(15,0, c_Mond);
-//          pwm1.setPWM(15,0, moonled_out);
-//        }
-        
-        
-        
-        
-        
+    if(light_channels[i].Active==1){
+      int c_PWM = dimmungPWM(lTime, light_channels[i].Sunrisetime, light_channels[i].Sunsettime, light_channels[i].Dim_in * MINUTE, light_channels[i].Dim_out * MINUTE, light_channels[i].Min, light_channels[i].Max, light_channels[i].Invert,PWM_MAX); 
+      int c_PWMProzent = PWM_MAX / 100 * c_PWM;
+      if(c_PWM<0){
+        c_PWM=0;
+      }else if(c_PWM>PWM_MAX){
+        c_PWM=PWM_MAX;
       }
+     
+      //----------------------------------------Mond Neu zum Test---------------------------------------------------------------------------------
+      float lunarCycle = moonPhase(time.year, time.mon, time.date); //get a value for the lunar cycle
+      moonled_out = light_channels[15].Min *(1 - lunarCycle) + light_channels[15].Max * lunarCycle + 0.5;                  //MaximumIllumination * % of Full Moon (0-100)
+      //----------------bis hierhin!---------------------------------------------------------------------------------------------------------------
+ 
+      pwm.setPWM(i,0, c_PWM);
+      pwm.setPWM(15,0, moonled_out);
     }
-  
-  
-  
-  
-}
-
-
-
-int dimmung (long time, long Start, long Ende, int  Dim_in, int Dim_out, int oMin, int oMax, boolean Invert,float s)
-{
-  // Starten der Dimmung von Min
-  if (time >= Start  && time <= Start+float(Dim_in*60))
-  {
-    float m = ( oMax - oMin) /  100.0;
-    float b = oMax - m * 100.0;
-    float y = m * ((time - Start) * 100.0 / ((Start+float(Dim_in*60)) - Start)) + b;
-    return y;
-  }
-
-  // Voll an keine Dimmung
-//  if (time > StartAus  && time < EndeEin)
-//     return Max;
-  if (time > Start+float(Dim_in*60)  || time < Ende-float(Dim_out*60))
-     return oMax;
-
-  // Ende der Dimmung
-  if (time >= Ende-float(Dim_out*60)  && time <= Ende)
-  {
-    float m = ( oMax - oMin) /  100.0;
-    float b = oMax - m * 100.0;
-    float y = m * ((Ende - time) * 100 / (Ende - (Ende-float(Dim_out*60)))) + b;
-    return y;
-  }
-  return oMin;
+  }  
 }
 
 int getVal(long lTime, long lStart, int lDimIn, long lStop, int lDimOut, int lMin, int lMax, int lInOut) 
 {
 
   float f, y;
-  float pi = 3.1415926;
+  float pi = DEF_PI;
   int hlMax = (lMax-lMin)/2;
-		
+  		
   if (lInOut==0) {
     f = ((pi/(lDimIn))*(lTime-lStart));
     y = hlMax - (hlMax * cos(f));
@@ -109,6 +55,17 @@ int dimmungPWM (long time, long Start, long Ende, int  Dim_in, int Dim_out, int 
   int intMin = s / 100 * oMin;
   int intMax = s / 100 * oMax;
     
+  //Invert if Start Time after Stop Time (Overnight)
+  if (Start > Ende) {
+    if (time < Ende) { 
+      Start = 0; 
+      Dim_in = 0;		
+    } else if (time > Start){ 
+      Ende = DEF_DAY_SECONDS; 
+      Dim_out = 0;
+    }
+  }
+  
   if (time < Start || time > Ende) {
     intPwm = intMin;
   } else if (time > Start+float(Dim_in) && time < Ende-float(Dim_out)) {
