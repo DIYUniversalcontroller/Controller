@@ -533,10 +533,9 @@ void loop() {
 
       intDisplayWartezeit = 0;
       
-     requestTemperature(lampeThermometer1);
-     requestTemperature(lampeThermometer2);
-     requestTemperature(wasserThermometer);
+     requestTemperature();
     }
+    
     intSekunden = time.sec ;
     intDisplayWartezeit++;
 
