@@ -443,9 +443,7 @@ void loop()
   //Display
   if (intSekunden != time.sec && MenuTiefe == 0)
   {
-    requestTemperature(lampeThermometer1);
-    requestTemperature(lampeThermometer2);
-    requestTemperature(wasserThermometer);
+    requestTemperature();
     //mydisp.clearScreen(); //CLear screen
     Display2( );
     

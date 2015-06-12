@@ -8,7 +8,7 @@ void setLight(){
           
       if(light_channels[i].Active==1){
         //int c_PWMProzent = dimmung(lTime, light_channels[i].Sunrisetime, light_channels[i].Sunsettime, light_channels[i].Dim_in, light_channels[i].Dim_out, light_channels[i].Min, light_channels[i].Max, light_channels[i].Invert,PWM_MAX);
-        int c_PWM = dimmungPWM(lTime, light_channels[i].Sunrisetime, light_channels[i].Sunsettime, light_channels[i].Dim_in, light_channels[i].Dim_out, light_channels[i].Min, light_channels[i].Max, light_channels[i].Invert,PWM_MAX); 
+        int c_PWM = dimmungPWM(lTime, light_channels[i].Sunrisetime, light_channels[i].Sunsettime, light_channels[i].Dim_in * MINUTE, light_channels[i].Dim_out * MINUTE, light_channels[i].Min, light_channels[i].Max, light_channels[i].Invert,PWM_MAX); 
         int c_PWMProzent = PWM_MAX / 100 * c_PWM;
         if(c_PWM<0){
           c_PWM=0;

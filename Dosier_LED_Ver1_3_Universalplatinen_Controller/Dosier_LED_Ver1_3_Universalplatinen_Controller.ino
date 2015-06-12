@@ -16,6 +16,7 @@
 // ********************************************* //
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++ L A M P E N ++++++++++++++++++++++++++++++++++++++++++++++++++
 #define LIGHT_CHANEL 15 //Der Mond wird hier um -1 abgezogen!
+const int PWM_MAX = 4095;
 
 LIGHT light_channels[16] = { 
   { 1, Time(0,0,0), Time(0,0,0), 0, 0, 0, 100, 0, 0, 0},
@@ -532,10 +533,9 @@ void loop() {
 
       intDisplayWartezeit = 0;
       
-     requestTemperature(lampeThermometer1);
-     requestTemperature(lampeThermometer2);
-     requestTemperature(wasserThermometer);
+     requestTemperature();
     }
+    
     intSekunden = time.sec ;
     intDisplayWartezeit++;
 
